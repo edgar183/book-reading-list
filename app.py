@@ -9,7 +9,7 @@ db = SQLAlchemy(app)
 meta = db.metadata
 engine = db.engine
 
-
+authors = Table('Author', meta, autoload=True, autoload_with=engine)
 
 @app.route('/')
 def index():
