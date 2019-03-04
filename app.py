@@ -12,8 +12,8 @@ db = SQLAlchemy(app)
 # Author Class/Model
 class Author(db.Model):
     AuthorId = db.Column(db.Integer, primary_key=True)
-    FirstName = db.Column(db.String(100))
-    LastName = db.Column(db.String(100))
+    FirstName = db.Column(db.String(100), nullable=False)
+    LastName = db.Column(db.String(100), nullable=False)
     
     def __init__(self, FirstName, LastName):
         self.FirstName = FirstName
@@ -22,7 +22,7 @@ class Author(db.Model):
 # Publisger Class/Model
 class Publisher(db.Model):
     PublisherId = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(255))
+    Name = db.Column(db.String(255), nullable=False)
     
     def __init__(self, Name):
         self.Name = Name
@@ -30,7 +30,7 @@ class Publisher(db.Model):
 # Category Class/Model
 class Category(db.Model):
     CategoryId = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(255))
+    Name = db.Column(db.String(255), nullable=False)
     
     def __init__(self, Name):
         self.Name = Name
@@ -38,11 +38,17 @@ class Category(db.Model):
 # User Class/Model
 class User(db.Model):
     UserId = db.Column(db.Integer, primary_key=True)
-    FirstName = db.Column(db.String(255))
-    userName = db.Column(db.String(255), unique=True)
-    password = db.Column(db.String(8), unique=True)
+    FirstName = db.Column(db.String(255),nullable=False)
+    userName = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+    
     def __init__(self, Name):
-        self.Name = Name    
+        self.FirstName = FirstName    
+        self.userName = userName
+        self.password = password
+        
+    def __repr__(self):
+        return '<User %r>' % self.userName
 
 
 @app.route('/')
