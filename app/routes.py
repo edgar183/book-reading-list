@@ -3,13 +3,14 @@ from app import app
 
 @app.route('/')
 def index():
-    return "The home page....."
+    return render_template('index.html')
+    
 
 @app.route('/login')
 def login():
-    return "The login page....."
+    return render_template('login.html', title='Login')
     
 
 @app.route('/register')
 def register():
-    return "The register page....."
+    return render_template('register.html', title='Register')
