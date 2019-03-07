@@ -1,4 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Register page</h1>
+    <div>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldsets>
+                <legend>Register Your Account</legend>
+                <div class="form-group">
+                    {{ form.name.lable(class="form-control-lable") }}
+                    {{ form.name(class="from-control form-control-lg }}
+                </div>
+                 <div class="form-group">
+                    {{ form.username.lable(class="form-control-lable") }}
+                    {{ form.username(class="from-control form-control-lg }}
+                </div>
+                 <div class="form-group">
+                    {{ form.password.lable(class="form-control-lable") }}
+                    {{ form.password(class="from-control form-control-lg }}
+                </div>
+                 <div class="form-group">
+                    {{ form. confirm_password.lable(class="form-control-lable") }}
+                    {{ form. confirm_password(class="from-control form-control-lg }}
+                </div>
+            </fieldsets>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    <div>
+        <small>
+            Have Account? <a href="{{ url_for('login') }}">Login</a>
+        </small>
+    </div>
 {% endblock content %}
