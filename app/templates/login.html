@@ -1,19 +1,17 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+    {% block content %}
 <div>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
-        <fieldsets>
+        <fieldsets class="form-group">
             <legend>Login</legend>
             <div class="form-group">
-                {{ form.username.lable(class="form-control-lable") }}
+                {{ form.username.label(class="form-control-label") }}
+                {{ form.username(class="form-control form-control-lg") }}
             </div>
             <div class="form-group">
-                {{ form.password.lable(class="form-control-lable") }} 
-                {{ form.password(class="from-control form-control-lg }}
-            </div>
-            <div class="form-group">
-                {{ form. confirm_password.lable(class="form-control-lable") }}
-                {{ form. confirm_password(class="from-control form-control-lg }}
+                {{ form.password.label(class="form-control-label") }} 
+                {{ form.password(class="from-control form-control-lg") }}
             </div>
             <div class="form-check">
                 {{ form.remember(class="form-check-input") }}
@@ -21,7 +19,7 @@
             </div>
         </fieldsets>
         <div class="form-group">
-            {{ login_form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class="btn btn-outline-info") }}
         </div>
     </form>
 </div>
