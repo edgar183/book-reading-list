@@ -14,7 +14,7 @@
                 </div>
                 {% else %} 
                 {{ form.username(class="form-control form-control-lg") }} 
-                {% enfif %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.password.label(class="form-control-label") }}
@@ -25,7 +25,7 @@
                     <span>{{ error }}</span> {% endfor %}
                 </div>
                 {% else %} 
-                {{ form.password(class="from-control form-control-lg") }} 
+                    {{ form.password(class="from-control form-control-lg") }} 
                 {% endif %}
             </div>
             <div class="form-check">
