@@ -17,16 +17,16 @@ body {
     border-radius: 3px;
 }
 
-/*-------------------------------------- Register Form */
+/*-------------------------------------- Register Form - login form */
 
 .form-control,
-.signup-form {
+.form-handler {
     width: 390px;
     margin: 0 auto;
     padding: 30px 0;
 }
 
-.signup-form form {
+.form-handler form {
     color: #999;
     border-radius: 3px;
     margin-bottom: 15px;
@@ -35,40 +35,40 @@ body {
     padding: 30px;
 }
 
-.signup-form h2 {
+.form-handler h2 {
     color: #333;
     font-weight: bold;
     margin-top: 0;
 }
 
-.signup-form hr {
+.form-handler hr {
     margin: 0 -30px 20px;
 }
 
-.signup-form .form-group {
+.form-handler .form-group {
     margin-bottom: 20px;
 }
 
-.signup-form label {
+.form-handler label {
     font-weight: normal;
     font-size: 13px;
 }
 
-.signup-form .form-control {
+.form-handler .form-control {
     min-height: 38px;
     box-shadow: none !important;
 }
 
-.signup-form .input-group-addon {
+.form-handler .input-group-addon {
     max-width: 42px;
     text-align: center;
 }
 
-.signup-form input[type="checkbox"] {
+.form-handler input[type="checkbox"] {
     margin-top: 2px;
 }
 
-.signup-form .btn {
+.form-handler .btn {
     font-size: 16px;
     font-weight: bold;
     background: #19aa8d;
@@ -76,39 +76,39 @@ body {
     min-width: 140px;
 }
 
-.signup-form .btn:hover,
-.signup-form .btn:focus {
+.form-handler .btn:hover,
+.form-handler .btn:focus {
     background: #179b81;
     outline: none;
 }
 
-.signup-form a {
+.form-handler a {
     color: #fff;
     text-decoration: underline;
 }
 
-.signup-form a:hover {
+.form-handler a:hover {
     text-decoration: none;
 }
 
-.signup-form form a {
+.form-handler form a {
     color: #19aa8d;
     text-decoration: none;
 }
 
-.signup-form form a:hover {
+.form-handler form a:hover {
     text-decoration: underline;
 }
 
-.signup-form .fa {
+.form-handler .fa {
     font-size: 21px;
 }
 
-.signup-form .fa-paper-plane {
+.form-handler .fa-paper-plane {
     font-size: 18px;
 }
 
-.signup-form .fa-check {
+.form-handler .fa-check {
     color: #fff;
     left: 17px;
     top: 18px;
