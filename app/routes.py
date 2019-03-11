@@ -11,7 +11,7 @@ def index():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        flash("Account created of user %s with username of %s!"%({form.name.data}, {form.username.data}), 'success')
+        flash("Account created of user %s with user name of %s!"%(form.name.data, form.username.data), 'success')
         return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)    
 
