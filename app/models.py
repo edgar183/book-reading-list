@@ -12,8 +12,8 @@ author_book = db.Table('author_book',
 )
 
 book_reading = db.Table('book_reading',
-            db.Column('isbn', db.Integer, db.ForeignKey('book.isbn'), primary_key=True),
-            db.Column('ListId', db.Integer, db.ForeignKey('readingList.ListId'), primary_key=True)
+            db.Column('isbn', db.Integer, db.ForeignKey('book.isbn')),
+            db.Column('id', db.Integer, db.ForeignKey('lists.id'))
 )
 
 # Author Class/Model
@@ -53,7 +53,7 @@ class Book(db.Model):
     publisher_id= db.Column(db.Integer, db.ForeignKey('publisher.PublisherId'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.CategoryId'), nullable=False)
     authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy='dynamic'))
-    readers = db.relationship('ReadingList', secondary=book_reading, backref=db.backref('reader', lazy='dynamic'))
+    readers = db.relationship('Lists', secondary=book_reading, backref=db.backref('reader', lazy='dynamic'))
     
     def __init__(self, Title, year, book_cover):
         self.Title = Title
@@ -66,7 +66,7 @@ class User(db.Model):
     FirstName = db.Column(db.String(255),nullable=False)
     userName = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    reading_list = db.relationship('ReadingList', backref='user', lazy=True)
+    reading_list = db.relationship('Lists', backref='user', lazy=True)
     
     def __init__(self, FirstName,userName,password):
         self.FirstName = FirstName    
@@ -75,11 +75,10 @@ class User(db.Model):
         
     def __repr__(self):
         return '<User %r>' % self.userName
-        
 
 #Rading List Class/Model
-class ReadingList(db.Model):
-    ListId = db.Column(db.Integer, primary_key=True)
+class Lists(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     ListName = db.Column(db.String(255), nullable=False)
     UserId = db.Column(db.Integer, db.ForeignKey('user.UserId'))
     
