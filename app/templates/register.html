@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="form-handler">
-        <form method="post" action="">
+        <form method="post" action="" class="was-validation" >
             {{ form.hidden_tag() }}
             <fieldsets>
                 <h2>Register Your Account</h2>
                 <p>Please fill in this form to create an account!</p>
                 <hr>
                 <div class="form-group">
-                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name.label(class="form-control-label" ) }}
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     {% if form.name.errors %}
-                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        {{ form.name(class="form-control form-control-lg is-invalid" ) }}
                         <div class="invalid-feedback">
                             {% for error in form.name.errors %}
                             <span> {{ error }}</span>
@@ -28,7 +28,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-id-badge"></i></span>
                      {% if form.username.errors %}
-                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        {{ form.username(class="form-control form-control-lg is-invalid ") }}
                         <div class="invalid-feedback">
                             {% for error in form.username.errors %}
                             <span> {{ error }}</span>
