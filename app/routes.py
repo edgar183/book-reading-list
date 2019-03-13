@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect
 from app import models
 from app import app, db, bcrypt
 from app.forms import RegisterForm, LoginForm
+from flask_login import login_user
 
 @app.route('/')
 def index():
@@ -22,8 +23,10 @@ def register():
 @app.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        flash('%s You have been logged in!'%(form.username.data), 'success')
+    # check user existst
+    user = models.User.query.filter_by(username=form.username.data).first()
+    if user and bcrypt.check_password_hash(user.password, form.password.data):
+        login_user(user, remember=form.remember.data)
         return redirect(url_for('index'))
     else:
         flash('Login Unsuccessful. Please check username and password', 'danger')
