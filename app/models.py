@@ -54,18 +54,20 @@ class Category(db.Model):
 # Book Class/Model
 class Book(db.Model):
     isbn = db.Column(db.Integer, primary_key=True)
-    Title = db.Column(db.String(255), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
     year = db.Column(db.DateTime, nullable=False, default=datetime.year)
     book_cover = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
     publisher_id= db.Column(db.Integer, db.ForeignKey('publisher.PublisherId'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.CategoryId'), nullable=False)
     authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy='dynamic'))
     readers = db.relationship('Lists', secondary=book_reading, backref=db.backref('reader', lazy='dynamic'))
     
-    def __init__(self, Title, year, book_cover):
-        self.Title = Title
+    def __init__(self, title, year, book_cover, description):
+        self.title = title
         self.year = year
         self.book_cover = book_cover
+        self.description = description
     
 # User Class/Model
 class User(db.Model, UserMixin):
