@@ -69,7 +69,7 @@ class Book(db.Model):
     
 # User Class/Model
 class User(db.Model, UserMixin):
-    UserId = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255),nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
@@ -87,7 +87,7 @@ class User(db.Model, UserMixin):
 class Lists(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ListName = db.Column(db.String(255), nullable=False)
-    UserId = db.Column(db.Integer, db.ForeignKey('user.UserId'))
+    UserId = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     def __init__(self, ListName):
         self.ListName = ListName
