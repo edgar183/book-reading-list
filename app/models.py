@@ -26,17 +26,15 @@ book_reading = db.Table('book_reading',
 # Author Class/Model
 class Author(db.Model):
     AuthorId = db.Column(db.Integer, primary_key=True)
-    FirstName = db.Column(db.String(100), nullable=False)
-    LastName = db.Column(db.String(100), nullable=False)
+    full_name = db.Column(db.String(255), nullable=False, unique=True)
     
-    def __init__(self, FirstName, LastName):
-        self.FirstName = FirstName
-        self.LastName = LastName
+    def __init__(self, full_name):
+        self.full_name = full_name
         
 # Publisger Class/Model
 class Publisher(db.Model):
     PublisherId = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(255), nullable=False)
+    Name = db.Column(db.String(255), nullable=False, unique=True)
     book = db.relationship('Book', backref='publisher', lazy=True)
     
     def __init__(self, Name):
@@ -45,7 +43,7 @@ class Publisher(db.Model):
 # Category Class/Model
 class Category(db.Model):
     CategoryId = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(255), nullable=False)
+    Name = db.Column(db.String(255), nullable=False, unique=True)
     book = db.relationship('Book', backref='category', lazy=True)
     
     def __init__(self, Name):
