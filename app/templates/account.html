@@ -1,4 +1,56 @@
-{% extends "base.html" %} 
-{% block content %}
-<h1>{{ current_user.username }} account </h1>
+{% extends "base.html" %} {% block content %}
+<div class="form-handler">
+    <h2>User account </h2>
+    <hr>
+    <p><span class="fa fa-user " style="width:50px;"></span>First Name: {{ current_user.name}}</p>
+    <p><span class="fa fa-id-badge " style="width:50px;"></span>Username: {{ current_user.username }}</p>
+    <p><span class="fa fa-id-badge " style="width:50px;"></span>Reading Lists: </p>
+</div>
+<div class="form-handler">
+    <form method="post" action="" novalidate>
+        {{ form.hidden_tag() }}
+        <fieldsets>
+            <h2>Account Info</h2>
+            <hr>
+            <div class="form-group">
+                {{ form.name.label(class="form-control-label" ) }}
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                    {% if form.name.errors %} 
+                    {{ form.name(class="form-control form-control-lg is-invalid" ) }}
+                </div>
+                <div class="invalid-feedback">
+                    {% for error in form.name.errors %}
+                    <span class="text-danger"> 
+                    {{ error }}</span> 
+                    {% endfor %}
+                </div>
+                {% else %} 
+                {{ form.name(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-id-badge"></i></span> 
+                    {% if form.username.errors %} 
+                    {{ form.username(class="form-control form-control-lg is-invalid ") }}
+                </div>
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span class="text-danger"> 
+                    {{ error }}</span> 
+                    {% endfor %}
+                </div>
+                {% else %} 
+                {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <br>
+        </fieldsets>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary btn-block") }}
+        </div>
+    </form>
+</div>
 {% endblock content %}
