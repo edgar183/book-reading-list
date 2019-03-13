@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect
 from app import models
 from app import app, db, bcrypt
 from app.forms import RegisterForm, LoginForm
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user
 
 @app.route('/')
 def index():
@@ -10,6 +10,8 @@ def index():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = RegisterForm()
     if form.validate_on_submit():
         hash_password = bcrypt.generate_password_hash(form.password.data)
@@ -22,6 +24,8 @@ def register():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     # check user existst
     user = models.User.query.filter_by(username=form.username.data).first()
@@ -31,5 +35,12 @@ def login():
     else:
         flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-    
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+    
+@app.route('/account')
+def account():
+    return render_template('account.html')
