@@ -3,7 +3,14 @@
     This helps to map the tables and columns to classes and objects respectively. The types of the column can be passed as an argument.
 """
 from datetime import datetime
-from app import db
+from app import db, login_manager
+from flask_login import UserMixin
+
+
+# Callback is used to reload the user object from the user ID stored in the session.
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # many-to-many relationships 
 author_book = db.Table('author_book', 
@@ -61,20 +68,20 @@ class Book(db.Model):
         self.book_cover = book_cover
     
 # User Class/Model
-class User(db.Model):
+class User(db.Model, UserMixin):
     UserId = db.Column(db.Integer, primary_key=True)
-    FirstName = db.Column(db.String(255),nullable=False)
-    userName = db.Column(db.String(20), unique=True, nullable=False)
+    name = db.Column(db.String(255),nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     reading_list = db.relationship('Lists', backref='user', lazy=True)
     
-    def __init__(self, FirstName,userName,password):
-        self.FirstName = FirstName    
-        self.userName = userName
+    def __init__(self, name,username,password):
+        self.name = name    
+        self.username = username
         self.password = password
         
     def __repr__(self):
-        return '<User %r>' % self.userName
+        return '<User %r>' % self.username
 
 #Rading List Class/Model
 class Lists(db.Model):
