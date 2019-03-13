@@ -12,7 +12,7 @@ class RegisterForm(FlaskForm):
     
     # checking the username alredy exist in the database and returning error message to the form
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).firat()
+        user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('The user with this username exists. Please choos a different username.')
             
