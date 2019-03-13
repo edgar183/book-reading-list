@@ -1,12 +1,14 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import models
 from app import app, db, bcrypt
-from app.forms import RegisterForm, LoginForm, UpdateAccountForm
+from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
+@app.route('/index')
 def index():
-    return render_template('index.html')
+    authors = models.Author.query.all()
+    return render_template('index.html', authors=authors)
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -56,3 +58,19 @@ def account():
         form.name.data = current_user.name
         form.username.data = current_user.username
     return render_template('account.html', title='Account', form=form)
+    
+@app.route('/author/add', methods=['GET','POST'])
+@login_required
+def add_author():
+    form = Add_Author()
+    if form.validate_on_submit():
+        # check user existst
+        author = models.Author(full_name=form.full_name.data)
+        db.session.add(author)
+        db.session.commit()
+        flash('New Author has been added!', 'success')
+        return redirect(url_for('index'))
+    else:
+        flash('Author alredy exists', 'danger')
+        
+    return render_template('add_author.html', title='New Author', form=form)
