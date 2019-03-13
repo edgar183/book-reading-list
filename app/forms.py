@@ -36,3 +36,12 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError('The user with this username exists. Please choos a different username.')
+                
+class Add_Author(FlaskForm):
+    full_name = StringField('Full Name', validators=[DataRequired()])
+    submit = SubmitField('Add')
+    
+    def validate_author(self, full_name):
+        author = Author.query.filter_by(full_name=full_name.data)
+        if author:
+            raise ValidationError('The author with this full name alredy exists.')
