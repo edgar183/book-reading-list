@@ -40,6 +40,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('add_readinglist') }}">Add Reading List</a></li>
                     <li><a href="{{ url_for('add_publisher') }}">Add Publisher</a></li>
                     <li><a href="{{ url_for('add_category') }}">Add Category</a></li>
                     <li><a href="{{ url_for('add_author') }}">Add Author</a></li>
