@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+<div class="form-handler">
+    <form method="POST" action="" novalidate>
+        {{ form.hidden_tag() }}
+        <fieldsets class="form-group">
+            <h2 class="text-center">Add Reading List</h2>
+            <p>Add new reading list name.</p>
+            <div class="form-group">
+                {{ form.ListName.label(class="form-control-label") }}
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                    {% if form.ListName.errors %} 
+                    {{ form.ListName(class="form-control form-control-lg is-invalid") }}
+                </div>
+                <div class="invalid-feedback">
+                    {% for error in form.ListName.errors %}
+                    <span class="text-danger">
+                        {{ error }}
+                        </span> 
+                        {% endfor %}
+                </div>
+                {% else %} 
+                {{ form.ListName(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                <p>Users First Name: {{ current_user.name}}</p>
+            </div>
+            <br>
+        </fieldsets>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary btn-block") }}
+        </div>
+    </form>
+</div>
+{% endblock content %}
