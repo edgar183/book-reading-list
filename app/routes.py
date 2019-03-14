@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import models
 from app import app, db, bcrypt
-from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category
+from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category, Add_Publisher
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
@@ -84,3 +84,16 @@ def add_category():
         flash('New Category has been added!', 'success')
         return redirect(url_for('index'))
     return render_template('add_category.html', title='New Category', form=form)
+    
+@app.route('/publisher/add', methods=['GET','POST'])
+@login_required
+def add_publisher():
+    form = Add_Publisher()
+    if form.validate_on_submit():
+        # check user existst
+        publisher = models.Publisher(Name=form.Name.data)
+        db.session.add(publisher)
+        db.session.commit()
+        flash('New Publisher has been added!', 'success')
+        return redirect(url_for('index'))
+    return render_template('add_publisher.html', title='New Publisher', form=form)

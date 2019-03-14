@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, ValidationError
-from app.models import User, Author, Category
+from app.models import User, Author, Category, Publisher
 
 #Registration form with validation rules.
 class RegisterForm(FlaskForm):
@@ -41,7 +41,7 @@ class Add_Author(FlaskForm):
     full_name = StringField('Full Name', validators=[DataRequired()])
     submit = SubmitField('Add')
     
-    def validate_Author(self, full_name):
+    def validate_full_name(self, full_name):
         author = Author.query.filter_by(full_name=full_name.data)
         if author:
             raise ValidationError('The author with this name alredy exists.')
@@ -50,7 +50,16 @@ class Add_Category(FlaskForm):
     Name = StringField('Category Name', validators=[DataRequired()])
     submit = SubmitField('Add')
     
-    def validate_Category(self, Name):
+    def validate_Name(self, Name):
         category = Category.query.filter_by(Name=Name.data)
         if category:
             raise ValidationError('The category alredy exists.')
+            
+class Add_Publisher(FlaskForm):
+    Name = StringField('Publisher Name', validators=[DataRequired()])
+    submit = SubmitField('Add')
+    
+    def validate_Name(self, Name):
+        publisher = Publisher.query.filter_by(Name=Name.data)
+        if publisher:
+            raise ValidationError('The Publisher alredy exists.')
