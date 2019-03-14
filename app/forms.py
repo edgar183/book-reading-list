@@ -63,3 +63,12 @@ class Add_Publisher(FlaskForm):
         publisher = Publisher.query.filter_by(Name=Name.data)
         if publisher:
             raise ValidationError('The Publisher alredy exists.')
+            
+class Add_Readinglist(FlaskForm):
+    ListName = StringField('Reading List Name', validators=[DataRequired()])
+    submit = SubmitField('Add')
+    
+    def validate_ListName(self, ListName, UserId):
+        readinglist = Publisher.query.filter_by(ListName=ListName.data)
+        if readinglist:
+            raise ValidationError('The %s alredy have this list created.'%(current_user))

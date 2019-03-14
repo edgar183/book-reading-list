@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import models
 from app import app, db, bcrypt
-from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category, Add_Publisher
+from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category, Add_Publisher, Add_Readinglist
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
@@ -97,3 +97,17 @@ def add_publisher():
         flash('New Publisher has been added!', 'success')
         return redirect(url_for('index'))
     return render_template('add_publisher.html', title='New Publisher', form=form)
+
+@app.route('/readinglist/add', methods=['GET','POST'])
+@login_required
+def add_readinglist():
+    form = Add_Readinglist()
+    if form.validate_on_submit():
+        # check user existst
+        readinglist = models.Lists(ListName=form.ListName.data, UserId=current_user.id )
+        db.session.add(readinglist)
+        db.session.commit()
+        flash('New reading list has been added!', 'success')
+        return redirect(url_for('account'))
+    return render_template('add_readinglist.html', title='New Reading List', form=form)   
+#author=current_user.name
