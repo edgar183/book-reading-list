@@ -70,7 +70,4 @@ def add_author():
         db.session.commit()
         flash('New Author has been added!', 'success')
         return redirect(url_for('index'))
-    else:
-        flash('Author alredy exists', 'danger')
-        
     return render_template('add_author.html', title='New Author', form=form)
