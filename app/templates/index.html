@@ -1,5 +1,37 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 {% block content %}
-    <h1>Home page!</h1>
-    
+<h2>Book Authors</h2>
+{% for a in authors %}
+<div>
+    <p>{{ a.AuthorId }} : {{ a.full_name }}</p>
+</div>
+{% endfor %} 
+<hr>
+<h2>Publishers</h2>
+{% for p in publishers %}
+<div>
+        <p>{{ p.Name }}</p>
+</div>
+    {% endfor %}
+<hr>
+<h2>Caregories</h2>
+{% for c in categories %}
+<div>
+        <p>{{ c.Name }}</p>
+</div>
+    {% endfor %}
+<hr>
+<h2>Users</h2>
+{% for u in users %}
+<div>
+        <p>{{ u.name }} -> {{ u.username }}  -> {{ u.reading_list }} </p>
+</div>
+    {% endfor %}
+<hr>
+<h2>Reading Lists</h2>
+{% for l in readinglists %}
+<div>
+        <p>{{ l.ListName }} -> {{ l.UserId }} </p>
+</div>
+    {% endfor %}
 {% endblock content %}
