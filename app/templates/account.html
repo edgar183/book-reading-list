@@ -4,10 +4,14 @@
     <hr>
     <p><span class="fa fa-user " style="width:50px;"></span>First Name: {{ current_user.name}}</p>
     <p><span class="fa fa-id-badge " style="width:50px;"></span>Username: {{ current_user.username }}</p>
-    <p><span class="fa fa-id-badge " style="width:50px;"></span>Reading Lists:</p>
-    {% for list in readinglists %}
-        <p>{{ list.ListName }}</p>
+    <hr>
+   <ul><span>Reading Lists: </span>
+     {% for list in readinglists %}
+        {% if list.UserId == current_user.id %}
+    <li>{{ list.ListName }}</li>
+        {% endif %}
     {% endfor %}
+    </ul>
 </div>
 <div class="form-handler">
     <form method="post" action="" novalidate>
