@@ -4,7 +4,10 @@
     <hr>
     <p><span class="fa fa-user " style="width:50px;"></span>First Name: {{ current_user.name}}</p>
     <p><span class="fa fa-id-badge " style="width:50px;"></span>Username: {{ current_user.username }}</p>
-    <p><span class="fa fa-id-badge " style="width:50px;"></span>Reading Lists: {{ form.ListName }}</p>
+    <p><span class="fa fa-id-badge " style="width:50px;"></span>Reading Lists:</p>
+    {% for list in readinglists %}
+        <p>{{ list.ListName }}</p>
+    {% endfor %}
 </div>
 <div class="form-handler">
     <form method="post" action="" novalidate>
