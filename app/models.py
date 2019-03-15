@@ -35,7 +35,7 @@ class Author(db.Model):
 class Publisher(db.Model):
     PublisherId = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(255), nullable=False, unique=True)
-    book = db.relationship('Book', backref='publisher', lazy=True)
+    book = db.relationship('Book', backref='publisher', lazy="dynamic")
     
     def __init__(self, Name):
         self.Name = Name
@@ -44,7 +44,7 @@ class Publisher(db.Model):
 class Category(db.Model):
     CategoryId = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(255), nullable=False, unique=True)
-    book = db.relationship('Book', backref='category', lazy=True)
+    book = db.relationship('Book', backref='category', lazy="dynamic")
     
     def __init__(self, Name):
         self.Name = Name
@@ -58,8 +58,8 @@ class Book(db.Model):
     description = db.Column(db.Text, nullable=False)
     publisher_id= db.Column(db.Integer, db.ForeignKey('publisher.PublisherId'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.CategoryId'), nullable=False)
-    authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy='dynamic'))
-    readers = db.relationship('Lists', secondary=book_reading, backref=db.backref('reader', lazy='dynamic'))
+    authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy="dynamic"))
+    readers = db.relationship('Lists', secondary=book_reading, backref=db.backref('reader', lazy="dynamic"))
     
     def __init__(self, title, year, book_cover, description):
         self.title = title
@@ -73,7 +73,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255),nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    reading_list = db.relationship('Lists', backref='user', lazy=True)
+    reading_list = db.relationship('Lists', backref='user', lazy="dynamic")
     
     def __init__(self, name,username,password):
         self.name = name    
