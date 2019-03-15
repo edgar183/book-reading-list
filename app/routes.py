@@ -8,7 +8,11 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/index')
 def index():
     authors = models.Author.query.all()
-    return render_template('index.html', authors=authors)
+    publishers = models.Publisher.query.all()
+    categories = models.Category.query.all()
+    users = models.User.query.all()
+    readinglists = models.Lists.query.all()
+    return render_template('index.html', authors=authors, publishers=publishers, categories=categories, users=users, readinglists=readinglists)
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -48,6 +52,7 @@ def logout():
 @login_required
 def account():
     form = UpdateAccountForm()
+    readinglists = models.Lists.query.all()
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.username = form.username.data
@@ -57,7 +62,7 @@ def account():
     elif request.method == 'GET':
         form.name.data = current_user.name
         form.username.data = current_user.username
-    return render_template('account.html', title='Account', form=form)
+    return render_template('account.html', title='Account', form=form, readinglists=readinglists)
     
 @app.route('/author/add', methods=['GET','POST'])
 @login_required
@@ -104,7 +109,7 @@ def add_readinglist():
     form = Add_Readinglist()
     if form.validate_on_submit():
         # check user existst
-        readinglist = models.Lists(ListName=form.ListName.data, UserId=current_user.id )
+        readinglist = models.Lists(ListName=form.ListName.data, UserId=models.User.id )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
