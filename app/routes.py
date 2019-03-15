@@ -4,6 +4,7 @@ from app import app, db, bcrypt
 from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category, Add_Publisher, Add_Readinglist
 from flask_login import login_user, current_user, logout_user, login_required
 
+# home page
 @app.route('/')
 @app.route('/index')
 def index():
@@ -15,6 +16,7 @@ def index():
     books = models.Book.query.all()
     return render_template('index.html', authors=authors, publishers=publishers, categories=categories, users=users, readinglists=readinglists, books=books)
 
+# register account page
 @app.route('/register', methods=['GET','POST'])
 def register():
     if current_user.is_authenticated:
@@ -29,6 +31,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)    
 
+# login to the system
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
@@ -44,11 +47,13 @@ def login():
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
+#log out from system 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
-    
+
+# account page where user can change account details    
 @app.route('/account', methods=['GET','POST'])
 @login_required
 def account():
@@ -64,7 +69,8 @@ def account():
         form.name.data = current_user.name
         form.username.data = current_user.username
     return render_template('account.html', title='Account', form=form, readinglists=readinglists)
-    
+
+# add author to database   
 @app.route('/author/add', methods=['GET','POST'])
 @login_required
 def add_author():
@@ -77,7 +83,8 @@ def add_author():
         flash('New Author has been added!', 'success')
         return redirect(url_for('index'))
     return render_template('add_author.html', title='New Author', form=form)
-    
+
+# add new category     
 @app.route('/category/add', methods=['GET','POST'])
 @login_required
 def add_category():
@@ -90,7 +97,8 @@ def add_category():
         flash('New Category has been added!', 'success')
         return redirect(url_for('index'))
     return render_template('add_category.html', title='New Category', form=form)
-    
+
+#add publisher    
 @app.route('/publisher/add', methods=['GET','POST'])
 @login_required
 def add_publisher():
@@ -104,13 +112,14 @@ def add_publisher():
         return redirect(url_for('index'))
     return render_template('add_publisher.html', title='New Publisher', form=form)
 
+# add new readin list to database
 @app.route('/readinglist/add', methods=['GET','POST'])
 @login_required
 def add_readinglist():
     form = Add_Readinglist()
     if form.validate_on_submit():
         # check user existst
-        readinglist = models.Lists(ListName=form.ListName.data, UserId=models.User.id )
+        readinglist = models.Lists(ListName=form.ListName.data, UserId=current_user.id )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
