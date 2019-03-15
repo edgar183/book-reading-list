@@ -12,7 +12,8 @@ def index():
     categories = models.Category.query.all()
     users = models.User.query.all()
     readinglists = models.Lists.query.all()
-    return render_template('index.html', authors=authors, publishers=publishers, categories=categories, users=users, readinglists=readinglists)
+    books = models.Book.query.all()
+    return render_template('index.html', authors=authors, publishers=publishers, categories=categories, users=users, readinglists=readinglists, books=books)
 
 @app.route('/register', methods=['GET','POST'])
 def register():
