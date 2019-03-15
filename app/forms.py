@@ -40,32 +40,35 @@ class UpdateAccountForm(FlaskForm):
 class Add_Author(FlaskForm):
     full_name = StringField('Full Name', validators=[DataRequired()])
     submit = SubmitField('Add')
-    
+    """
     def validate_full_name(self, full_name):
         author = Author.query.filter_by(full_name=full_name.data)
         if author:
             raise ValidationError('The author with this name alredy exists.')
-            
+        """    
 class Add_Category(FlaskForm):
     Name = StringField('Category Name', validators=[DataRequired()])
     submit = SubmitField('Add')
     
+    """
     def validate_Name(self, Name):
         category = Category.query.filter_by(Name=Name.data)
         if category:
             raise ValidationError('The category alredy exists.')
+            """
             
 class Add_Publisher(FlaskForm):
     Name = StringField('Publisher Name', validators=[DataRequired()])
     submit = SubmitField('Add')
-    
+    """
     def validate_Name(self, Name):
         publisher = Publisher.query.filter_by(Name=Name.data)
         if publisher:
             raise ValidationError('The Publisher alredy exists.')
-            
+     """       
 class Add_Readinglist(FlaskForm):
     ListName = StringField('Reading List Name', validators=[DataRequired()])
+    UserId = StringField('Current user id', validators=[DataRequired()])
     submit = SubmitField('Add')
     
     def validate_ListName(self, ListName, UserId):
