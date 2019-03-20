@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import models
 from app import app, db, bcrypt
-from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category, Add_Publisher, Add_Readinglist
+from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category, Add_Publisher, Add_Readinglist, Add_Book
 from flask_login import login_user, current_user, logout_user, login_required
 
 # home page
@@ -76,7 +76,6 @@ def account():
 def add_author():
     form = Add_Author()
     if form.validate_on_submit():
-        # check user existst
         author = models.Author(full_name=form.full_name.data)
         db.session.add(author)
         db.session.commit()
@@ -90,7 +89,6 @@ def add_author():
 def add_category():
     form = Add_Category()
     if form.validate_on_submit():
-        # check user existst
         category = models.Category(Name=form.Name.data)
         db.session.add(category)
         db.session.commit()
@@ -104,7 +102,6 @@ def add_category():
 def add_publisher():
     form = Add_Publisher()
     if form.validate_on_submit():
-        # check user existst
         publisher = models.Publisher(Name=form.Name.data)
         db.session.add(publisher)
         db.session.commit()
@@ -126,3 +123,20 @@ def add_readinglist():
         return redirect(url_for('account'))
     return render_template('add_readinglist.html', title='New Reading List', form=form)   
 #author=current_user.name
+
+#add book    
+@app.route('/book/add', methods=['GET','POST'])
+@login_required
+def add_book():
+    form = Add_Book()
+    form.publisher.choices = [(publisher.PublisherId, publisher.Name) for publisher in models.Publisher.query.all()]
+    form.category.choices = [(category.CategoryId, category.Name) for category in models.Category.query.all()]
+    #publisher = models.Publisher.query.filter_by(PublisherId=form.publisher.data)
+    #category = models.Category.query.filter_by(CategoryId=form.category.data)
+    if form.validate_on_submit():
+        book = models.Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=models.Publisher.query.filter_by(PublisherId=form.publisher.data), category_id=models.Category.query.filter_by(CategoryId=form.category.data))
+        db.session.add(book)
+        db.session.commit()
+        flash('New Book has been added!', 'success')
+        return redirect(url_for('account'))
+    return render_template('add_book.html', title='New Book', form=form)
