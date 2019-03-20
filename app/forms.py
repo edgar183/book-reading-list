@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, ValidationError
-from app.models import User, Author, Category, Publisher, Book
+from app.models import User, Author, Category, Publisher, Book, Lists
 from wtforms_sqlalchemy.fields import QuerySelectField
 
 #Registration form with validation rules.
@@ -68,13 +68,13 @@ class Add_Publisher(FlaskForm):
      """       
 class Add_Readinglist(FlaskForm):
     ListName = StringField('Reading List Name', validators=[DataRequired()])
-    UserId = StringField('Current user id', validators=[DataRequired()])
     submit = SubmitField('Add')
-    
-    def validate_ListName(self, ListName, UserId):
-        readinglist = Publisher.query.filter_by(ListName=ListName.data)
+    """
+    def validate_ListName(self, ListName):
+        readinglist = Lists.query.filter_by(ListName=ListName.data)
         if readinglist:
             raise ValidationError('The %s alredy have this list created.'%(current_user))
+            """
 
 def publisher_query():
     return Publisher.query
