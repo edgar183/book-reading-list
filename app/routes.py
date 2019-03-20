@@ -116,7 +116,7 @@ def add_readinglist():
     form = Add_Readinglist()
     if form.validate_on_submit():
         # check user existst
-        readinglist = models.Lists(ListName=form.ListName.data, UserId=current_user.id )
+        readinglist = models.Lists(ListName=form.ListName.data, user=current_user )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
@@ -138,5 +138,11 @@ def add_book():
         db.session.add(book)
         db.session.commit()
         flash('New Book has been added!', 'success')
-        return redirect(url_for('account'))
+        return redirect(url_for('index'))
     return render_template('add_book.html', title='New Book', form=form)
+    
+# individual book page
+@app.route('/book/<int:book_isbn>')
+def book(book_isbn):
+    book = models.Book.query.get_or_404(book_isbn)
+    return render_template('book.html', title=book.title, book=book)
