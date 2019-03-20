@@ -55,7 +55,7 @@
 {% for b in books %}
 <div>
     <br>
-        <p>{{ b.isbn }} : {{ b.title }} -> {{ b.year }} -> {{ b.publisher.Name }} -> {{ b.category.Name }} </p>
+        <p>{{ b.isbn }} : <a class="article-title" href="{{ url_for('book', book_isbn=b.isbn) }}">{{ b.title }}</a> -> {{ b.year }} -> {{ b.publisher.Name }} -> {{ b.category.Name }} </p>
         <p>{{ b.description }}</p>
         <hr>
         <p>
