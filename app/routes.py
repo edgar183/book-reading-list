@@ -125,6 +125,11 @@ def add_readinglist():
     return render_template('add_readinglist.html', title='New Reading List', form=form)   
 #author=current_user.name
 
+"""
+    Routes to handel book object in database
+    By adding, editing, deleting and displaying 
+    individual book in new page from database.
+"""
 #add book    
 @app.route('/book/add', methods=['GET','POST'])
 @login_required
@@ -171,3 +176,13 @@ def edit_book(book_isbn):
         form.publisher.data = book.publisher
         form.category.data = book.category
     return render_template('add_book.html', title='Edit Book', form=form, legend='Edit Book')
+    
+# delete book from database
+@app.route('/book/<int:book_isbn>/delete', methods=['POST'])
+@login_required
+def delete_book(book_isbn):
+    book = Book.query.get_or_404(book_isbn)
+    db.session.delete(book)
+    db.session.commit()
+    flash('The book has been deleted!', 'success')
+    return redirect(url_for('index'))
