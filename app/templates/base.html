@@ -34,16 +34,16 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('add_book') }}">Add</a></li>
-                    <li><a href="#">Edit</a></li>
-                    <li><a href="#">Delete</a></li>
+                    {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('add_book') }}">New Book</a></li>
+                    <li><a href="{{ url_for('add_readinglist') }}">New Reading List</a></li>
+                    <li><a href="{{ url_for('add_publisher') }}">New Publisher</a></li>
+                    <li><a href="{{ url_for('add_category') }}">New Category</a></li>
+                    <li><a href="{{ url_for('add_author') }}">New Author</a></li>
+                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('add_readinglist') }}">Add Reading List</a></li>
-                    <li><a href="{{ url_for('add_publisher') }}">Add Publisher</a></li>
-                    <li><a href="{{ url_for('add_category') }}">Add Category</a></li>
-                    <li><a href="{{ url_for('add_author') }}">Add Author</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     <li><a href="{{ url_for('account') }}">Account</a></li>
                     {% else %}
