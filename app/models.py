@@ -59,7 +59,6 @@ class Book(db.Model):
     publisher_id= db.Column(db.Integer, db.ForeignKey('publisher.PublisherId'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.CategoryId'), nullable=False)
     authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy=True))
-    readers = db.relationship('Lists', secondary=book_reading, backref=db.backref('reader', lazy=True))
     
     def __init__(self, title, year, book_cover, description):
         self.title = title
@@ -88,6 +87,7 @@ class Lists(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ListName = db.Column(db.String(255), nullable=False)
     UserId = db.Column(db.Integer, db.ForeignKey('user.id'))
+    books_in_list = db.relationship('Book', secondary=book_reading, backref=db.backref('books', lazy=True))
     
     def __init__(self, ListName):
         self.ListName = ListName
