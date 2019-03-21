@@ -65,9 +65,26 @@ def account():
         form.name.data = current_user.name
         form.username.data = current_user.username
     return render_template('account.html', title='Account', form=form, readinglists=readinglists)
-
+"""
+    Routes to handel author object in database
+    By adding, editing, deleting and displaying 
+    list of all publishers from database.
+"""
+# display list of authors
+@app.route('/authors')
+def authors():
+    authors = Author.query.all()
+    return render_template('authors.html', authors=authors, title='authors')
+    
+# individual author route
+@app.route('/authors/<int:author_id>')
+@login_required
+def author(author_id):
+    author = Author.query.get_or_404(author_id)
+    return render_template('author.html', title=author.full_name, author=author)
+    
 # add author to database   
-@app.route('/author/add', methods=['GET','POST'])
+@app.route('/authors/add', methods=['GET','POST'])
 @login_required
 def add_author():
     form = Add_Author()
@@ -76,25 +93,50 @@ def add_author():
         db.session.add(author)
         db.session.commit()
         flash('New Author has been added!', 'success')
-        return redirect(url_for('index'))
-    return render_template('add_author.html', title='New Author', form=form)
+        return redirect(url_for('authors'))
+    return render_template('add_author.html', title='New Author', form=form, legend='Add Author')
+    
+# edit author name
+@app.route('/authors/<int:author_id>/edit', methods=['GET','POST'])
+@login_required
+def edit_author(author_id):
+    author = Author.query.get_or_404(author_id)
+    form = Add_Author()
+    if form.validate_on_submit():
+        author.full_name = form.full_name.data
+        db.session.commit()
+        flash('The author name has been updated!', 'success')
+        return redirect(url_for('authors', author_id=author.AuthorId))
+    elif request.method == 'GET': 
+        form.full_name.data = author.full_name
+    return render_template('add_author.html', title='Edit Author ', form=form, legend='Edit Author')
+
+# delete author from database
+@app.route('/authors/<int:author_id>/delete', methods=['POST'])
+@login_required
+def delete_author(author_id):
+    author = Author.query.get_or_404(author_id)
+    db.session.delete(author)
+    db.session.commit()
+    flash('The author has been deleted!', 'success')
+    return redirect(url_for('authors'))
 """
     Routes to handel category object in database
     By adding, editing, deleting and displaying 
     list of all publishers from database.
 """
-# display list of authors
+# display list of categories
 @app.route('/categories')
 def categories():
     categories = Category.query.all()
     return render_template('categories.html', categories=categories, title='categories')
     
 # individual category route
-@app.route('/categories/<int:caregory_id>')
+@app.route('/categories/<int:category_id>')
 @login_required
-def caregory(caregory_id):
-    caregory = Category.query.get_or_404(caregory_id)
-    return render_template('caregory.html', title=caregory.Name, caregory=caregory)
+def category(category_id):
+    category = Category.query.get_or_404(category_id)
+    return render_template('category.html', title=category.Name, category=category)
 
 # add category     
 @app.route('/categories/add', methods=['GET','POST'])
@@ -106,7 +148,7 @@ def add_category():
         db.session.add(category)
         db.session.commit()
         flash('New Category has been added!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('categories'))
     return render_template('add_category.html', title='New Category', form=form, legend='Add New Category')
 
 # edit category name
@@ -119,7 +161,7 @@ def edit_category(category_id):
         category.Name = form.Name.data
         db.session.commit()
         flash('The category name has been updated!', 'success')
-        return redirect(url_for('categories', category_id=category.PublisherId))
+        return redirect(url_for('categories', category_id=category.CategoryId))
     elif request.method == 'GET': 
         form.Name.data = category.Name
     return render_template('add_category.html', title='Edit Category ', form=form, legend='Edit Category Name')
@@ -201,7 +243,7 @@ def delete_publisher(publisher_id):
 def add_readinglist():
     form = Add_Readinglist()
     if form.validate_on_submit():
-        readinglist = Lists(ListName=form.ListName.data, user=current_user )
+        readinglist = Lists(ListName=form.ListName.data, user=current_user.id )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
