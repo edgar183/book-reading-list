@@ -12,10 +12,8 @@ def index():
     authors = Author.query.all()
     publishers = Publisher.query.all()
     categories = Category.query.all()
-    users = User.query.all()
-    readinglists = Lists.query.all()
     books = Book.query.all()
-    return render_template('index.html', authors=authors, publishers=publishers, categories=categories, users=users, readinglists=readinglists, books=books)
+    return render_template('index.html', authors=authors, publishers=publishers, categories=categories, books=books)
 
 # register account page
 @app.route('/register', methods=['GET','POST'])
@@ -116,15 +114,35 @@ def add_publisher():
 def add_readinglist():
     form = Add_Readinglist()
     if form.validate_on_submit():
-        # check user existst
         readinglist = Lists(ListName=form.ListName.data, user=current_user )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
         return redirect(url_for('account'))
-    return render_template('add_readinglist.html', title='New Reading List', form=form)   
-#author=current_user.name
+    return render_template('add_readinglist.html', title='New Reading List', form=form, legend='Add New Reading List')   
 
+# individual reading list route with all books in the list
+@app.route('/readinglist/<int:list_id>')
+@login_required
+def reading_list(list_id):
+    reading_list = Lists.query.get_or_404(list_id)
+    return render_template('reading_list.html', title=reading_list.ListName, reading_list=reading_list)
+    
+# edit reading list name
+@app.route('/readinglist/<int:list_id>/edit', methods=['GET','POST'])
+@login_required
+def edit_list(list_id):
+    reading_list = Lists.query.get_or_404(list_id)
+    form = Add_Readinglist()
+    if form.validate_on_submit():
+        reading_list.ListName = form.ListName.data
+        db.session.commit()
+        flash('The list name has been updated!', 'success')
+        return redirect(url_for('reading_list', list_id=reading_list.id))
+    elif request.method == 'GET': 
+        form.ListName.data = reading_list.ListName
+    return render_template('add_readinglist.html', title='Edit Reading Lits', form=form, legend='Edit List Name')
+    
 """
     Routes to handel book object in database
     By adding, editing, deleting and displaying 
