@@ -26,31 +26,6 @@
             {% endfor %}</p>
 </div>
     {% endfor %}
-<hr>
-<h2>Users</h2>
-{% for u in users %}
-<div>
-        <p>{{ u.id }} : {{ u.name }} -> {{ u.username }}  -> Lists :
-            {% for list in u.reading_list %} 
-                <pre>{{ list.ListName }}</pre>
-            {% endfor %} </p>
-</div>
-    {% endfor %}
-<hr>
-<h2>Reading Lists</h2>
-{% for l in readinglists %}
-<div>
-        <p>{{ l.id }} : {{ l.ListName }} -> {{ l.user.name }} 
-        <p>
-            Books :
-        {% for books in l.books_in_list %}
-            <pre>{{ books.title }}</pre>
-        {% endfor %}
-        </p>
-        </p>
-</div>
-    {% endfor %}
-<hr>
 <h2>Books</h2>
 {% for b in books %}
 <div>
