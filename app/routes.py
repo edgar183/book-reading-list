@@ -10,10 +10,9 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/index')
 def index():
     authors = Author.query.all()
-    publishers = Publisher.query.all()
     categories = Category.query.all()
     books = Book.query.all()
-    return render_template('index.html', authors=authors, publishers=publishers, categories=categories, books=books)
+    return render_template('index.html', authors=authors, categories=categories, books=books)
 
 # register account page
 @app.route('/register', methods=['GET','POST'])
@@ -94,9 +93,27 @@ def add_category():
         flash('New Category has been added!', 'success')
         return redirect(url_for('index'))
     return render_template('add_category.html', title='New Category', form=form)
-
+    
+"""
+    Routes to handel publishre object in database
+    By adding, editing, deleting and displaying 
+    list of all publishers from database.
+"""
+# display list of publishers
+@app.route('/publishers')
+def publishers():
+    publishers = Publisher.query.all()
+    return render_template('publishers.html', publishers=publishers, title='Publishers')
+    
+# individual publisher route
+@app.route('/publishers/<int:publisher_id>')
+@login_required
+def publisher(publisher_id):
+    publisher = Publisher.query.get_or_404(publisher_id)
+    return render_template('publisher.html', title=publisher.Name, publisher=publisher)
+    
 #add publisher    
-@app.route('/publisher/add', methods=['GET','POST'])
+@app.route('/publishers/add', methods=['GET','POST'])
 @login_required
 def add_publisher():
     form = Add_Publisher()
@@ -105,9 +122,34 @@ def add_publisher():
         db.session.add(publisher)
         db.session.commit()
         flash('New Publisher has been added!', 'success')
-        return redirect(url_for('index'))
-    return render_template('add_publisher.html', title='New Publisher', form=form)
+        return redirect(url_for('publishers'))
+    return render_template('add_publisher.html', title='New Publisher', form=form, legend='Add Publisher Name')
     
+# edit publishers name
+@app.route('/publishers/<int:publisher_id>/edit', methods=['GET','POST'])
+@login_required
+def edit_publisher(publisher_id):
+    publisher = Publisher.query.get_or_404(publisher_id)
+    form = Add_Publisher()
+    if form.validate_on_submit():
+        publisher.Name = form.Name.data
+        db.session.commit()
+        flash('The publisher name has been updated!', 'success')
+        return redirect(url_for('publishers', publisher_id=publisher.PublisherId))
+    elif request.method == 'GET': 
+        form.Name.data = publisher.Name
+    return render_template('add_publisher.html', title='Edit Publisher ', form=form, legend='Edit Publisher Name')
+    
+# delete publishers from database
+@app.route('/publishers/<int:publisher_id>/delete', methods=['POST'])
+@login_required
+def delete_publisher(publisher_id):
+    publisher = Publisher.query.get_or_404(publisher_id)
+    db.session.delete(publisher)
+    db.session.commit()
+    flash('The publisher has been deleted!', 'success')
+    return redirect(url_for('publishers'))
+
 """
     Routes to handel reading list object in database
     By adding, editing, deleting and displaying 
