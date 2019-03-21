@@ -9,10 +9,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/')
 @app.route('/index')
 def index():
-    authors = Author.query.all()
-    categories = Category.query.all()
     books = Book.query.all()
-    return render_template('index.html', authors=authors, categories=categories, books=books)
+    return render_template('index.html',books=books)
 
 # register account page
 @app.route('/register', methods=['GET','POST'])
@@ -80,9 +78,26 @@ def add_author():
         flash('New Author has been added!', 'success')
         return redirect(url_for('index'))
     return render_template('add_author.html', title='New Author', form=form)
+"""
+    Routes to handel category object in database
+    By adding, editing, deleting and displaying 
+    list of all publishers from database.
+"""
+# display list of authors
+@app.route('/categories')
+def categories():
+    categories = Category.query.all()
+    return render_template('categories.html', categories=categories, title='categories')
+    
+# individual category route
+@app.route('/categories/<int:caregory_id>')
+@login_required
+def caregory(caregory_id):
+    caregory = Category.query.get_or_404(caregory_id)
+    return render_template('caregory.html', title=caregory.Name, caregory=caregory)
 
-# add new category     
-@app.route('/category/add', methods=['GET','POST'])
+# add category     
+@app.route('/categories/add', methods=['GET','POST'])
 @login_required
 def add_category():
     form = Add_Category()
@@ -92,7 +107,32 @@ def add_category():
         db.session.commit()
         flash('New Category has been added!', 'success')
         return redirect(url_for('index'))
-    return render_template('add_category.html', title='New Category', form=form)
+    return render_template('add_category.html', title='New Category', form=form, legend='Add New Category')
+
+# edit category name
+@app.route('/categories/<int:category_id>/edit', methods=['GET','POST'])
+@login_required
+def edit_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    form = Add_Category()
+    if form.validate_on_submit():
+        category.Name = form.Name.data
+        db.session.commit()
+        flash('The category name has been updated!', 'success')
+        return redirect(url_for('categories', category_id=category.PublisherId))
+    elif request.method == 'GET': 
+        form.Name.data = category.Name
+    return render_template('add_category.html', title='Edit Category ', form=form, legend='Edit Category Name')
+
+# delete category from database
+@app.route('/categories/<int:category_id>/delete', methods=['POST'])
+@login_required
+def delete_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    db.session.delete(category)
+    db.session.commit()
+    flash('The category has been deleted!', 'success')
+    return redirect(url_for('categories'))
     
 """
     Routes to handel publishre object in database
