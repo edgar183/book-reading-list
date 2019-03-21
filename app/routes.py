@@ -107,7 +107,12 @@ def add_publisher():
         flash('New Publisher has been added!', 'success')
         return redirect(url_for('index'))
     return render_template('add_publisher.html', title='New Publisher', form=form)
-
+    
+"""
+    Routes to handel reading list object in database
+    By adding, editing, deleting and displaying 
+    individual list with all books in the list in new page from database.
+"""
 # add new readin list to database
 @app.route('/readinglist/add', methods=['GET','POST'])
 @login_required
@@ -142,6 +147,16 @@ def edit_list(list_id):
     elif request.method == 'GET': 
         form.ListName.data = reading_list.ListName
     return render_template('add_readinglist.html', title='Edit Reading Lits', form=form, legend='Edit List Name')
+    
+# delete reading list from database
+@app.route('/readinglist/<int:list_id>/delete', methods=['POST'])
+@login_required
+def delete_list(list_id):
+    reading_list = Lists.query.get_or_404(list_id)
+    db.session.delete(reading_list)
+    db.session.commit()
+    flash('The list has been deleted!', 'success')
+    return redirect(url_for('account'))
     
 """
     Routes to handel book object in database
