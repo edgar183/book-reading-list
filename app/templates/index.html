@@ -1,23 +1,5 @@
 {% extends "base.html" %} 
 {% block content %}
-<h2>Book Authors</h2>
-{% for a in authors %}
-<div>
-    <p>{{ a.AuthorId }} : {{ a.full_name }}</p>
-</div>
-{% endfor %} 
-
-<hr>
-<h2>Caregories</h2>
-{% for c in categories %}
-<div>
-        <p>{{ c.CategoryId }} : {{ c.Name }} -> books :
-        {% for books in c.book %}
-                <pre>{{ books.title }}</pre> 
-            {% endfor %}</p>
-</div>
-    {% endfor %}
-<h2>Books</h2>
 {% for b in books %}
 <div>
     <br>
