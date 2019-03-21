@@ -3,7 +3,7 @@
     <form method="POST" action="" novalidate>
         {{ form.hidden_tag() }}
         <fieldsets class="form-group">
-            <h2 class="text-center">Add Publisher</h2>
+            <h2 class="text-center">{{ legend }}</h2>
             <p>Please add book publisher name.</p>
             <div class="form-group">
                 {{ form.Name.label(class="form-control-label") }}
