@@ -6,16 +6,7 @@
     <p>{{ a.AuthorId }} : {{ a.full_name }}</p>
 </div>
 {% endfor %} 
-<hr>
-<h2>Publishers</h2>
-{% for p in publishers %}
-<div>
-        <p>{{ p.PublisherId }} : {{ p.Name }} -> books : 
-            {% for books in p.book %}
-                <pre>{{ books.title }}</pre>
-            {% endfor %}</p>
-</div>
-    {% endfor %}
+
 <hr>
 <h2>Caregories</h2>
 {% for c in categories %}
