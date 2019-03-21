@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block content %}
+<div>
+  <a class="btn btn-default " href="{{ url_for('add_publisher') }}">Add Publisher</a>
+  <hr>
+<h2>Publishers</h2>
+{% for publisher in publishers %}
+<div>
+  <p>{{ publisher.PublisherId }} :
+  <a class="article-title" href="{{ url_for('publisher', publisher_id=publisher.PublisherId) }}">{{ publisher.Name }}</a> 
+    <hr>
+</div>
+    {% endfor %}
+    
+</div>
+ 
+{% endblock content %}
