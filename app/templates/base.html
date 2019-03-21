@@ -36,10 +36,9 @@
                     <li><a href="{{ url_for('index') }}">Home</a></li>
                     {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('add_book') }}">New Book</a></li>
-                    <li><a href="{{ url_for('add_readinglist') }}">New Reading List</a></li>
-                    <li><a href="{{ url_for('add_publisher') }}">New Publisher</a></li>
-                    <li><a href="{{ url_for('add_category') }}">New Category</a></li>
-                    <li><a href="{{ url_for('add_author') }}">New Author</a></li>
+                    <li><a href="{{ url_for('add_publisher') }}">Publisher</a></li>
+                    <li><a href="{{ url_for('add_category') }}">Category</a></li>
+                    <li><a href="{{ url_for('add_author') }}">Author</a></li>
                      {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
