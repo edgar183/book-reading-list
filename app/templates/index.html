@@ -1,19 +1,19 @@
 {% extends "base.html" %} 
 {% block content %}
-{% for b in books %}
+{% for book in books %}
 <div>
     <br>
-        <p>{{ b.isbn }} : <a class="article-title" href="{{ url_for('book', book_isbn=b.isbn) }}">{{ b.title }}</a> -> {{ b.year }} -> {{ b.publisher.Name }} -> {{ b.category.Name }} </p>
-        <p>{{ b.description }}</p>
+        <p>{{ book.isbn }} : <a class="article-title" href="{{ url_for('book', book_isbn=book.isbn) }}">{{ book.title }}</a> -> {{ book.year }} -> {{ book.publisher.Name }} -> {{ book.category.Name }} </p>
+        <p>{{ book.description }}</p>
         <hr>
         <p>
             Authors :
-        {% for author_list in b.authors %}
+        {% for author_list in book.authors %}
             <pre>{{ author_list.full_name }}</pre>
         {% endfor %}
         </p>
         <hr>
-        <img src="{{ b.book_cover }}" alt="Book Cover" style="width:100px;height:150px;">
+        <img src="{{ book.book_cover }}" alt="Book Cover" style="width:100px;height:150px;">
 </div>
     {% endfor %}
 {% endblock content %}
