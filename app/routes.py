@@ -243,7 +243,7 @@ def delete_publisher(publisher_id):
 def add_readinglist():
     form = Add_Readinglist()
     if form.validate_on_submit():
-        readinglist = Lists(ListName=form.ListName.data, user=current_user.id )
+        readinglist = Lists(ListName=form.ListName.data, user=current_user )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
