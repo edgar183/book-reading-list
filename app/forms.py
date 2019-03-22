@@ -2,8 +2,8 @@ from flask_wtf import FlaskForm
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, ValidationError
-from app.models import User, Author, Category, Publisher, Book, Lists
-from wtforms_sqlalchemy.fields import QuerySelectField
+from app.models import *
+#from wtforms_sqlalchemy.fields import QuerySelectField
 
 #Registration form with validation rules.
 class RegisterForm(FlaskForm):
@@ -31,7 +31,7 @@ class UpdateAccountForm(FlaskForm):
     username = StringField('username', validators=[DataRequired(), Length(min=2, max=20)])
     submit = SubmitField('Update')
     
-    # checking the username alredy exist in the database and returning error message to the form
+    # checking the username alredy exist in the database and return error message to the form
     def validate_username(self, username):
         if username.data != current_user.username:
             user = User.query.filter_by(username=username.data).first()
@@ -60,12 +60,12 @@ class Add_Category(FlaskForm):
 class Add_Publisher(FlaskForm):
     Name = StringField('Publisher Name', validators=[DataRequired()])
     submit = SubmitField('Add')
-    """
+    
     def validate_Name(self, Name):
         publisher = Publisher.query.filter_by(Name=Name.data)
         if publisher:
             raise ValidationError('The Publisher alredy exists.')
-     """       
+         
 class Add_Readinglist(FlaskForm):
     ListName = StringField('Reading List Name', validators=[DataRequired()])
     submit = SubmitField('Add')
@@ -73,8 +73,8 @@ class Add_Readinglist(FlaskForm):
     def validate_ListName(self, ListName):
         readinglist = Lists.query.filter_by(ListName=ListName.data)
         if readinglist:
-            raise ValidationError('The %s alredy have this list created.'%(current_user))
-            """
+            raise ValidationError(' %s alredy have this list created.'%(current_user.name))
+       """     
 
 def publisher_query():
     return Publisher.query
@@ -87,8 +87,6 @@ class Add_Book(FlaskForm):
     year = StringField('Year Published', validators=[DataRequired()])
     book_cover = StringField('URL link for book cover picture', validators=[DataRequired()])
     description = TextAreaField('Book description ', validators=[DataRequired()])
-    publisher_id = IntegerField(validators=[DataRequired()])
-    category_id = IntegerField(validators=[DataRequired()])
     publisher = SelectField('Publisher',  choices=[])
     category = SelectField('Category', choices=[])
     submit = SubmitField('Add')
