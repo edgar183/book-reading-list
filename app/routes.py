@@ -295,10 +295,13 @@ def add_book():
     form = Add_Book()
     form.publisher.choices = [(publisher.PublisherId, publisher.Name) for publisher in Publisher.query.all()]
     form.category.choices = [(category.CategoryId, category.Name) for category in Category.query.all()]
+    form.author.choices = [(author.AuthorId, author.full_name) for author in Author.query.all()]
     publisher = Publisher.query.filter_by(PublisherId=form.publisher.data)
     category = Category.query.filter_by(CategoryId=form.category.data)
+    author = Author.query.filter_by(AuthorId=form.author.data)
     if form.validate_on_submit():
-        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=publisher, category_id=category)
+        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=publisher, category_id=category, author_id=author)
+        db.session.add(book)
         db.session.commit()
         flash('New Book has been added!', 'success')
         return redirect(url_for('index'))
