@@ -311,7 +311,8 @@ def add_book():
 @app.route('/book/<int:book_isbn>')
 def book(book_isbn):
     book = Book.query.get_or_404(book_isbn)
-    return render_template('book.html', title=book.title, book=book)
+    readinglists = Lists.query.all()
+    return render_template('book.html', title=book.title, book=book, readinglists=readinglists)
     
 # edit book information
 @app.route('/book/<int:book_isbn>/edit', methods=['GET','POST'])
