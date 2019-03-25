@@ -54,7 +54,7 @@ def logout():
 @login_required
 def account():
     form = UpdateAccountForm()
-    readinglists = Lists.query.all()
+    readinglists = Lists.query.filter_by(UserId=current_user.id).all()
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.username = form.username.data
@@ -311,7 +311,7 @@ def add_book():
 @app.route('/book/<int:book_isbn>')
 def book(book_isbn):
     book = Book.query.get_or_404(book_isbn)
-    readinglists = Lists.query.all()
+    readinglists = Lists.query.filter_by(UserId=current_user.id).all()
     return render_template('book.html', title=book.title, book=book, readinglists=readinglists)
     
 # edit book information
