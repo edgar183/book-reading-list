@@ -41,40 +41,38 @@ class UpdateAccountForm(FlaskForm):
 class Add_Author(FlaskForm):
     full_name = StringField('Full Name', validators=[DataRequired()])
     submit = SubmitField('Add')
-    """
+
     def validate_full_name(self, full_name):
-        author = Author.query.filter_by(full_name=full_name.data)
+        author = Author.query.filter_by(full_name=full_name.data).first()
         if author:
             raise ValidationError('The author with this name alredy exists.')
-        """    
+      
 class Add_Category(FlaskForm):
     Name = StringField('Category Name', validators=[DataRequired()])
     submit = SubmitField('Add')
     
-    """
     def validate_Name(self, Name):
-        category = Category.query.filter_by(Name=Name.data)
+        category = Category.query.filter_by(Name=Name.data).first()
         if category:
             raise ValidationError('The category alredy exists.')
-            """
+
 class Add_Publisher(FlaskForm):
     Name = StringField('Publisher Name', validators=[DataRequired()])
     submit = SubmitField('Add')
     
     def validate_Name(self, Name):
-        publisher = Publisher.query.filter_by(Name=Name.data)
+        publisher = Publisher.query.filter_by(Name=Name.data).first()
         if publisher:
             raise ValidationError('The Publisher alredy exists.')
          
 class Add_Readinglist(FlaskForm):
     ListName = StringField('Reading List Name', validators=[DataRequired()])
     submit = SubmitField('Add')
-    """
+
     def validate_ListName(self, ListName):
-        readinglist = Lists.query.filter_by(ListName=ListName.data)
+        readinglist = Lists.query.filter_by(ListName=ListName.data).first()
         if readinglist:
             raise ValidationError(' %s alredy have this list created.'%(current_user.name))
-       """     
 
 def publisher_query():
     return Publisher.query
@@ -90,9 +88,9 @@ class Add_Book(FlaskForm):
     publisher = SelectField('Publisher',  choices=[])
     category = SelectField('Category', choices=[])
     submit = SubmitField('Add')
-    """
+    
     def validate_Name(self, Name):
-        publisher = Publisher.query.filter_by(Name=Name.data)
+        publisher = Publisher.query.filter_by(Name=Name.data).first()
         if publisher:
             raise ValidationError('The Publisher alredy exists.')
-     """   
+      
