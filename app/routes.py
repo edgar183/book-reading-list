@@ -183,6 +183,7 @@ def delete_category(category_id):
 """
 # display list of publishers
 @app.route('/publishers')
+@login_required
 def publishers():
     publishers = Publisher.query.all()
     return render_template('publishers.html', publishers=publishers, title='Publishers')
