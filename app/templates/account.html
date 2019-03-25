@@ -23,9 +23,7 @@
     <hr>
    <ul><span>Reading Lists: </span>
      {% for list in readinglists %}
-        {% if list.UserId == current_user.id %}
     <li><a class="article-title" href="{{ url_for('reading_list', list_id=list.id) }}">{{ list.ListName }}</a></li>
-        {% endif %}
     {% endfor %}
     </ul>
      <a class="btn btn-default " href="{{ url_for('add_readinglist') }}">Add List</a>
