@@ -1,20 +1,4 @@
 {% extends "base.html" %} {% block content %}
-<div>
-<h2>Reading Lists</h2>
-{% for l in readinglists %}
-<div>
-        <p>{{ l.id }} : {{ l.ListName }} -> {{ l.user.name }} 
-        <p>
-            Books :
-        {% for books in l.books_in_list %}
-            <pre>{{ books.title }}</pre>
-        {% endfor %}
-        </p>
-        </p>
-</div>
-    {% endfor %}
-</div>
-<hr>
 <div class="form-handler">
     <h2>User account </h2>
     <hr>
