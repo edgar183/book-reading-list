@@ -80,6 +80,9 @@ def publisher_query():
 def category_query():
     return Category.query
 
+def Author_query():
+    return Author.query
+
 class Add_Book(FlaskForm):
     title = StringField('Book Title', validators=[DataRequired()])
     year = StringField('Year Published', validators=[DataRequired()])
@@ -87,6 +90,7 @@ class Add_Book(FlaskForm):
     description = TextAreaField('Book description ', validators=[DataRequired()])
     publisher = SelectField('Publisher',  choices=[])
     category = SelectField('Category', choices=[])
+    author = SelectField('Author', choices=[])
     submit = SubmitField('Add')
     
     def validate_Name(self, Name):
