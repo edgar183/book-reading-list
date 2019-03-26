@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request
 from app import models
 from app.models import *
 from app import app, db, bcrypt
-from app.forms import RegisterForm, LoginForm, UpdateAccountForm, Add_Author, Add_Category, Add_Publisher, Add_Readinglist, Add_Book
+from app.forms import *
 from flask_login import login_user, current_user, logout_user, login_required
 
 # home page
@@ -292,15 +292,20 @@ def delete_list(list_id):
 @app.route('/book/add', methods=['GET','POST'])
 @login_required
 def add_book():
+    all_publishers = Publisher.query.all()
+    all_categories = Category.query.all()
+    all_authors = Author.query.all()
+    publishers_list = [(p.PublisherId, p.Name) for p in all_publishers]
+    category_list = [(c.CategoryId, c.Name) for c in all_categories]
+    author_list = [(a.AuthorId, a.full_name) for a in all_authors]
     form = Add_Book()
-    form.publisher.choices = [(publisher.PublisherId, publisher.Name) for publisher in Publisher.query.all()]
-    form.category.choices = [(category.CategoryId, category.Name) for category in Category.query.all()]
-    form.author.choices = [(author.AuthorId, author.full_name) for author in Author.query.all()]
-    publisher = Publisher.query.filter_by(PublisherId=form.publisher.data)
-    category = Category.query.filter_by(CategoryId=form.category.data)
-    author = Author.query.filter_by(AuthorId=form.author.data)
+    # passing all lists to form
+    form.publisher.choices = publishers_list
+    form.category.choices = category_list
+    form.author.choices = author_list
     if form.validate_on_submit():
-        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=publisher, category_id=category, author_id=author)
+        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=form.publisher.data, category_id=form.category.data)
+        #author.writer.append(book)
         db.session.add(book)
         db.session.commit()
         flash('New Book has been added!', 'success')
@@ -308,11 +313,22 @@ def add_book():
     return render_template('add_book.html', title='New Book', form=form, legend='Add Book')
     
 # individual book page
-@app.route('/book/<int:book_isbn>')
+@app.route('/book/<int:book_isbn>', methods=['GET','POST'])
 def book(book_isbn):
+    all_readinglits = Lists.query.filter_by(UserId=current_user.id).all()
     book = Book.query.get_or_404(book_isbn)
-    readinglists = Lists.query.filter_by(UserId=current_user.id).all()
-    return render_template('book.html', title=book.title, book=book, readinglists=readinglists)
+    print('****book*** %s' % book.title)
+    readinglists = [(l.id, l.ListName) for l in all_readinglits]
+    form = Add_book_to_readinglit()
+    # passing all lists to form
+    form.lists.choices = readinglists
+    if form.validate_on_submit():
+        print('*** lists *** %s' % form.lists.data)
+        book.books.append(form.lists.data)
+        db.session.commit()
+        flash('New Book has been added to list!', 'success')
+        return redirect(url_for('index'))
+    return render_template('book.html', title=book.title, book=book, form=form)
     
 # edit book information
 @app.route('/book/<int:book_isbn>/edit', methods=['GET','POST'])
