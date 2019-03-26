@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, IntegerField, RadioField
 from wtforms.validators import DataRequired, Length, ValidationError
 from app.models import *
 #from wtforms_sqlalchemy.fields import QuerySelectField
@@ -97,4 +97,7 @@ class Add_Book(FlaskForm):
         publisher = Publisher.query.filter_by(Name=Name.data).first()
         if publisher:
             raise ValidationError('The Publisher alredy exists.')
-      
+
+class Add_book_to_readinglit(FlaskForm):
+    listsRadios = RadioField('Reading Lists', choices=[])
+    submit = SubmitField('Add')
