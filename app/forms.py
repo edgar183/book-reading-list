@@ -3,7 +3,7 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, IntegerField, RadioField
 from wtforms.validators import DataRequired, Length, ValidationError
 from app.models import *
-#from wtforms_sqlalchemy.fields import QuerySelectField
+
 
 #Registration form with validation rules.
 class RegisterForm(FlaskForm):
@@ -74,30 +74,20 @@ class Add_Readinglist(FlaskForm):
         if readinglist:
             raise ValidationError(' %s alredy have this list created.'%(current_user.name))
 
-def publisher_query():
-    return Publisher.query
 
-def category_query():
-    return Category.query
-
-def Author_query():
-    return Author.query
 
 class Add_Book(FlaskForm):
     title = StringField('Book Title', validators=[DataRequired()])
     year = StringField('Year Published', validators=[DataRequired()])
     book_cover = StringField('URL link for book cover picture', validators=[DataRequired()])
     description = TextAreaField('Book description ', validators=[DataRequired()])
-    publisher = SelectField('Publisher',  choices=[])
-    category = SelectField('Category', choices=[])
-    author = SelectField('Author', choices=[])
+    publisher = SelectField('Publisher', coerce=int)
+    category = SelectField('Category', coerce=int)
+    author = SelectField('Author', coerce=int)
     submit = SubmitField('Add')
     
-    def validate_Name(self, Name):
-        publisher = Publisher.query.filter_by(Name=Name.data).first()
-        if publisher:
-            raise ValidationError('The Publisher alredy exists.')
+
 
 class Add_book_to_readinglit(FlaskForm):
-    listsRadios = RadioField('Reading Lists', choices=[])
+    lists = SelectField('Reading Lists', coerce=int)
     submit = SubmitField('Add')
