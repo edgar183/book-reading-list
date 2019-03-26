@@ -86,30 +86,24 @@
                 {{ form.category.label(class="form-control-label") }}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                {{ form.category }}
+                {{ form.category (class='btn btn-info dropdown-toggle') }}
             </div>
             <br>
              <!-- List of book publishers -->
-             <div class="dropdown">
-                 <button class="btn btn-primary dropdown-toggle" type="button" id="publishers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publishers<span class="caret"></span>
-                 </button>
-                 <ul class="dropdown-menu" aria-labelledby="Publishers">
-                     <li>{{ form.publisher }}</li>
-                     <li><a href="{{ url_for('add_publisher') }}">Add New Publisher</a></li>
-                     </ul>
-            </div>
+             
             <div class="form-group">
                 {{ form.publisher.label(class="form-control-label") }}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                {{ form.publisher }}
+                {{ form.publisher (class='btn btn-info dropdown-toggle')}}
             </div>
+            <!-- List of book authors -->
             <br>
             <div class="form-group">
                 {{ form.author.label(class="form-control-label") }}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                {{ form.author }}
+                {{ form.author (class='btn btn-info dropdown-toggle')}}
             </div>
             <br>
         </fieldsets>
