@@ -28,6 +28,14 @@ def category_books(Name):
     category_query = Category.query.filter_by(Name=Name).first_or_404()
     books = Book.query.filter_by(category=category_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
     return render_template('category_books.html',books=books, category=category_query)
+    
+# display all books from the author    
+@app.route('/author/<string:full_name>')
+def author_books(full_name):
+    page = request.args.get('page', 1, type=int)
+    author_query = Author.query.filter_by(full_name=full_name).first_or_404()
+    books = Book.query.filter_by(authors=author_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
+    return render_template('author_books.html',books=books, author=author_query)
 
 # register account page
 @app.route('/register', methods=['GET','POST'])
