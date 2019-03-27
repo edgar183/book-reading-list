@@ -8,23 +8,22 @@
             <div class="form-group">
                 {{ form.title.label(class="form-control-label") }}
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {% if form.title.errors %} 
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    {% if form.title.errors %}
                     {{ form.title(class="form-control form-control-lg is-invalid") }}
                 </div>
                 <div class="invalid-feedback">
                     {% for error in form.title.errors %}
                     <span class="text-danger">
                         {{ error }}
-                        </span> 
-                        {% endfor %}
+                        </span> {% endfor %}
                 </div>
                 {% else %} 
                 {{ form.title(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
             <br>
-             <div class="form-group">
+            <div class="form-group">
                 {{ form.year.label(class="form-control-label") }}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
@@ -35,11 +34,10 @@
                     {% for error in form.year.errors %}
                     <span class="text-danger">
                         {{ error }}
-                        </span> 
-                        {% endfor %}
+                        </span> {% endfor %}
                 </div>
                 {% else %} 
-                {{ form.year(class="form-control form-control-lg") }}
+                {{ form.year(class="form-control form-control-lg") }} 
                 {% endif %}
             </div>
             <br>
@@ -54,8 +52,7 @@
                     {% for error in form.book_cover.errors %}
                     <span class="text-danger">
                         {{ error }}
-                        </span> 
-                        {% endfor %}
+                        </span> {% endfor %}
                 </div>
                 {% else %} 
                 {{ form.book_cover(class="form-control form-control-lg") }}
@@ -65,16 +62,14 @@
             <div class="form-group">
                 {{ form.description.label(class="form-control-label") }}
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {% if form.description.errors %} 
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span> {% if form.description.errors %}
                     {{ form.description(class="form-control form-control-lg is-invalid") }}
                 </div>
                 <div class="invalid-feedback">
                     {% for error in form.description.errors %}
                     <span class="text-danger">
                         {{ error }}
-                        </span> 
-                        {% endfor %}
+                        </span> {% endfor %}
                 </div>
                 {% else %} 
                 {{ form.description(class="form-control form-control-lg") }}
@@ -86,31 +81,36 @@
                 {{ form.category.label(class="form-control-label") }}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                {{ form.category (class='btn btn-info dropdown-toggle') }}
+                    {{ form.category (class='btn btn-info dropdown-toggle') }}
+                </div>
+                <span class="input-group-addon"><a href="{{ url_for('add_category') }}">New Category</a></span>
             </div>
             <br>
-             <!-- List of book publishers -->
-             
+            <!-- List of book publishers -->
             <div class="form-group">
                 {{ form.publisher.label(class="form-control-label") }}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                {{ form.publisher (class='btn btn-info dropdown-toggle')}}
+                    {{ form.publisher (class='btn btn-info dropdown-toggle')}}
+                </div>
+                <span class="input-group-addon"><a href="{{ url_for('add_publisher') }}">New Publisher</a></span>
             </div>
-            <!-- List of book authors -->
-            <br>
-            <div class="form-group">
-                {{ form.author.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                {{ form.author (class='btn btn-info dropdown-toggle')}}
-            </div>
-            <br>
+                <!-- List of book authors -->
+                <br>
+                <div class="form-group">
+                    {{ form.author.label(class="form-control-label") }}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+                        {{ form.author (class='btn btn-info dropdown-toggle')}}
+                    </div>
+                    <span class="input-group-addon"><a href="{{ url_for('add_author') }}">New Author</a></span>
+                </div>
+                    <br>
         </fieldsets>
         <div class="form-group">
             {{ form.submit(class="btn btn-primary btn-block") }}
         </div>
     </form>
-</div>
+    </div>
 
-{% endblock content %}
+    {% endblock content %}
