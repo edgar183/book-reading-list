@@ -10,7 +10,8 @@
         <p>
             Authors :
         {% for author_list in book.authors %}
-            <pre>{{ author_list.full_name }}</pre>
+            <pre><a class="mr-2" href="{{ url_for('author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a>
+            </pre>
         {% endfor %}
         </p>
         <hr>
