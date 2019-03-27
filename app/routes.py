@@ -14,12 +14,12 @@ def index():
     return render_template('index.html',books=books)
     
 # display all books from the publisher    
-@app.route('/index/<string:Name>')
+@app.route('/publisher/<string:Name>')
 def publisher_books(Name):
     page = request.args.get('page', 1, type=int)
-    publisher = Publisher.query.filter_by(Name=Name).first_or_404()
-    books = Book.query.filter_by(publisher=publisher.Name).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
-    return render_template('publisher_books.html',books=books, publisher=publisher)
+    publisher_query = Publisher.query.filter_by(Name=Name).first_or_404()
+    books = Book.query.filter_by(publisher=publisher_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
+    return render_template('publisher_books.html',books=books, publisher=publisher_query)
 
 # register account page
 @app.route('/register', methods=['GET','POST'])
