@@ -9,8 +9,17 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/')
 @app.route('/index')
 def index():
-    books = Book.query.all()
+    page = request.args.get('page', 1, type=int)
+    books = Book.query.order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
     return render_template('index.html',books=books)
+    
+# display all books from the publisher    
+@app.route('/index/<string:Name>')
+def publisher_books(Name):
+    page = request.args.get('page', 1, type=int)
+    publisher = Publisher.query.filter_by(Name=Name).first_or_404()
+    books = Book.query.filter_by(publisher=publisher.Name).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
+    return render_template('publisher_books.html',books=books, publisher=publisher)
 
 # register account page
 @app.route('/register', methods=['GET','POST'])
