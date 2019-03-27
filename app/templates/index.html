@@ -4,7 +4,7 @@
 <div>
     <br>
         <p>{{ book.isbn }} : <a class="article-title" href="{{ url_for('book', book_isbn=book.isbn) }}">{{ book.title }}</a> -> {{ book.year }} -> 
-        <a class="mr-2" href="{{ url_for('publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a> -> {{ book.category.Name }} </p>
+        <a class="mr-2" href="{{ url_for('publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a> -> <a class="mr-2" href="{{ url_for('category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a> </p>
         <p>{{ book.description }}</p>
         <hr>
         <p>
