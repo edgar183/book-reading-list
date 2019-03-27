@@ -21,6 +21,14 @@ def publisher_books(Name):
     books = Book.query.filter_by(publisher=publisher_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
     return render_template('publisher_books.html',books=books, publisher=publisher_query)
 
+# display all books from the category    
+@app.route('/category/<string:Name>')
+def category_books(Name):
+    page = request.args.get('page', 1, type=int)
+    category_query = Category.query.filter_by(Name=Name).first_or_404()
+    books = Book.query.filter_by(category=category_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
+    return render_template('category_books.html',books=books, category=category_query)
+
 # register account page
 @app.route('/register', methods=['GET','POST'])
 def register():
