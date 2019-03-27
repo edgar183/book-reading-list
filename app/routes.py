@@ -295,14 +295,11 @@ def add_book():
     all_publishers = Publisher.query.all()
     all_categories = Category.query.all()
     all_authors = Author.query.all()
-    publishers_list = [(p.PublisherId, p.Name) for p in all_publishers]
-    category_list = [(c.CategoryId, c.Name) for c in all_categories]
-    author_list = [(a.AuthorId, a.full_name) for a in all_authors]
     form = Add_Book()
     # passing all lists to form
-    form.publisher.choices = publishers_list
-    form.category.choices = category_list
-    form.author.choices = author_list
+    form.publisher.choices = [(p.PublisherId, p.Name) for p in all_publishers]
+    form.category.choices = [(c.CategoryId, c.Name) for c in all_categories]
+    form.author.choices = [(a.AuthorId, a.full_name) for a in all_authors]
     if form.validate_on_submit():
         book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=form.publisher.data, category_id=form.category.data)
         #author.writer.append(book)
@@ -322,9 +319,12 @@ def book(book_isbn):
     form = Add_book_to_readinglit()
     # passing all lists to form
     form.lists.choices = readinglists
+    print('*** lists *** %s' % readinglists)
+    lists = form.lists.data
+    print('*** lists in form *** %s' % lists)
     if form.validate_on_submit():
-        print('*** lists *** %s' % form.lists.data)
-        book.books.append(form.lists.data)
+        
+        book.books.append(lists)
         db.session.commit()
         flash('New Book has been added to list!', 'success')
         return redirect(url_for('index'))
