@@ -4,7 +4,7 @@ from app import  db, bcrypt
 from app.models import User, Lists
 from app.user.forms import (RegisterForm, LoginForm, UpdateAccountForm)
 
-users = Blueprint('users', __name__)
+users = Blueprint('users', __name__, url_prefix='/user')
 
 # register account page
 @users.route('/register', methods=['GET','POST'])
@@ -19,7 +19,7 @@ def register():
         db.session.commit()
         flash("%s your account has been created!"%(form.name.data), 'success')
         return redirect(url_for('users.login'))
-    return render_template('register.html', title='Register', form=form)  
+    return render_template('user/register.html', title='Register', form=form)  
 
 # login to the system
 @users.route('/login', methods=['GET','POST'])
@@ -35,7 +35,7 @@ def login():
             return redirect(url_for('main.index'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('user/login.html', title='Login', form=form)
     
 #log out from system 
 @users.route('/logout')
@@ -58,4 +58,4 @@ def account():
     elif request.method == 'GET':
         form.name.data = current_user.name
         form.username.data = current_user.username
-    return render_template('account.html', title='Account', form=form, readinglists=readinglists)
+    return render_template('user/account.html', title='Account', form=form, readinglists=readinglists)

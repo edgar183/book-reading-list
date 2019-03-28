@@ -9,20 +9,20 @@ from app import  db
 from app.models import Author, Book
 from app.author.forms import Add_Author
 
-authors = Blueprint('authors', __name__)
+authors = Blueprint('authors', __name__, url_prefix='/author')
 
 # display list of authors
 @authors.route('/authors')
 def all_author():
     authors = Author.query.all()
-    return render_template('authors.html', authors=authors, title='authors')
+    return render_template('author/authors.html', authors=authors, title='authors')
     
 # individual author route
 @authors.route('/authors/<int:author_id>')
 @login_required
 def single_author(author_id):
     author = Author.query.get_or_404(author_id)
-    return render_template('author.html', title=author.full_name, author=author)
+    return render_template('author/author.html', title=author.full_name, author=author)
     
 # add author to database   
 @authors.route('/authors/add', methods=['GET','POST'])
@@ -35,7 +35,7 @@ def add_author():
         db.session.commit()
         flash('New Author has been added!', 'success')
         return redirect(url_for('authors.all_author'))
-    return render_template('add_author.html', title='New Author', form=form, legend='Add Author')
+    return render_template('author/add_author.html', title='New Author', form=form, legend='Add Author')
     
 # edit author name
 @authors.route('/authors/<int:author_id>/edit', methods=['GET','POST'])
@@ -50,7 +50,7 @@ def edit_author(author_id):
         return redirect(url_for('authors.all_author', author_id=author.AuthorId))
     elif request.method == 'GET': 
         form.full_name.data = author.full_name
-    return render_template('add_author.html', title='Edit Author ', form=form, legend='Edit Author')
+    return render_template('author/add_author.html', title='Edit Author ', form=form, legend='Edit Author')
     
 # delete author from database
 @authors.route('/authors/<int:author_id>/delete', methods=['POST'])
@@ -68,4 +68,4 @@ def author_books(full_name):
     page = request.args.get('page', 1, type=int)
     author_query = Author.query.filter_by(full_name=full_name).first_or_404()
     books = Book.query.filter_by(authors=author_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
-    return render_template('author_books.html',books=books, author=author_query)
+    return render_template('author/author_books.html',books=books, author=author_query)

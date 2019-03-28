@@ -9,7 +9,7 @@ from app import  db
 from app.models import Book, Publisher, Category, Author, Lists
 from app.book.forms import Add_Book, Add_book_to_readinglit
 
-books = Blueprint('books', __name__)
+books = Blueprint('books', __name__, url_prefix='/book')
 
 #add book    
 @books.route('/book/add', methods=['GET','POST'])
@@ -30,13 +30,13 @@ def add_book():
         db.session.commit()
         flash('New Book has been added!', 'success')
         return redirect(url_for('main.index'))
-    return render_template('add_book.html', title='New Book', form=form, legend='Add Book')
+    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book')
     
 # individual book page
+# add book to reading list
 @books.route('/book/<int:book_isbn>', methods=['GET','POST'])
 def book(book_isbn):
     book = Book.query.get_or_404(book_isbn)
-    print('****book*** %s' % book.title)
     if current_user.is_authenticated:
         all_readinglits = Lists.query.filter_by(UserId=current_user.id).all()
         readinglists = [(l.id, l.ListName) for l in all_readinglits]
@@ -51,8 +51,8 @@ def book(book_isbn):
             db.session.commit()
             flash('New Book has been added to list!', 'success')
             return redirect(url_for('main.index'))
-        return render_template('book.html', title=book.title, book=book, form=form)
-    return render_template('book.html', title=book.title, book=book)
+        return render_template('book/book.html', title=book.title, book=book, form=form)
+    return render_template('book/book.html', title=book.title, book=book)
     
 # edit book information
 @books.route('/book/<int:book_isbn>/edit', methods=['GET','POST'])
@@ -77,7 +77,7 @@ def edit_book(book_isbn):
         form.description.data = book.description
         form.publisher.data = book.publisher
         form.category.data = book.category
-    return render_template('add_book.html', title='Edit Book', form=form, legend='Edit Book')
+    return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book')
     
 # delete book from database
 @books.route('/book/<int:book_isbn>/delete', methods=['POST'])
