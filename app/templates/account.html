@@ -7,10 +7,10 @@
     <hr>
    <ul><span>Reading Lists: </span>
      {% for list in readinglists %}
-    <li><a class="article-title" href="{{ url_for('reading_list', list_id=list.id) }}">{{ list.ListName }}</a></li>
+    <li><a class="article-title" href="{{ url_for('readinglists.reading_list', list_id=list.id) }}">{{ list.ListName }}</a></li>
     {% endfor %}
     </ul>
-     <a class="btn btn-default " href="{{ url_for('add_readinglist') }}">Add List</a>
+     <a class="btn btn-default " href="{{ url_for('readinglists.add_readinglist') }}">Add List</a>
 </div>
 <div class="form-handler">
     <form method="POST" action="" novalidate>

@@ -1,25 +1,32 @@
 {% extends "base.html" %} {% block content %}
 <div>
-  <a class="btn btn-default " href="{{ url_for('edit_book', book_isbn=book.isbn) }}">Edit</a>
+  {% if current_user.is_authenticated %}
+  <a class="btn btn-default " href="{{ url_for('books.edit_book', book_isbn=book.isbn) }}">Edit</a>
   <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+  {% endif %}
   <br>
   <p>{{ book.isbn }} :
     <h2 class="article-title">{{ book.title }} -></h2>
-    {{ book.year }} -> {{ book.publisher.Name }} -> {{ book.category.Name }} </p>
+    {{ book.year }} -> 
+    <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a> -> 
+    <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a> 
+    </p>
   <p>{{ book.description }}</p>
   <hr>
   <p>
     Authors : {% for author_list in book.authors %}
-    <pre>{{ author_list.full_name }}</pre> 
+    <pre><a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </pre> 
     {% endfor %}
   </p>
   <hr>
   <img src="{{ book.book_cover }}" alt="Book Cover" style="width:100px;height:150px;">
+  </div>
   <form method="POST" action="" novalidate>
+    {% if current_user.is_authenticated %}
     <fieldset>
       <legend>Select one reading list or add new</legend>
 
-      <a href="{{ url_for('add_readinglist') }}">Add New List</a>
+      <a href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
       <br>
       <div class="form-group">
         {{ form.lists.label(class="form-control-label") }}
@@ -34,6 +41,7 @@
     </div>
   </form>
   </div>
+  {% endif %}
   <!-- Modal -->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -46,7 +54,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <form action="{{ url_for('delete_book', book_isbn=book.isbn) }}" method="POST">
+          <form action="{{ url_for('books.delete_book', book_isbn=book.isbn) }}" method="POST">
             <input class="btn btn-danger" type="submit" value="Delete">
           </form>
         </div>

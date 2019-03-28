@@ -1,12 +1,12 @@
 {% extends "base.html" %} {% block content %}
 <div>
-  <a class="btn btn-default " href="{{ url_for('add_author') }}">Add Author</a>
+  <a class="btn btn-default " href="{{ url_for('authors.add_author') }}">Add Author</a>
   <hr>
 <h2>Authors</h2>
 {% for author in authors %}
 <div>
   <p>{{ author.AuthorId }} :
-  <a class="article-title" href="{{ url_for('author', author_id=author.AuthorId) }}">{{ author.full_name }}</a> 
+  <a class="article-title" href="{{ url_for('authors.single_author', author_id=author.AuthorId) }}">{{ author.full_name }}</a> 
     <hr>
 </div>
     {% endfor %}

@@ -83,7 +83,7 @@
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
                     {{ form.category (class='btn btn-info dropdown-toggle') }}
                 </div>
-                <span class="input-group-addon"><a href="{{ url_for('add_category') }}">New Category</a></span>
+                <span class="input-group-addon"><a href="{{ url_for('categories.add_category') }}">New Category</a></span>
             </div>
             <br>
             <!-- List of book publishers -->
@@ -93,7 +93,7 @@
                     <span class="input-group-addon"><i class="fa fa-user"></i></span> 
                     {{ form.publisher (class='btn btn-info dropdown-toggle')}}
                 </div>
-                <span class="input-group-addon"><a href="{{ url_for('add_publisher') }}">New Publisher</a></span>
+                <span class="input-group-addon"><a href="{{ url_for('publishers.add_publisher') }}">New Publisher</a></span>
             </div>
                 <!-- List of book authors -->
                 <br>
@@ -103,7 +103,7 @@
                         <span class="input-group-addon"><i class="fa fa-user"></i></span> 
                         {{ form.author (class='btn btn-info dropdown-toggle')}}
                     </div>
-                    <span class="input-group-addon"><a href="{{ url_for('add_author') }}">New Author</a></span>
+                    <span class="input-group-addon"><a href="{{ url_for('authors.add_author') }}">New Author</a></span>
                 </div>
                     <br>
         </fieldsets>
