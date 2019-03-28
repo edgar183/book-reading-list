@@ -67,5 +67,11 @@ def delete_author(author_id):
 def author_books(full_name):
     page = request.args.get('page', 1, type=int)
     author_query = Author.query.filter_by(full_name=full_name).first_or_404()
-    books = Book.query.filter_by(authors=author_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
-    return render_template('author/author_books.html',books=books, author=author_query)
+    print('****author query -> %s' % author_query.AuthorId)
+    
+    books = Book.query.join(Book.authors).filter(Author.full_name == author_query.full_name).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
+
+    print('***total books by author %s' % books.total)
+    
+   
+    return render_template('author/author_books.html', books=books, author=author_query)
