@@ -15,7 +15,7 @@ authors = Blueprint('authors', __name__, url_prefix='/author')
 @authors.route('/authors')
 def all_author():
     authors = Author.query.all()
-    return render_template('author/authors.html', authors=authors, title='authors')
+    return render_template('author/authors.html', authors=authors, title='Authors')
     
 # individual author route
 @authors.route('/authors/<int:author_id>')
