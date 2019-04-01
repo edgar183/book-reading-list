@@ -1,32 +1,32 @@
-{% extends "base.html" %} 
-{% block content %}
-<h1>Published by {{ publisher.Name }} ({{ books.total}})</h1>
-{% for book in books.items %}
-<div>
-    <br>
-        <p>{{ book.isbn }} : <a class="article-title" href="{{ url_for('books.book', book_isbn=book.isbn) }}">{{ book.title }}</a> -> {{ book.year }} -> 
-        <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a> ->  <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a><p>{{ book.description }}</p>
-        <hr>
-        <p>
-            Authors :
-        {% for author_list in book.authors %}
-            <pre><a class="mr-2" href="{{ url_for('authors.author_books', full_name=book.authors.full_name) }}">{{ author_list.full_name }}</a>
-            </pre>
-        {% endfor %}
-        </p>
-        <hr>
-        <img src="{{ book.book_cover }}" alt="Book Cover" style="width:100px;height:150px;">
+{% extends "base.html" %} {% block content %}
+<div class="container bg-light mt-3 mb-2 pt-5 pb-2">
+  <h1>Published by {{ publisher.Name }} ({{ books.total}})</h1>
+  <div class="row">
+    <div class="col-md-4 col-sm-6 portfolio-item">
+      {% for book in books.items %}
+      <a class="portfolio-link" href="{{ url_for('books.book', book_isbn=book.isbn) }}">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <i class="fas fa-plus fa-3x"></i>
+          </div>
+        </div>
+        <img class="img-fluid" src="{{ book.book_cover }}" alt="Book Cover">
+      </a>
+      <div class="portfolio-caption">
+        <h4>{{ book.title }}</h4>
+        <hr> By author :{% for author_list in book.authors %}
+      <p class="list-inline">By author : <a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p> {% endfor %}
+      <p class="list-inline">Publisher : <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a></p>
+      <p>Category : <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a>
+      </p>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  {% for page_num in books.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %} {% if page_num %} {% if books.page == page_num %}
+  <a class="btn btn-info mb-4" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a> {% else %}
+  <a class="btn btn-outline-info mb-4" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a> {% endif %} {% else %} ... {% endif %} {% endfor %}
 </div>
-    {% endfor %}
-    {% for page_num in books.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
-      {% if page_num %}
-        {% if books.page == page_num %}
-          <a class="btn btn-info mb-4" href="{{ url_for('publishers.publisher_books', Name=publisher.Name, page=page_num) }}">{{ page_num }}</a>
-        {% else %}
-          <a class="btn btn-outline-info mb-4" href="{{ url_for('publishers.publisher_books', Name=publisher.Name, page=page_num) }}">{{ page_num }}</a>
-        {% endif %}
-      {% else %}
-        ...
-      {% endif %}
-{% endfor %}
 {% endblock content %}

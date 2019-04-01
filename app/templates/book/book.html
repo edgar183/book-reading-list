@@ -1,64 +1,57 @@
 {% extends "base.html" %} {% block content %}
-<div>
+<div class="container mt-3 mb-2 pt-5 pb-2 bg-light">
   {% if current_user.is_authenticated %}
-  <a class="btn btn-default " href="{{ url_for('books.edit_book', book_isbn=book.isbn) }}">Edit</a>
-  <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-  {% endif %}
-  <br>
-  <p>{{ book.isbn }} :
-    <h2 class="article-title">{{ book.title }} -></h2>
-    {{ book.year }} -> 
-    <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a> -> 
-    <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a> 
-    </p>
-  <p>{{ book.description }}</p>
-  <hr>
-  <p>
-    Authors : {% for author_list in book.authors %}
-    <pre><a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </pre> 
-    {% endfor %}
-  </p>
-  <hr>
-  <img src="{{ book.book_cover }}" alt="Book Cover" style="width:100px;height:150px;">
-  </div>
-  <form method="POST" action="" novalidate>
-    {% if current_user.is_authenticated %}
-    <fieldset>
-      <legend>Select one reading list or add new</legend>
-
-      <a href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
-      <br>
-      <div class="form-group">
-        {{ form.lists.label(class="form-control-label") }}
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-          {{ form.lists (class='btn btn-info dropdown-toggle') }}
-        </div>
-        <br>
-    </fieldset>
-    <div class="form-group">
-      {{ form.submit(class="btn btn-primary btn-block") }}
+  <div class="row">
+    <div class="col-lg-4 mx-auto">
+      <img class="img-fluid d-block mx-auto" src="{{ book.book_cover }}" alt="Book Cover">
+      <div class="mt-2">
+        <form method="POST" action="" novalidate="novalidate">
+          {% if current_user.is_authenticated %}
+          <div class="form-group">
+            {{ form.lists (class='btn btn-info dropdown-toggle') }}
+          </div>
+          <div class="form-group">
+            <a href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
+          </div>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-warning btn-block") }}
+          </div>
+          {% endif %}
+        </form>
+      </div>
     </div>
-  </form>
+    <div class="col-lg-8 ">
+      <h2 class="text-uppercase">{{ book.title }}</h2>
+      <hr> By author :{% for author_list in book.authors %}
+      <p class="list-inline">By author : <a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p> {% endfor %}
+      <p class="list-inline">Publisher : <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a></p>
+      <p>Category : <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a>
+      </p>
+      <p class="list-inline">Publication date : {{ book.year }}
+        </p>
+          <p class="list-inline">{{ book.description }}</p>
+    </div>
   </div>
-  {% endif %}
-  <!-- Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title label label-default" id="deleteModalLabel">Delete Book?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <a class="btn btn-info btn-sm m-1" href="{{ url_for('books.edit_book', book_isbn=book.isbn) }}">Edit</a>
+  <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> {% endif %}
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title label label-default" id="deleteModalLabel">Delete Book?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <form action="{{ url_for('books.delete_book', book_isbn=book.isbn) }}" method="POST">
-            <input class="btn btn-danger" type="submit" value="Delete">
-          </form>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="{{ url_for('books.delete_book', book_isbn=book.isbn) }}" method="POST">
+          <input class="btn btn-danger" type="submit" value="Delete">
+        </form>
       </div>
     </div>
   </div>
-  {% endblock content %}
+</div>
+{% endblock content %}
