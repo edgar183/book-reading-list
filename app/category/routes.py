@@ -15,7 +15,7 @@ categories = Blueprint('categories', __name__, url_prefix='/category')
 @categories.route('/categories')
 def all_categories():
     categories = Category.query.all()
-    return render_template('category/categories.html', categories=categories, title='categories')
+    return render_template('category/categories.html', categories=categories, title='Categories')
     
 # individual category route
 @categories.route('/categories/<int:category_id>')
