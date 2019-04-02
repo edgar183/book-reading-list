@@ -5,11 +5,10 @@
             {{ form.hidden_tag() }}
             <div class="form-group">
                 <h2 class="mb-4 text-center">{{ legend }}</h2>
-                <p class="item-intro text-muted text-center">First and last name of the author with space.</p>
+                <p class="item-intro text-muted text-center">First and last name of the author with space</p>
                 <div class="form-group">
-                    {{ form.full_name.label(class="form-control-label") }}
+                    <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form.full_name.label(class="form-control-label") }}
                     <div class="input-group">
-
                         {% if form.full_name.errors %} {{ form.full_name(class="form-control form-control-lg is-invalid") }}
                     </div>
                     <div class="invalid-feedback">

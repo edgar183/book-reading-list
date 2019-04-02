@@ -7,6 +7,7 @@
                 <h2 class="mb-4 text-center">{{ legend }}</h2>
                 <p class="item-intro text-muted text-center">Enter Reading List Name</p>
                 <div class="form-group">
+                     <span class="input-group-addon"><i class="fa fa-list" aria-hidden="true"></i></span>
                     {{ form.ListName.label(class="form-control-label") }}
                     <div class="input-group">
                         {% if form.ListName.errors %} {{ form.ListName(class="form-control form-control-lg is-invalid") }}
