@@ -48,7 +48,6 @@ def logout():
 @login_required
 def account():
     form = UpdateAccountForm()
-    readinglists = Lists.query.filter_by(UserId=current_user.id).all()
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.username = form.username.data
@@ -58,4 +57,4 @@ def account():
     elif request.method == 'GET':
         form.name.data = current_user.name
         form.username.data = current_user.username
-    return render_template('user/account.html', title='Account', form=form, readinglists=readinglists)
+    return render_template('user/account.html', title='Account', form=form )
