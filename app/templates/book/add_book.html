@@ -1,116 +1,100 @@
-{% extends "base.html" %} {% block content %}
-<div class="form-handler">
-    <form method="POST" action="" novalidate>
-        {{ form.hidden_tag() }}
-        <fieldsets class="form-group">
-            <h2 class="text-center">{{ legend }}</h2>
-            <p>Please add book cover full link address.</p>
+{% extends "base.html" %} 
+{% block content %}
+<div class="container bg-light mt-3 mb-2 pb-2">
+    <div class="form-handler">
+        <form class="text-left border border-light p-5" method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.title.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    {% if form.title.errors %}
-                    {{ form.title(class="form-control form-control-lg is-invalid") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.title.errors %}
-                    <span class="text-danger">
-                        {{ error }}
-                        </span> {% endfor %}
-                </div>
-                {% else %} 
-                {{ form.title(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-            <br>
-            <div class="form-group">
-                {{ form.year.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {% if form.year.errors %} 
-                    {{ form.year(class="form-control form-control-lg is-invalid") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.year.errors %}
-                    <span class="text-danger">
-                        {{ error }}
-                        </span> {% endfor %}
-                </div>
-                {% else %} 
-                {{ form.year(class="form-control form-control-lg") }} 
-                {% endif %}
-            </div>
-            <br>
-            <div class="form-group">
-                {{ form.book_cover.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {% if form.book_cover.errors %} 
-                    {{ form.book_cover(class="form-control form-control-lg is-invalid") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.book_cover.errors %}
-                    <span class="text-danger">
-                        {{ error }}
-                        </span> {% endfor %}
-                </div>
-                {% else %} 
-                {{ form.book_cover(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-            <br>
-            <div class="form-group">
-                {{ form.description.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> {% if form.description.errors %}
-                    {{ form.description(class="form-control form-control-lg is-invalid") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.description.errors %}
-                    <span class="text-danger">
-                        {{ error }}
-                        </span> {% endfor %}
-                </div>
-                {% else %} 
-                {{ form.description(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-            <br>
-            <!-- List of book categories -->
-            <div class="form-group">
-                {{ form.category.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {{ form.category (class='btn btn-info dropdown-toggle') }}
-                </div>
-                <span class="input-group-addon"><a href="{{ url_for('categories.add_category') }}">New Category</a></span>
-            </div>
-            <br>
-            <!-- List of book publishers -->
-            <div class="form-group">
-                {{ form.publisher.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {{ form.publisher (class='btn btn-info dropdown-toggle')}}
-                </div>
-                <span class="input-group-addon"><a href="{{ url_for('publishers.add_publisher') }}">New Publisher</a></span>
-            </div>
-                <!-- List of book authors -->
-                <br>
+                <h2 class="mb-4 text-center">{{ legend }}</h2>
+                <p class="item-intro text-muted text-center">Please add book cover full link address.</p>
+                <!-- Book Title -->
                 <div class="form-group">
-                    {{ form.author.label(class="form-control-label") }}
+                    {{ form.title.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                        {{ form.author (class='btn btn-info dropdown-toggle')}}
+                        {% if form.title.errors %} {{ form.title(class="form-control form-control-lg is-invalid") }}
                     </div>
-                    <span class="input-group-addon"><a href="{{ url_for('authors.add_author') }}">New Author</a></span>
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                        <span class="text-danger">
+                        {{ error }}
+                        </span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.title(class="form-control mb-4") }} {% endif %}
                 </div>
-                    <br>
-        </fieldsets>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary btn-block") }}
-        </div>
-    </form>
-    </div>
+                <!-- Year Published -->
+                <div class="form-group">
+                    {{ form.year.label(class="form-control-label font-weight-bold") }}
+                    <div class="input-group">
+                        {% if form.year.errors %} {{ form.year(class="form-control form-control-lg is-invalid") }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.year.errors %}
+                        <span class="text-danger">
+                        {{ error }}
+                        </span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.year(class="form-control mb-4") }} {% endif %}
+                </div>
+                <!-- Book cover URL -->
+                <div class="form-group">
+                    {{ form.book_cover.label(class="form-control-label font-weight-bold") }}
+                    <div class="input-group">
+                        {% if form.book_cover.errors %} {{ form.book_cover(class="form-control form-control-lg is-invalid") }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.book_cover.errors %}
+                        <span class="text-danger">
+                        {{ error }}
+                        </span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.book_cover(class="form-control mb-4") }} {% endif %}
+                </div>
+                <!-- Book description -->
+                <div class="form-group">
+                    {{ form.description.label(class="form-control-label font-weight-bold") }}
+                    <div class="input-group">
+                        {% if form.description.errors %} {{ form.description(class="form-control form-control-lg is-invalid") }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                        <span class="text-danger">
+                        {{ error }}
+                        </span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.description(class="form-control mb-4") }} {% endif %}
+                </div>
+                <!-- Categories -->
+                <div class="form-group">
+                    {{ form.category.label(class="form-control-label font-weight-bold") }}
+                    <div class="input-group">
+                        {{ form.category (class="browser-default custom-select mb-4") }}
+                        <span class="input-group"><a class="badge badge-warning" href="{{ url_for('categories.add_category') }}">New Category</a></span>
+                    </div>
+                </div>
+                <!-- Publishers -->
+                <div class="form-group">
+                    {{ form.publisher.label(class="form-control-label font-weight-bold") }}
+                    <div class="input-group">
+                        {{ form.publisher (class="browser-default custom-select mb-4")}}
+                        <span class="input-group "><a class="badge badge-warning" href="{{ url_for('publishers.add_publisher') }}">New Publisher</a> </span>
+                    </div>
+                </div>
+                <!-- Authors -->
+                <div class="form-group">
+                    {{ form.author.label(class="form-control-label font-weight-bold") }}
+                    <div class="input-group">
+                        {{ form.author (class="browser-default custom-select mb-4")}}
+                        <span class="input-group"><a class="badge badge-warning" href="{{ url_for('authors.add_author') }}">New Author</a></span>
+                    </div>
 
-    {% endblock content %}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary btn-block") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock  %}
+{% block footer %}
+{% endblock %}
