@@ -15,12 +15,12 @@ categories = Blueprint('categories', __name__, url_prefix='/category')
 @categories.route('/categories')
 def all_categories():
     categories = Category.query.all()
-    return render_template('category/categories.html', categories=categories, title='Categories')
+    return render_template('category/categories.html', all_categories=categories, title='Categories')
     
 # individual category route
 @categories.route('/categories/<int:category_id>')
 @login_required
-def category(category_id):
+def one_category(category_id):
     category = Category.query.get_or_404(category_id)
     return render_template('category/category.html', title=category.Name, category=category)
 

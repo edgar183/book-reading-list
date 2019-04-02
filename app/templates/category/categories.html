@@ -3,10 +3,10 @@
   <a class="btn btn-default " href="{{ url_for('categories.add_category') }}">Add Caregories</a>
   <hr>
 <h2>Caregories</h2>
-{% for category in categories %}
+{% for category in all_categories %}
 <div>
   <p>{{ category.CategoryId }} :
-  <a class="article-title" href="{{ url_for('categories.category', category_id=category.CategoryId) }}">{{ category.Name }}</a> 
+  <a class="article-title" href="{{ url_for('categories.one_category', category_id=category.CategoryId) }}">{{ category.Name }}</a> 
     <hr>
 </div>
     {% endfor %}
