@@ -52,6 +52,9 @@
                 </ul>
                 <ul class="navbar-nav text-uppercase ml-auto ">
                     {% if current_user.is_authenticated %}
+                     <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ url_for('readinglists.all_lists') }}">My Reading Lists</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{{ url_for('users.logout') }}">Logout</a>
                     </li>
