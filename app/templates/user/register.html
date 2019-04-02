@@ -1,69 +1,57 @@
 {% extends "base.html" %} {% block content %}
-<div class="form-handler">
-    <form method="post" action="" novalidate>
-        {{ form.hidden_tag() }}
-        <fieldsets>
-            <h2>Register Your Account</h2>
-            <p>Please fill in this form to create an account!</p>
-            <hr>
+<div class="container bg-light mt-3 mb-2 pb-2">
+    <div class="form-handler">
+        <form class="text-left border border-light p-5" method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.name.label(class="form-control-label" ) }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {% if form.name.errors %} 
-                    {{ form.name(class="form-control form-control-lg is-invalid" ) }}
+                <h2 class="mb-4 text-center">{{ legend }}</h2>
+                <p class="item-intro text-muted text-center">Please fill in this form to create an account!</p>
+                <div class="form-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span> {{ form.name.label(class="form-control-label" ) }}
+                    <div class="input-group">
+                        {% if form.name.errors %} {{ form.name(class="form-control form-control-lg is-invalid" ) }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}
+                        <span class="text-danger"> {{ error }}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.name(class="form-control mb-4") }} {% endif %}
                 </div>
-                <div class="invalid-feedback">
-                    {% for error in form.name.errors %}
-                    <span class="text-danger"> {{ error }}</span> 
-                    {% endfor %}
+                <div class="form-group">
+                    <span class="input-group-addon"><i class="fa fa-id-badge"></i></span> {{ form.username.label(class="form-control-label") }}
+                    <div class="input-group">
+                        {% if form.username.errors %} {{ form.username(class="form-control form-control-lg is-invalid ") }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                        <span class="text-danger"> {{ error }}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.username(class="form-control mb-4") }} {% endif %}
                 </div>
-                {% else %} 
-                {{ form.name(class="form-control form-control-lg") }} 
-                {% endif %}
+                <div class="form-group">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span> {{ form.password.label(class="form-control-label") }}
+                    <div class="input-group">
+
+                        {% if form.password.errors %} {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                        <span class="text-danger"> {{ error }}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.password(class="form-control mb-4") }} {% endif %}
+                </div>
             </div>
             <div class="form-group">
-                {{ form.username.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-id-badge"></i></span> 
-                    {% if form.username.errors %} 
-                    {{ form.username(class="form-control form-control-lg is-invalid ") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.username.errors %}
-                    <span class="text-danger"> {{ error }}</span> 
-                    {% endfor %}
-                </div>
-                {% else %} 
-                {{ form.username(class="form-control form-control-lg") }}
-                {% endif %}
+                {{ form.submit(class="btn btn-primary btn-block") }}
             </div>
-            <div class="form-group">
-                {{ form.password.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                    {% if form.password.errors %} 
-                    {{ form.password(class="form-control form-control-lg is-invalid") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.password.errors %}
-                    <span class="text-danger"> {{ error }}</span> 
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.password(class="form-control form-control-lg") }} 
-                {% endif %}
-            </div>
-            <br>
-        </fieldsets>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary btn-block") }}
-        </div>
-    </form>
-</div>
-<div class="text-center">
-    <small>
+        </form>
+    </div>
+    <div class="text-center">
+        <small>
            Already have an account? <a href="{{ url_for('users.login') }}">Login here</a>
         </small>
+    </div>
 </div>
 {% endblock content %}
+{% block footer %}
+{% endblock %}

@@ -1,33 +1,32 @@
 {% extends "base.html" %} {% block content %}
-<div class="form-handler">
-    <form method="POST" action="" novalidate>
-        {{ form.hidden_tag() }}
-        <fieldsets class="form-group">
-            <h2 class="text-center">{{ legend }}</h2>
-            <p>Enter Reading List Name</p>
+<div class="container bg-light mt-3 mb-2 pb-2">
+    <div class="form-handler">
+        <form class="text-left border border-light p-5" method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.ListName.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {% if form.ListName.errors %} 
-                    {{ form.ListName(class="form-control form-control-lg is-invalid") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.ListName.errors %}
-                    <span class="text-danger">
+                <h2 class="mb-4 text-center">{{ legend }}</h2>
+                <p class="item-intro text-muted text-center">Enter Reading List Name</p>
+                <div class="form-group">
+                    {{ form.ListName.label(class="form-control-label") }}
+                    <div class="input-group">
+                        {% if form.ListName.errors %} {{ form.ListName(class="form-control form-control-lg is-invalid") }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.ListName.errors %}
+                        <span class="text-danger">
                         {{ error }}
-                        </span> 
-                        {% endfor %}
+                        </span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.ListName(class="form-control mb-4") }} {% endif %}
                 </div>
-                {% else %} 
-                {{ form.ListName(class="form-control form-control-lg") }}
-                {% endif %}
+
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary btn-block") }}
+                </div>
             </div>
-            <br>
-        </fieldsets>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary btn-block") }}
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 {% endblock content %}
+{% block footer %}
+{% endblock %}

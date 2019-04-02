@@ -1,33 +1,31 @@
 {% extends "base.html" %} {% block content %}
-<div class="form-handler">
-    <form method="POST" action="" novalidate>
-        {{ form.hidden_tag() }}
-        <fieldsets class="form-group">
-            <h2 class="text-center">{{ legend }}</h2>
-            <p>First and last name of the author with spaces.</p>
+<div class="container bg-light mt-3 mb-2 pb-2">
+    <div class="form-handler">
+        <form class="text-left border border-light p-5" method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.full_name.label(class="form-control-label") }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-                    {% if form.full_name.errors %} 
-                    {{ form.full_name(class="form-control form-control-lg is-invalid") }}
-                </div>
-                <div class="invalid-feedback">
-                    {% for error in form.full_name.errors %}
-                    <span class="text-danger">
+                <h2 class="mb-4 text-center">{{ legend }}</h2>
+                <p class="item-intro text-muted text-center">First and last name of the author with space.</p>
+                <div class="form-group">
+                    {{ form.full_name.label(class="form-control-label") }}
+                    <div class="input-group">
+
+                        {% if form.full_name.errors %} {{ form.full_name(class="form-control form-control-lg is-invalid") }}
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.full_name.errors %}
+                        <span class="text-danger">
                         {{ error }}
-                        </span> 
-                        {% endfor %}
+                        </span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.full_name(class="form-control mb-4") }} {% endif %}
                 </div>
-                {% else %} 
-                {{ form.full_name(class="form-control form-control-lg") }}
-                {% endif %}
+
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary btn-block") }}
+                </div>
             </div>
-            <br>
-        </fieldsets>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary btn-block") }}
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
-{% endblock content %}
+{% endblock content %} {% block footer %} {% endblock %}
