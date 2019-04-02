@@ -4,14 +4,14 @@
   <div class="row">
     <div class="col-lg-4 mx-auto">
       <img class="img-fluid d-block mx-auto" src="{{ book.book_cover }}" alt="Book Cover">
-      <div class="mt-2">
+      <div class="mt-2 ml-2">
         <form method="POST" action="" novalidate="novalidate">
           {% if current_user.is_authenticated %}
           <div class="form-group">
             {{ form.lists (class='btn btn-info dropdown-toggle') }}
           </div>
           <div class="form-group">
-            <a href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
+            <a class="badge badge-warning" href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
           </div>
           <div class="form-group">
             {{ form.submit(class="btn btn-warning btn-block") }}
@@ -23,17 +23,20 @@
     <div class="col-lg-8 ">
       <h2 class="text-uppercase">{{ book.title }}</h2>
       <hr> By author :{% for author_list in book.authors %}
-      <p class="list-inline">By author : <a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p> {% endfor %}
-      <p class="list-inline">Publisher : <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a></p>
-      <p>Category : <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a>
+      <p class="list-inline mb-0"><a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p>
+      {% endfor %}
+      <p class="list-inline mb-0">Publisher : <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a></p>
+      <p class="list-inline mb-0">Category : <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a>
       </p>
-      <p class="list-inline">Publication date : {{ book.year }}
-        </p>
-          <p class="list-inline">{{ book.description }}</p>
+      <p class="list-inline ">Publication date : {{ book.year }}
+      </p>
+      <p class="list-inline">{{ book.description }}</p>
+      <div class="float-right">
+        <a class="btn btn-info btn-sm m-1" href="{{ url_for('books.edit_book', book_isbn=book.isbn) }}">Edit</a>
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> {% endif %}
+      </div>
     </div>
   </div>
-  <a class="btn btn-info btn-sm m-1" href="{{ url_for('books.edit_book', book_isbn=book.isbn) }}">Edit</a>
-  <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> {% endif %}
 </div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
