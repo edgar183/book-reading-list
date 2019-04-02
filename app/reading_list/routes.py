@@ -11,6 +11,13 @@ from app.reading_list.forms import Add_Readinglist
 
 readinglists = Blueprint('readinglists', __name__, url_prefix='/reading_list')
 
+# list of all reading lists
+@readinglists.route('/readinglist', methods=['GET','POST'])
+@login_required
+def all_lists():
+    reading_list = Lists.query.filter_by(UserId=current_user.id).all()
+    return render_template('reading_list/reading_lists.html', title=current_user.name, reading_list=reading_list)
+    
 # add new readin list to database
 @readinglists.route('/readinglist/add', methods=['GET','POST'])
 @login_required
@@ -27,7 +34,7 @@ def add_readinglist():
 # individual reading list route with all books in the list
 @readinglists.route('/readinglist/<int:list_id>')
 @login_required
-def reading_list(list_id):
+def one_list(list_id):
     reading_list = Lists.query.get_or_404(list_id)
     return render_template('reading_list/reading_list.html', title=reading_list.ListName, reading_list=reading_list)
     
