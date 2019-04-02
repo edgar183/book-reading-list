@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<div>
+    <div class="form-group">
+            <a class="badge badge-warning" href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
+          </div>
+  <hr>
+  <h2>Reading Lists</h2>
+  {% for my_list in reading_list %}
+<div>
+  <p>{{ my_list.id }}</p> 
+  <a class="article-title" href="{{ url_for('readinglists.one_list', list_id=my_list.id) }}">{{ my_list.ListName }}</a> 
+    <hr>
+</div>
+    {% endfor %}
+    
+</div>
+</div>
+{% endblock content %}
