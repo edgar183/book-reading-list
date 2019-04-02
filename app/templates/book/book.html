@@ -1,12 +1,12 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 <div class="container mt-3 mb-2 pt-5 pb-2 bg-light">
-  {% if current_user.is_authenticated %}
   <div class="row">
     <div class="col-lg-4 mx-auto">
       <img class="img-fluid d-block mx-auto" src="{{ book.book_cover }}" alt="Book Cover">
+       {% if current_user.is_authenticated %}
       <div class="mt-2 ml-2">
         <form method="POST" action="" novalidate="novalidate">
-          {% if current_user.is_authenticated %}
           <div class="form-group">
             {{ form.lists (class='btn btn-info dropdown-toggle') }}
           </div>
@@ -16,9 +16,9 @@
           <div class="form-group">
             {{ form.submit(class="btn btn-warning btn-block") }}
           </div>
-          {% endif %}
         </form>
       </div>
+       {% endif %}
     </div>
     <div class="col-lg-8 ">
       <h2 class="text-uppercase">{{ book.title }}</h2>
@@ -31,9 +31,11 @@
       <p class="list-inline ">Publication date : {{ book.year }}
       </p>
       <p class="list-inline">{{ book.description }}</p>
+       {% if current_user.is_authenticated %}
       <div class="float-right">
         <a class="btn btn-info btn-sm m-1" href="{{ url_for('books.edit_book', book_isbn=book.isbn) }}">Edit</a>
-        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> {% endif %}
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> 
+        {% endif %}
       </div>
     </div>
   </div>
