@@ -12,11 +12,10 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'> 
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/agency.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css">
-    {% if title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css"> {% if title %}
     <title>{{ title }}</title>
     {% else %}
     <title>Book Rading List</title>
@@ -24,7 +23,7 @@
 </head id="page-top">
 
 <body class="content-wraper">
-    
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
@@ -39,20 +38,19 @@
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{{ url_for('books.add_book') }}">New Book</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ url_for('publishers.all_publishers') }}">Publishers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ url_for('categories.all_categories') }}">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ url_for('authors.all_author') }}">Authors</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit</a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('publishers.all_publishers') }}">Publishers</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('categories.all_categories') }}">Categories</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ url_for('authors.all_author') }}">Authors</a>
+                        </div>
                     </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav text-uppercase ml-auto ">
                     {% if current_user.is_authenticated %}
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{{ url_for('readinglists.all_lists') }}">My Reading Lists</a>
                     </li>
                     <li class="nav-item">
@@ -78,68 +76,61 @@
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">
-                    {% if title %} 
-                    {{ title }} 
-                    {% else %} 
-                    Welcome To 
-                    </div>
-                <div class="intro-heading text-uppercase">Book Reading List 
-                {% endif %}</div>
+                    {% if title %} {{ title }} {% else %} Welcome To
+                </div>
+                <div class="intro-heading text-uppercase">Book Reading List {% endif %}</div>
             </div>
         </div>
     </header>
 
-    {% with messages = get_flashed_messages(with_categories=true) %} 
-    {% if messages %} 
-    {% for category, message in messages %}
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
     <div class="alert alert-{{ category }}">
         {{ message }}
     </div>
-    {% endfor %} 
-    {% endif %}
-    {% endwith %} 
+    {% endfor %} {% endif %} {% endwith %} 
     {% block content %} 
-    {% endblock content %}
- {% block footer %}  <!-- Footer -->
-  <footer>
-    <div class="container bg-light mt-3 p-2">
-      <div class="row">
-        <div class="col-md-4">
-          <span class="copyright">Copyright &copy; edd183 Website 2019</span>
-        </div>
-        <div class="col-md-4">
-          <ul class="list-inline social-buttons">
-            <li class="list-inline-item">
-              <a href="https://github.com/edgar183" target="_blank">
+    {% endblock content %} 
+    {% block footer %}
+    <!-- Footer -->
+    <footer>
+        <div class="container bg-light mt-3 p-2">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; edd183 Website 2019</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="https://github.com/edgar183" target="_blank">
                 <i class="fab fa-github"></i>
               </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="mailto:edgars.peskaitis@gmail.com">
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="mailto:edgars.peskaitis@gmail.com">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
               </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://www.linkedin.com/in/edgars-peskaitis-6b44655a/" target="_blank">
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/edgars-peskaitis-6b44655a/" target="_blank">
                 <i class="fab fa-linkedin-in"></i>
               </a>
-            </li>
-          </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-          
-        </div>
-      </div>
-    </div>
-  </footer>
-  {% endblock %}
+    </footer>
+    {% endblock %}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <!-- Custom scripts for this template -->
     <script src="{{ url_for('static', filename='js/agency.min.js') }}"></script>
-   
+
 </body>
 
 </html>
