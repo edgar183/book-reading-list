@@ -12,3 +12,5 @@ def index():
     books = Book.query.order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
     return render_template('index.html',books=books)
     
+
+    
