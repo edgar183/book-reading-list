@@ -6,7 +6,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_required, current_user
 from app import  db
-from app.models import Book, Publisher, Category, Author, Lists
+from app.models import *
 from app.book.forms import Add_Book, Add_book_to_readinglit
 
 books = Blueprint('books', __name__, url_prefix='/book')
@@ -25,7 +25,6 @@ def add_book():
     form.author.choices = [(a.AuthorId, a.full_name) for a in all_authors]
     if form.validate_on_submit():
         book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=form.publisher.data, category_id=form.category.data)
-        #author.writer.append(book)
         db.session.add(book)
         db.session.commit()
         flash('New Book has been added!', 'success')
@@ -37,18 +36,28 @@ def add_book():
 @books.route('/book/<int:book_isbn>', methods=['GET','POST'])
 def book(book_isbn):
     book = Book.query.get_or_404(book_isbn)
+    
     if current_user.is_authenticated:
         all_readinglits = Lists.query.filter_by(UserId=current_user.id).all()
         readinglists = [(l.id, l.ListName) for l in all_readinglits]
         form = Add_book_to_readinglit()
         # passing all lists to form
         form.lists.choices = readinglists
-        print('*** lists *** %s' % readinglists)
-        lists = form.lists.data
-        print('*** lists in form *** %s' % lists)
+        
         if form.validate_on_submit():
-            book.books.append(lists)
-            db.session.commit()
+            print('***book object %s' % book.title)
+            # user selected reading list
+            lists = form.lists.data
+            # get a list object from db
+            user_selected_list = Lists.query.filter_by(id=lists).first()
+            print('*** selected list object from form *** %s' % user_selected_list)
+            # book_in_readinglist = book_reading.insert().values(isbn=book.isbn, id=lists)
+            # db.session.execute(book_in_readinglist)
+            # db.session.commit()
+            book.books.append(user_selected_list)
+            #user_selected_list.books_in_list.append(book)
+            db.session.add(user_selected_list)
+            
             flash('New Book has been added to list!', 'success')
             return redirect(url_for('main.index'))
         return render_template('book/book.html', title=book.title, book=book, form=form)
