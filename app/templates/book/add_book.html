@@ -1,5 +1,4 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container bg-light mt-3 mb-2 pb-2">
     <div class="form-handler">
         <form class="text-left border border-light p-5" method="POST" action="" novalidate>
@@ -9,8 +8,7 @@
                 <p class="item-intro text-muted text-center">Please add book cover full link address.</p>
                 <!-- Book Title -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
-                    {{ form.title.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span> {{ form.title.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.title.errors %} {{ form.title(class="form-control form-control-lg is-invalid") }}
                     </div>
@@ -24,8 +22,7 @@
                 </div>
                 <!-- Year Published -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-calendar " aria-hidden="true"></i></span>
-                    {{ form.year.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-calendar " aria-hidden="true"></i></span> {{ form.year.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.year.errors %} {{ form.year(class="form-control form-control-lg is-invalid") }}
                     </div>
@@ -39,8 +36,7 @@
                 </div>
                 <!-- Book cover URL -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-file-image-o  " aria-hidden="true"></i></span>
-                    {{ form.book_cover.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-file-image-o  " aria-hidden="true"></i></span> {{ form.book_cover.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.book_cover.errors %} {{ form.book_cover(class="form-control form-control-lg is-invalid") }}
                     </div>
@@ -54,8 +50,7 @@
                 </div>
                 <!-- Book description -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-file-text " aria-hidden="true"></i></span>
-                    {{ form.description.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-file-text " aria-hidden="true"></i></span> {{ form.description.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.description.errors %} {{ form.description(class="form-control form-control-lg is-invalid") }}
                     </div>
@@ -69,17 +64,15 @@
                 </div>
                 <!-- Categories -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-archive " aria-hidden="true"></i></span>
-                    {{ form.category.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-archive " aria-hidden="true"></i></span> {{ form.category.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {{ form.category (class="browser-default custom-select mb-4") }}
-                        <span class="input-group"><a class="badge badge-warning" href="{{ url_for('categories.add_category') }}">New Category</a></span>
+                        <span class="input-group"><a class="badge badge-warning" href="#categoryModal" data-toggle="modal" data-remote= "{{ url_for('categories.add_category') }}" data-target="#categoryModal">New Category</a></span>
                     </div>
                 </div>
                 <!-- Publishers -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-print" aria-hidden="true"></i></span>
-                    {{ form.publisher.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form.publisher.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {{ form.publisher (class="browser-default custom-select mb-4")}}
                         <span class="input-group "><a class="badge badge-warning" href="{{ url_for('publishers.add_publisher') }}">New Publisher</a> </span>
@@ -87,8 +80,7 @@
                 </div>
                 <!-- Authors -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                    {{ form.author.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form.author.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {{ form.author (class="browser-default custom-select mb-4")}}
                         <span class="input-group"><a class="badge badge-warning" href="{{ url_for('authors.add_author') }}">New Author</a></span>
@@ -101,7 +93,30 @@
             </div>
         </form>
     </div>
+    <!-- Modal -->
+    <div id="categoryModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="mb-4 text-center">{{ legend }}</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    ... remote content from "data-remote" loads here ...
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-primary btn-block") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock  %}
-{% block footer %}
-{% endblock %}
+<script type="text/javascript">
+    $('body').on('click', '[data-toggle="modal"]', function() {
+        $($(this).data("target") + ' .modal-body').load($(this).data("remote"));
+    });
+</script>
+{% endblock %} {% block footer %} {{ super() }} {% endblock %}
