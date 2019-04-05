@@ -13,6 +13,7 @@ categories = Blueprint('categories', __name__, url_prefix='/category')
 
 # display list of categories
 @categories.route('/categories')
+@login_required
 def all_categories():
     categories = Category.query.all()
     return render_template('category/categories.html', all_categories=categories, title='Categories')
