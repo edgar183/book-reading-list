@@ -8,7 +8,7 @@
   </div>
   <div class="form-group">
     <p>
-      <h3> Books : </h3>
+      <h3 class="mb-4 pt-2 text-center"> Books : </h3>
       {% for books in reading_list.books_in_list %}
       <pre class="bg-warning"><a class="btn btn-danger mr-1 btn-sm " href="{{ url_for('readinglists.one_list', list_id=reading_list.id) }}"><i class="fa fa-minus" aria-hidden="true"></i>
 </a>{{ books.title }}</pre> {% endfor %}
