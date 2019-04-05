@@ -28,7 +28,7 @@ def add_readinglist():
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
-        return redirect(url_for('users.account'))
+        return redirect(url_for('readinglists.all_lists'))
     return render_template('reading_list/add_readinglist.html', title='New Reading List', form=form, legend='Add New Reading List')   
 
 # individual reading list route with all books in the list
@@ -48,7 +48,7 @@ def edit_list(list_id):
         reading_list.ListName = form.ListName.data
         db.session.commit()
         flash('The list name has been updated!', 'success')
-        return redirect(url_for('users.account', list_id=reading_list.id))
+        return redirect(url_for('readinglists.all_lists', list_id=reading_list.id))
     elif request.method == 'GET': 
         form.ListName.data = reading_list.ListName
     return render_template('reading_list/add_readinglist.html', title='Edit Reading Lits', form=form, legend='Edit List Name')
@@ -61,5 +61,5 @@ def delete_list(list_id):
     db.session.delete(reading_list)
     db.session.commit()
     flash('The list has been deleted!', 'success')
-    return redirect(url_for('users.account'))
+    return redirect(url_for('readinglists.all_lists'))
     
