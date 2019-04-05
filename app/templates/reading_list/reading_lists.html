@@ -1,18 +1,40 @@
 {% extends "base.html" %} {% block content %}
-<div>
-    <div class="form-group">
-            <a class="badge badge-warning" href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
+<div class="container bg-light mt-3 mb-2 pb-2">
+  <div class="form-group">
+    <a class="btn btn-success mt-2 float-right" href="{{ url_for('readinglists.add_readinglist') }}"><i class="fa fa-plus" aria-hidden="true"></i>
+</a>
+  </div>
+  <div class="form-group">
+    <h2 class="mb-4 pt-4 text-center">Reading Lists</h2>
+    {% for my_list in reading_list %}
+    <div>
+      <a class="btn btn-info btn-sm m-1" href="{{ url_for('readinglists.edit_list', list_id=my_list.id) }}"><i class="fa fa-pencil-square-o " aria-hidden="true"></i>
+</a>
+      <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash" aria-hidden="true"></i>
+</button>
+      <a class="article-title font-weight-bold ml-3" href="{{ url_for('readinglists.one_list', list_id=my_list.id) }}">{{ my_list.ListName }}</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title label label-default" id="deleteModalLabel">Delete Reading List?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
           </div>
-  <hr>
-  <h2>Reading Lists</h2>
-  {% for my_list in reading_list %}
-<div>
-  <p>{{ my_list.id }}</p> 
-  <a class="article-title" href="{{ url_for('readinglists.one_list', list_id=my_list.id) }}">{{ my_list.ListName }}</a> 
-    <hr>
-</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form action="{{ url_for('readinglists.delete_list',  list_id=my_list.id) }}" method="POST">
+              <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     {% endfor %}
-    
+  </div>
 </div>
-</div>
+
 {% endblock content %}
