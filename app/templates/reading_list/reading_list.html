@@ -1,19 +1,21 @@
 {% extends "base.html" %} {% block content %}
-<div>
-    <a class="btn btn-default " href="{{ url_for('readinglists.edit_list', list_id=reading_list.id) }}">Edit</a>
-    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-    <br>
-    <h2>{{ reading_list.ListName }}</h2>
-     <p>
-           <h3> Books : </h3>
-        {% for books in reading_list.books_in_list %}
-            <pre>{{ books.title }}</pre>
-        {% endfor %}
-        </p>
-        </p>
-    
-</div>
- <!-- Modal -->
+<div class="container bg-light mt-3 mb-2 pb-2">
+  <div class="form-group">
+    <a class="btn btn-success mt-2 btn-sm float-right" href="{{ url_for('readinglists.add_readinglist') }}"><i class="fa fa-plus" aria-hidden="true"></i>
+</a>
+    <button type="button" class="btn btn-danger btn-sm mt-2" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash" aria-hidden="true"></i>
+</button>
+  </div>
+  <div class="form-group">
+    <h2 class="mb-2 text-center">{{ reading_list.ListName }}</h2>
+    <p>
+      <h3> Books : </h3>
+      {% for books in reading_list.books_in_list %}
+      <pre class="bg-warning"><a class="btn btn-danger mr-1 btn-sm " href="{{ url_for('readinglists.add_readinglist') }}"><i class="fa fa-minus" aria-hidden="true"></i>
+</a>{{ books.title }}</pre> {% endfor %}
+    </p>
+  </div>
+  <!-- Modal -->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -31,5 +33,6 @@
         </div>
       </div>
     </div>
+  </div>
 </div>
 {% endblock content %}
