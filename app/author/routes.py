@@ -13,6 +13,7 @@ authors = Blueprint('authors', __name__, url_prefix='/author')
 
 # display list of authors
 @authors.route('/authors')
+@login_required
 def all_author():
     authors = Author.query.all()
     return render_template('author/authors.html', authors=authors, title='Authors')
