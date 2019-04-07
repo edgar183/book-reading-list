@@ -23,9 +23,12 @@ def add_book():
     form.publisher.choices = [(p.PublisherId, p.Name) for p in all_publishers]
     form.category.choices = [(c.CategoryId, c.Name) for c in all_categories]
     form.author.choices = [(a.AuthorId, a.full_name) for a in all_authors]
+    author = form.author.data
+    book_author = Author.query.filter_by(AuthorId=author).first()
     if form.validate_on_submit():
         book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=form.publisher.data, category_id=form.category.data)
         db.session.add(book)
+        book_author.writer.append(book)
         db.session.commit()
         flash('New Book has been added!', 'success')
         return redirect(url_for('main.index'))
@@ -36,28 +39,21 @@ def add_book():
 @books.route('/book/<int:book_isbn>', methods=['GET','POST'])
 def book(book_isbn):
     book = Book.query.get_or_404(book_isbn)
-    
     if current_user.is_authenticated:
-        all_readinglits = Lists.query.filter_by(UserId=current_user.id).all()
-        readinglists = [(l.id, l.ListName) for l in all_readinglits]
         form = Add_book_to_readinglit()
+        all_readinglits = Lists.query.filter_by(UserId=current_user.id).all()
         # passing all lists to form
-        form.lists.choices = readinglists
-        
+        form.lists.choices = [(l.id, l.ListName) for l in all_readinglits]
+        print('*** book object %s' % book)
+        # user selected reading list
+        lists = form.lists.data
+        # get a list object from db
+        user_selected_list = Lists.query.filter_by(id=lists).first()
+        print('*** selected list object from form *** %s' % user_selected_list)
         if form.validate_on_submit():
-            print('***book object %s' % book.title)
-            # user selected reading list
-            lists = form.lists.data
-            # get a list object from db
-            user_selected_list = Lists.query.filter_by(id=lists).first()
-            print('*** selected list object from form *** %s' % user_selected_list)
-            # book_in_readinglist = book_reading.insert().values(isbn=book.isbn, id=lists)
-            # db.session.execute(book_in_readinglist)
-            # db.session.commit()
+            print('*** submit form if called ***')
             book.books.append(user_selected_list)
-            #user_selected_list.books_in_list.append(book)
-            db.session.add(user_selected_list)
-            
+            db.session.commit()
             flash('New Book has been added to list!', 'success')
             return redirect(url_for('main.index'))
         return render_template('book/book.html', title=book.title, book=book, form=form)
