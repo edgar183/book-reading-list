@@ -1,26 +1,5 @@
 {% extends "base.html" %} {% block content %}
 <div class="container bg-light mt-3 mb-1 pt-2 pb-1">
    <h1>The Category - <em>{{ category.Name }}</em> <sup>{{ books.total}}</sup></h1>
-  <div class="row">
-    {% for book in books.items %}
-    <div class="col-md-4 col-sm-6 pt-2 mb-2 pb-1 border-right border-bottom border-dark">
-      <a class="portfolio-link" href="{{ url_for('books.book', book_isbn=book.isbn) }}">
-          <img class="img-fluid border border-dark" src="{{ book.book_cover }}" alt="Book {{ book.title }} Cover">
-        
-        <div class="portfolio-caption pt-2">
-          <h4>{{ book.title }}</h4>
-          </a>
-      <hr> By author :{% for author_list in book.authors %}
-      <p class="list-inline mb-0"><a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p> {% endfor %}
-      <p class="list-inline mb-0">Publisher : <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a></p>
-      <p class="list-inline mb-0">Category : <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a>
-      </p>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-{% for page_num in books.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %} {% if page_num %} {% if books.page == page_num %}
-<a class="btn btn-info mb-4" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a> {% else %}
-<a class="btn btn-outline-info mb-4" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a> {% endif %} {% else %} ... {% endif %} {% endfor %}
-</div>
+  {% include "_books.html" %}
 {% endblock content %}
