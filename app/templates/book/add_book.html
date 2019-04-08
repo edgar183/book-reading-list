@@ -11,12 +11,12 @@
                     <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span> {{ form.title.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.title.errors %} {{ form.title(class="form-control form-control-lg is-invalid") }}
-                    </div>
-                    <div class="invalid-feedback">
-                        {% for error in form.title.errors %}
-                        <span class="text-danger">
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                            <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
+                        </div>
                     </div>
                     {% else %} {{ form.title(class="form-control mb-4") }} {% endif %}
                 </div>
@@ -25,12 +25,13 @@
                     <span class="input-group-addon"><i class="fa fa-calendar " aria-hidden="true"></i></span> {{ form.year.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.year.errors %} {{ form.year(class="form-control form-control-lg is-invalid") }}
-                    </div>
-                    <div class="invalid-feedback">
-                        {% for error in form.year.errors %}
-                        <span class="text-danger">
+
+                        <div class="invalid-feedback">
+                            {% for error in form.year.errors %}
+                            <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
+                        </div>
                     </div>
                     {% else %} {{ form.year(class="form-control mb-4") }} {% endif %}
                 </div>
@@ -39,12 +40,12 @@
                     <span class="input-group-addon"><i class="fa fa-file-image-o  " aria-hidden="true"></i></span> {{ form.book_cover.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.book_cover.errors %} {{ form.book_cover(class="form-control form-control-lg is-invalid") }}
-                    </div>
-                    <div class="invalid-feedback">
-                        {% for error in form.book_cover.errors %}
-                        <span class="text-danger">
+                        <div class="invalid-feedback">
+                            {% for error in form.book_cover.errors %}
+                            <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
+                        </div>
                     </div>
                     {% else %} {{ form.book_cover(class="form-control mb-4") }} {% endif %}
                 </div>
@@ -53,12 +54,12 @@
                     <span class="input-group-addon"><i class="fa fa-file-text " aria-hidden="true"></i></span> {{ form.description.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {% if form.description.errors %} {{ form.description(class="form-control form-control-lg is-invalid") }}
-                    </div>
-                    <div class="invalid-feedback">
-                        {% for error in form.description.errors %}
-                        <span class="text-danger">
+                        <div class="invalid-feedback">
+                            {% for error in form.description.errors %}
+                            <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
+                        </div>
                     </div>
                     {% else %} {{ form.description(class="form-control mb-4") }} {% endif %}
                 </div>
