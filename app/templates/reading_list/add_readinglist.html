@@ -11,12 +11,12 @@
                     {{ form.ListName.label(class="form-control-label") }}
                     <div class="input-group">
                         {% if form.ListName.errors %} {{ form.ListName(class="form-control form-control-lg is-invalid") }}
-                    </div>
                     <div class="invalid-feedback">
                         {% for error in form.ListName.errors %}
                         <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
+                    </div>
                     </div>
                     {% else %} {{ form.ListName(class="form-control mb-4") }} {% endif %}
                 </div>
