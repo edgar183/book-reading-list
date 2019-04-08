@@ -10,6 +10,7 @@
       <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash" aria-hidden="true"></i></button>
       <a class="article-title font-weight-bold ml-3" href="{{ url_for('authors.single_author', author_id=author.AuthorId) }}">{{ author.full_name }}</a>
     </div>
+   
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
