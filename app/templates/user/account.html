@@ -24,11 +24,11 @@
                             <span class="input-group-addon"><i class="fa fa-user"></i></span> {{ form.name.label(class="form-control-label" ) }}
                             <div class="input-group">
                                 {% if form.name.errors %} {{ form.name(class="form-control form-control-lg is-invalid" ) }}
-                            </div>
-                            <div class="invalid-feedback">
-                                {% for error in form.name.errors %}
-                                <span class="text-danger"> 
+                                <div class="invalid-feedback">
+                                    {% for error in form.name.errors %}
+                                    <span class="text-danger"> 
                     {{ error }}</span> {% endfor %}
+                                </div>
                             </div>
                             {% else %} {{ form.name(class="form-control mb-4") }} {% endif %}
                         </div>
@@ -36,11 +36,12 @@
                             <span class="input-group-addon"><i class="fa fa-id-badge"></i></span> {{ form.username.label(class="form-control-label") }}
                             <div class="input-group">
                                 {% if form.username.errors %} {{ form.username(class="form-control form-control-lg is-invalid ") }}
-                            </div>
-                            <div class="invalid-feedback">
-                                {% for error in form.username.errors %}
-                                <span class="text-danger"> 
+
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                    <span class="text-danger"> 
                     {{ error }}</span> {% endfor %}
+                                </div>
                             </div>
                             {% else %} {{ form.username(class="form-control mb-4") }} {% endif %}
                         </div>
@@ -54,4 +55,3 @@
     </div>
 </div>
 {% endblock content %}
-
