@@ -37,7 +37,7 @@ def book(book_isbn):
         form = Add_book_to_readinglit()
         selected_list = form.lists.data
         print('*** selected list object *** %s *** and book %s' % (selected_list, book))
-        if form.validate_on_submit():
+        if request.method == 'POST':
             book.books.append(selected_list)
             db.session.commit()
             flash('New Book has been added to list!', 'success')
