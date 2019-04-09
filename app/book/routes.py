@@ -36,7 +36,6 @@ def book(book_isbn):
     if current_user.is_authenticated:
         form = Add_book_to_readinglit()
         selected_list = form.lists.data
-        print('*** selected list object *** %s *** and book %s' % (selected_list, book))
         if request.method == 'POST':
             book.books.append(selected_list)
             db.session.commit()
