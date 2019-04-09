@@ -63,3 +63,14 @@ def delete_list(list_id):
     flash('The list has been deleted!', 'success')
     return redirect(url_for('readinglists.all_lists'))
     
+# delete book from rading list
+@readinglists.route('/readinglist/<int:list_id>', methods=['POST'])
+@login_required
+def delete_book(list_id, book_id):
+    reading_list = Lists.query.filter_by(id=list_id).first()
+    book = Book.query.filter_by(isbn=book_id).first()
+    book_reading = book_reading.query.filter_by(isbn=book, id=reading_list).first()
+    db.session.delete(book_reading)
+    db.session.commit()
+    flash('The book has been deleted!', 'success')
+    return redirect(url_for('readinglists.one_list'))
