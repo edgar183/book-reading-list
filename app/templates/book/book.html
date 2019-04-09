@@ -23,7 +23,7 @@
     <div class="col-lg-8 ">
       <h2 class="text-uppercase">{{ book.title }}</h2>
       <hr> {% for author_list in book.authors %}
-      <p class="list-inline mb-0">By author :<a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p>
+      <p class="list-inline mb-0">By author : <a class="mr-2" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p>
       {% endfor %}
       <p class="list-inline mb-0">Publisher : <a class="mr-2" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a></p>
       <p class="list-inline mb-0">Category : <a class="mr-2" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a>
