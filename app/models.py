@@ -33,7 +33,7 @@ class Author(db.Model):
 class Publisher(db.Model):
     PublisherId = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(255), nullable=False, unique=True)
-    book = db.relationship('Book', backref='publisher', lazy='dynamic')
+    
     
     
         
@@ -41,7 +41,7 @@ class Publisher(db.Model):
 class Category(db.Model):
     CategoryId = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(255), nullable=False, unique=True)
-    book = db.relationship('Book', backref='category', lazy='dynamic')
+    
     
     
         
@@ -54,7 +54,10 @@ class Book(db.Model):
     description = db.Column(db.Text, nullable=False)
     publisher_id= db.Column(db.Integer, db.ForeignKey('publisher.PublisherId'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.CategoryId'), nullable=False)
+    
     authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy='dynamic'))
+    category = db.relationship('Category', backref=db.backref('books', lazy='dynamic'))
+    publisher = db.relationship('Publisher', backref=db.backref('books', lazy='dynamic'))
     
    
     
