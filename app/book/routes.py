@@ -15,20 +15,14 @@ books = Blueprint('books', __name__, url_prefix='/book')
 @books.route('/book/add', methods=['GET','POST'])
 @login_required
 def add_book():
-    all_publishers = Publisher.query.all()
-    all_categories = Category.query.all()
-    all_authors = Author.query.all()
     form = Add_Book()
-    # passing all lists to form
-    form.publisher.choices = [(0,"Select Publisher Name")]+[(p.PublisherId, p.Name) for p in all_publishers]
-    form.category.choices = [(0,"Select Category Name")]+[(c.CategoryId, c.Name) for c in all_categories]
-    form.author.choices = [(0,"Select Author Name")]+[(a.AuthorId, a.full_name) for a in all_authors]
     author = form.author.data
-    book_author = Author.query.filter_by(AuthorId=author).first()
+    publisher = form.publisher.data
+    category = form.category.data
     if form.validate_on_submit():
-        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=form.publisher.data, category_id=form.category.data)
+        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=publisher.PublisherId, category_id=category.CategoryId)
         db.session.add(book)
-        book_author.writer.append(book)
+        author.writer.append(book)
         db.session.commit()
         flash('New Book has been added!', 'success')
         return redirect(url_for('main.index'))
@@ -41,18 +35,10 @@ def book(book_isbn):
     book = Book.query.get_or_404(book_isbn)
     if current_user.is_authenticated:
         form = Add_book_to_readinglit()
-        all_readinglits = Lists.query.filter_by(UserId=current_user.id).all()
-        # passing all lists to form
-        form.lists.choices = [(l.id, l.ListName) for l in all_readinglits]
-        print('*** book object %s' % book)
-        # user selected reading list
-        lists = form.lists.data
-        # get a list object from db
-        user_selected_list = Lists.query.filter_by(id=lists).first()
-        print('*** selected list object from form *** %s' % user_selected_list)
+        selected_list = form.lists.data
+        print('*** selected list object *** %s *** and book %s' % (selected_list, book))
         if form.validate_on_submit():
-            print('*** submit form if called ***')
-            book.books.append(user_selected_list)
+            book.books.append(selected_list)
             db.session.commit()
             flash('New Book has been added to list!', 'success')
             return redirect(url_for('main.index'))
