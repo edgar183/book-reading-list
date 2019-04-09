@@ -10,7 +10,7 @@
     <p>
       <h3 class="mb-4 pt-2 text-center"> Books : </h3>
       {% for book in reading_list.books_in_list %}
-      <pre class="bg-warning" ><a class="btn btn-danger mr-1 btn-sm " href="{{ url_for('readinglists.one_list', list_id=reading_list.id) }}"><i class="fa fa-minus" aria-hidden="true"></i></a><a class="text-dark" href="{{ url_for('books.book', book_isbn=book.isbn) }}">{{ book.title }}</a></pre> {% endfor %}
+      <pre class="bg-warning"><a class="btn btn-danger mr-1 btn-sm " href="{{ url_for('readinglists.delete_book',  list_id=reading_list.id, book_id=book.isbn) }}"><i class="fa fa-minus" aria-hidden="true"></i></a><a class="text-dark" href="{{ url_for('books.book', book_isbn=book.isbn) }}">{{ book.title }}</a></pre> {% endfor %}
     </p>
   </div>
   <!-- Modal -->
