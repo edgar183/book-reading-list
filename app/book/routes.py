@@ -20,9 +20,9 @@ def add_book():
     all_authors = Author.query.all()
     form = Add_Book()
     # passing all lists to form
-    form.publisher.choices = [(p.PublisherId, p.Name) for p in all_publishers]
-    form.category.choices = [(c.CategoryId, c.Name) for c in all_categories]
-    form.author.choices = [(a.AuthorId, a.full_name) for a in all_authors]
+    form.publisher.choices = [(0,"Select Publisher Name")]+[(p.PublisherId, p.Name) for p in all_publishers]
+    form.category.choices = [(0,"Select Category Name")]+[(c.CategoryId, c.Name) for c in all_categories]
+    form.author.choices = [(0,"Select Author Name")]+[(a.AuthorId, a.full_name) for a in all_authors]
     author = form.author.data
     book_author = Author.query.filter_by(AuthorId=author).first()
     if form.validate_on_submit():
@@ -70,7 +70,7 @@ def edit_book(book_isbn):
         book.year = form.year.data
         book.book_cover = form.book_cover.data
         book.description = form.description.data
-        book.category_id = form.category.data
+        book.publisher_id = form.publisher.data
         book.category_id = form.category.data
         db.session.commit()
         flash('The book detailes has been edited!', 'success')
@@ -82,6 +82,7 @@ def edit_book(book_isbn):
         form.description.data = book.description
         form.publisher.data = book.publisher
         form.category.data = book.category
+        form.author.data = book.authors
     return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book')
     
 # delete book from database
