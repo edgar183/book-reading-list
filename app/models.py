@@ -27,24 +27,17 @@ book_reading = db.Table('book_reading',
 class Author(db.Model):
     AuthorId = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(255), nullable=False, unique=True)
-    
-    
+
 # Publisger Class/Model
 class Publisher(db.Model):
     PublisherId = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(255), nullable=False, unique=True)
-    
-    
-    
-        
+
 # Category Class/Model
 class Category(db.Model):
     CategoryId = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(255), nullable=False, unique=True)
-    
-    
-    
-        
+
 # Book Class/Model
 class Book(db.Model):
     isbn = db.Column(db.Integer, primary_key=True)
@@ -58,9 +51,7 @@ class Book(db.Model):
     authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy='dynamic'))
     category = db.relationship('Category', backref=db.backref('books', lazy='dynamic'))
     publisher = db.relationship('Publisher', backref=db.backref('books', lazy='dynamic'))
-    
-   
-    
+
 # User Class/Model
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -68,8 +59,6 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     reading_list = db.relationship('Lists', backref='user', lazy='dynamic')
-        
-    
 
 #Rading List Class/Model
 class Lists(db.Model):
