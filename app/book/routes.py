@@ -60,6 +60,8 @@ def edit_book(book_isbn):
         book.publisher_id = publisher.PublisherId
         category = form.category.data
         book.category_id = category.CategoryId
+        #author = form.author.data
+        #book.authors = author.AuthorId
         db.session.commit()
         flash('The book detailes has been edited!', 'success')
         return redirect(url_for('books.book', book_isbn=book.isbn))
@@ -70,7 +72,9 @@ def edit_book(book_isbn):
         form.description.data = book.description
         form.publisher.data = book.publisher
         form.category.data = book.category
-        form.author.data = book.authors
+        for author in book.authors:
+            book_author=author.full_name
+        form.author.data = book_author
     return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book')
     
 # delete book from database
