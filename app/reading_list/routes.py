@@ -6,7 +6,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_required, current_user
 from app import  db
-from app.models import Lists
+from app.models import Lists, Book
 from app.reading_list.forms import Add_Readinglist
 
 readinglists = Blueprint('readinglists', __name__, url_prefix='/reading_list')
@@ -64,9 +64,9 @@ def delete_list(list_id):
     return redirect(url_for('readinglists.all_lists'))
     
 # delete book from rading list
-@readinglists.route('/readinglist/<int:list_id>/delete', methods=['POST'])
+@readinglists.route('/readinglist/<int:list_id>/delete_book/<int:book_id>', methods=['GET','POST'])
 @login_required
-def delete_book(list_id, book_id):
+def delete_book_in_list(list_id, book_id):
     reading_list = Lists.query.filter_by(id=list_id).first()
     book = Book.query.filter_by(isbn=book_id).first()
     print(book.title)
@@ -74,4 +74,4 @@ def delete_book(list_id, book_id):
     #myparent.children.remove(somechild)
     db.session.commit()
     flash('The book has been deleted!', 'success')
-    return redirect(url_for('readinglists.one_list'))
+    return redirect(url_for('readinglists.one_list', list_id=list_id))
