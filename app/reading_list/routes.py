@@ -31,7 +31,7 @@ def add_readinglist():
         return redirect(url_for('readinglists.all_lists'))
     return render_template('reading_list/add_readinglist.html', title='New Reading List', form=form, legend='Add New Reading List')   
 
-# individual reading list route with all books in the list
+# individual reading list with all books in the list
 @readinglists.route('/readinglist/<int:list_id>')
 @login_required
 def one_list(list_id):
