@@ -17,13 +17,6 @@ categories = Blueprint('categories', __name__, url_prefix='/category')
 def all_categories():
     categories = Category.query.all()
     return render_template('category/categories.html', all_categories=categories, title='Categories')
-    
-# individual category route
-@categories.route('/categories/<int:category_id>')
-@login_required
-def one_category(category_id):
-    category = Category.query.get_or_404(category_id)
-    return render_template('category/category.html', title=category.Name, category=category)
 
 # add category     
 @categories.route('/categories/add', methods=['GET','POST'])
