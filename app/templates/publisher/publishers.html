@@ -8,7 +8,7 @@
     <div class="pt-1">
       <a class="btn btn-info btn-sm m-1 " href="{{ url_for('publishers.edit_publisher', publisher_id=publisher.PublisherId) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       <a class="btn btn-danger btn-sm m-1 " href="{{ url_for('publishers.delete_publisher', publisher_id=publisher.PublisherId) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      <a class="article-title font-weight-bold ml-3" href="{{ url_for('publishers.publisher', publisher_id=publisher.PublisherId) }}">{{ publisher.Name }}</a>
+      <a class="article-title font-weight-bold ml-3" href="{{ url_for('publishers.publisher_books', Name=publisher.Name) }}">{{ publisher.Name }}</a>
     </div>
 
     {% endfor %}
