@@ -8,7 +8,7 @@
     <div class="pt-1">
       <a class="btn btn-info btn-sm m-1" href="{{ url_for('categories.edit_category', category_id=category.CategoryId)}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       <a class="btn btn-danger btn-sm m-1" href="{{ url_for('categories.delete_category', category_id=category.CategoryId)}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      <a class="article-title font-weight-bold ml-3" href="{{ url_for('categories.one_category', category_id=category.CategoryId) }}">{{ category.Name }}</a>
+      <a class="article-title font-weight-bold ml-3" href="{{ url_for('categories.category_books', Name=category.Name) }}">{{ category.Name }}</a>
     </div>
     {% endfor %}
   </div>
