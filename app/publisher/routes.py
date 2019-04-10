@@ -54,7 +54,7 @@ def edit_publisher(publisher_id):
     return render_template('publisher/add_publisher.html', title='Edit Publisher ', form=form, legend='Edit Publisher Name')
     
 # delete publishers from database
-@publishers.route('/publisher/<int:publisher_id>/delete', methods=['POST'])
+@publishers.route('/publisher/<int:publisher_id>/delete',  methods=['GET','POST'])
 @login_required
 def delete_publisher(publisher_id):
     publisher = Publisher.query.get_or_404(publisher_id)
