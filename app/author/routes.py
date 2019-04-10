@@ -54,7 +54,7 @@ def edit_author(author_id):
     return render_template('author/add_author.html', title='Edit Author ', form=form, legend='Edit Author')
     
 # delete author from database
-@authors.route('/authors/<int:author_id>/delete', methods=['POST'])
+@authors.route('/authors/<int:author_id>/delete', methods=['GET','POST'])
 @login_required
 def delete_author(author_id):
     author = Author.query.get_or_404(author_id)
