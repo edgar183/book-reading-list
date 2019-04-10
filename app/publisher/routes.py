@@ -17,14 +17,7 @@ publishers = Blueprint('publishers', __name__, url_prefix='/publisher')
 def all_publishers():
     publishers = Publisher.query.all()
     return render_template('publisher/publishers.html', publishers=publishers, title='Publishers')
-    
-# individual publisher route
-@publishers.route('/publisher/<int:publisher_id>')
-@login_required
-def publisher(publisher_id):
-    publisher = Publisher.query.get_or_404(publisher_id)
-    return render_template('publisher/publisher.html', title=publisher.Name, publisher=publisher)
-    
+
 #add publisher    
 @publishers.route('/publisher/add', methods=['GET','POST'])
 @login_required
