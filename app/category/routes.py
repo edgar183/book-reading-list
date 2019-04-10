@@ -54,7 +54,7 @@ def edit_category(category_id):
     return render_template('category/add_category.html', title='Edit Category ', form=form, legend='Edit Category Name')
 
 # delete category from database
-@categories.route('/categories/<int:category_id>/delete', methods=['POST'])
+@categories.route('/categories/<int:category_id>/delete', methods=['GET','POST'])
 @login_required
 def delete_category(category_id):
     category = Category.query.get_or_404(category_id)
