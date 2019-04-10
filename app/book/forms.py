@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 from app.models import Book, Publisher, Category, Author, Lists
 from wtforms_alchemy.fields import QuerySelectField
+from flask_login import current_user
 
 def choice_publisher():
     return Publisher.query.all()
@@ -24,8 +25,8 @@ class Add_Book(FlaskForm):
     submit = SubmitField('Add')
     
 def choice_lists():
-    return Lists.query.all()
-
+    return Lists.query.filter_by(UserId=current_user.id).all()
+    
 class Add_book_to_readinglit(FlaskForm):
     lists = QuerySelectField(query_factory=choice_lists, allow_blank=True,get_label='ListName')
     submit = SubmitField('Add')
