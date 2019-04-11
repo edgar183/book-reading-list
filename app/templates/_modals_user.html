@@ -45,7 +45,7 @@
                             {{ form_login.remember.label(class="form-check-label ") }} {{ form_login.remember(class="form-check-input float-left checkbox-inline ml-2") }}
                         </div>
                     </form>
-                    <p class="text-center text-muted small">Don't have an account? <a class="alert-link" href="{{ url_for('users.register')  }}">Sign up here!</a></p>
+                    <p class="text-center text-muted small">Don't have an account? <a class="text-info" data-toggle="modal" data-target="#registerModal">Sign up here!</a></p>
                 </div>
             </div>
         </div>
@@ -57,12 +57,12 @@
         <div class="modal-content bg-light">
             <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold" id="loginModalLabel">Register</h4>
-                <p class="item-intro text-muted text-center">Please fill in this form to create an account!</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+                <p class="item-intro text-muted text-center">Please fill in this form to create an account!</p>
                 <div class="form-handler">
                     <form class="text-left border border-light p-5" method="POST" action="{{ url_for('users.register') }}">
                         {{ form_register.hidden_tag() }}
@@ -106,7 +106,7 @@
                 </div>
                 <div class="text-center">
                     <small>
-           Already have an account? <a class="alert-link" href="{{ url_for('users.login') }}">Login here</a>
+           Already have an account? <a class="text-info" data-toggle="modal" data-target="#loginModal">Login here</a>
         </small>
                 </div>
             </div>

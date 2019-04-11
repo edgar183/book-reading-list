@@ -68,7 +68,7 @@
                     <span class="input-group-addon"><i class="fa fa-archive " aria-hidden="true"></i></span> {{ form.category.label(class="form-control-label font-weight-bold") }}
                     <div class="input-group">
                         {{ form.category (class="browser-default custom-select mb-4") }}
-                        <span class="input-group"><a class="badge badge-warning" href="#categoryModal" data-toggle="modal" data-remote= "{{ url_for('categories.add_category') }}" data-target="#categoryModal">New Category</a></span>
+                        <span class="input-group"><a class=" badge badge-warning"  data-toggle="modal" data-target="#catModal">New Category</a></span>
                     </div>
                 </div>
                 <!-- Publishers -->
@@ -94,25 +94,8 @@
             </div>
         </form>
     </div>
-    <!-- Modal -->
-    <div id="categoryModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="mb-4 text-center">{{ legend }}</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                   {{ url_for('categories.add_category') }}
-                    <div class="modal-footer">
-                        <div class="form-group">
-                            {{ form.submit(class="btn btn-primary btn-block") }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-{% endblock %} {% block footer %} {{ super() }} {% endblock %}
+{% endblock %}
+{% block modals %} 
+{% include "_modals_book.html" %} 
+{% endblock %}

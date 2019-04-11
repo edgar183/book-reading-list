@@ -11,16 +11,16 @@ users = Blueprint('users', __name__, url_prefix='/user')
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    form = RegisterForm()
+    form_register = RegisterForm()
     form_login = LoginForm()
-    if form.validate_on_submit():
+    if form_register.validate_on_submit():
         hash_password = bcrypt.generate_password_hash(form.password.data)
         user = User(name=form.name.data, username=form.username.data, password=hash_password)
         db.session.add(user)
         db.session.commit()
         flash("%s your account has been created!"%(form.name.data), 'success')
         return redirect(url_for('users.login'))
-    return render_template('user/register.html', title='New Account', form=form, legend='Register', form_login=form_login)  
+    return render_template('_modals_user.html', title='New Account', form_register=form_register, legend='Register', form_login=form_login)  
 
 # login to the system
 @users.route('/login', methods=['GET','POST'])
@@ -28,6 +28,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('users.index'))
     form_login = LoginForm()
+    form_register = RegisterForm()
     if form_login.validate_on_submit():
         # check user existst
         user = User.query.filter_by(username=form_login.username.data).first()
@@ -37,7 +38,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
-    return render_template('_modals.html', title='Login', form_login=form_login)
+    return render_template('_modals_user.html', title='Login', form_login=form_login, form_register=form_register)
     
 #log out from system 
 @users.route('/logout')
