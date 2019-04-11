@@ -59,8 +59,7 @@ def edit_book(book_isbn):
         book.publisher_id = publisher.PublisherId
         category = form.category.data
         book.category_id = category.CategoryId
-        #author = form.author.data
-        #book.authors = author.AuthorId
+        book.authors = form.author.data
         db.session.commit()
         flash('The book detailes has been edited!', 'success')
         return redirect(url_for('books.book', book_isbn=book.isbn))
