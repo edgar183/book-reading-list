@@ -1,8 +1,11 @@
 .content-wraper {
-    background-image: url("../img/body-bg.jpg") !important;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/body-bg.jpg") !important;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
     background-size: cover;
 }
 
+a {
+    cursor: pointer
+}
