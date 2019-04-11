@@ -40,7 +40,7 @@ The website is build using Flask backend frameworks and Bootstrap front end with
   - Using **WTForms** to validate and render forms in the website.
 - [Jinja2](jinja.pocoo.org/)
   - Use **Jinja2** to render python code in HTML pages.
- -[Python](https://www.python.org/)
+- [Python](https://www.python.org/)
   - Using **Python3** for backend development to interact with the database.
 - [SQLite](https://www.sqlite.org/index.html)
   - The **SQLite** was used as main database engine as it is small and fast.
