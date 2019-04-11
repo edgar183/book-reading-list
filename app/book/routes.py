@@ -8,6 +8,7 @@ from flask_login import login_required, current_user
 from app import  db
 from app.models import *
 from app.book.forms import Add_Book, Add_book_to_readinglit
+from app.user.forms import LoginForm
 
 books = Blueprint('books', __name__, url_prefix='/book')
 
@@ -16,6 +17,7 @@ books = Blueprint('books', __name__, url_prefix='/book')
 @login_required
 def add_book():
     form = Add_Book()
+    form_login=LoginForm()
     author = form.author.data
     publisher = form.publisher.data
     category = form.category.data
@@ -26,12 +28,13 @@ def add_book():
         db.session.commit()
         flash('New Book has been added!', 'success')
         return redirect(url_for('main.index'))
-    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book')
+    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book', form_login=form_login)
     
 # individual book page
 # add book to reading list
 @books.route('/book/<int:book_isbn>', methods=['GET','POST'])
 def book(book_isbn):
+    form_login = LoginForm()
     book = Book.query.get_or_404(book_isbn)
     if current_user.is_authenticated:
         form = Add_book_to_readinglit()
@@ -41,7 +44,7 @@ def book(book_isbn):
             db.session.commit()
             flash('New Book has been added to list!', 'success')
             return redirect(url_for('main.index'))
-        return render_template('book/book.html', title=book.title, book=book, form=form)
+        return render_template('book/book.html', title=book.title, book=book, form=form, form_login=form_login)
     return render_template('book/book.html', title=book.title, book=book)
     
 # edit book information
@@ -50,6 +53,7 @@ def book(book_isbn):
 def edit_book(book_isbn):
     book = Book.query.get_or_404(book_isbn)
     form = Add_Book()
+    form_login = LoginForm()
     if form.validate_on_submit():
         book.title = form.title.data
         book.year = form.year.data
@@ -73,7 +77,7 @@ def edit_book(book_isbn):
         for author in book.authors:
             book_author=author.full_name
         form.author.data = book_author
-    return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book')
+    return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book', form_login=form_login)
     
 # delete book from database
 @books.route('/book/<int:book_isbn>/delete', methods=['POST'])
