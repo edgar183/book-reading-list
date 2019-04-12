@@ -8,6 +8,7 @@ from flask_login import login_required
 from app import  db
 from app.models import Publisher, Book
 from app.publisher.forms import Add_Publisher
+from app.user.forms import LoginForm, RegisterForm
 
 publishers = Blueprint('publishers', __name__, url_prefix='/publisher')
 
@@ -59,7 +60,9 @@ def delete_publisher(publisher_id):
 # display all books from the publisher    
 @publishers.route('/publisher/<string:Name>')
 def publisher_books(Name):
+    form_login = LoginForm()
+    form_register = RegisterForm()
     page = request.args.get('page', 1, type=int)
     publisher_query = Publisher.query.filter_by(Name=Name).first_or_404()
     books = Book.query.filter_by(publisher=publisher_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
-    return render_template('publisher/publisher_books.html',books=books, publisher=publisher_query)
+    return render_template('publisher/publisher_books.html',books=books, publisher=publisher_query, form_login=form_login, form_register=form_register)
