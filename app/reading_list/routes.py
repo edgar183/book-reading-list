@@ -8,6 +8,7 @@ from flask_login import login_required, current_user
 from app import  db
 from app.models import Lists, Book
 from app.reading_list.forms import Add_Readinglist
+from app.user.forms import LoginForm, RegisterForm
 
 readinglists = Blueprint('readinglists', __name__, url_prefix='/reading_list')
 
@@ -15,8 +16,10 @@ readinglists = Blueprint('readinglists', __name__, url_prefix='/reading_list')
 @readinglists.route('/readinglist', methods=['GET','POST'])
 @login_required
 def all_lists():
+    form_login = LoginForm()
+    form_register = RegisterForm()
     reading_list = Lists.query.filter_by(UserId=current_user.id).all()
-    return render_template('reading_list/reading_lists.html', title=current_user.name, reading_list=reading_list)
+    return render_template('reading_list/reading_lists.html', title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register)
     
 # add new readin list to database
 @readinglists.route('/readinglist/add', methods=['GET','POST'])
