@@ -51,6 +51,8 @@ def logout():
 @login_required
 def account():
     form = UpdateAccountForm()
+    form_login = LoginForm()
+    form_register = RegisterForm()
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.username = form.username.data
@@ -60,4 +62,4 @@ def account():
     elif request.method == 'GET':
         form.name.data = current_user.name
         form.username.data = current_user.username
-    return render_template('user/account.html', title='Account', form=form )
+    return render_template('user/account.html', title='Account', form=form, form_login=form_login, form_register=form_register )
