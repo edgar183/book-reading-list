@@ -63,7 +63,9 @@ def delete_category(category_id):
 # display all books from the category    
 @categories.route('/category/<string:Name>')
 def category_books(Name):
+    form_login = LoginForm()
+    form_register = RegisterForm()
     page = request.args.get('page', 1, type=int)
     category_query = Category.query.filter_by(Name=Name).first_or_404()
     books = Book.query.filter_by(category=category_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
-    return render_template('category/category_books.html',books=books, category=category_query)
+    return render_template('category/category_books.html',books=books, category=category_query, form_login=form_login, form_register=form_register)
