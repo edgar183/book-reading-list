@@ -8,6 +8,7 @@ from flask_login import login_required
 from app import  db
 from app.models import Author, Book
 from app.author.forms import Add_Author
+from app.user.forms import LoginForm, RegisterForm
 
 authors = Blueprint('authors', __name__, url_prefix='/author')
 
@@ -59,7 +60,9 @@ def delete_author(author_id):
 # display all books from the author    
 @authors.route('/author/<string:full_name>')
 def author_books(full_name):
+    form_login = LoginForm()
+    form_register = RegisterForm()
     page = request.args.get('page', 1, type=int)
     author_query = Author.query.filter_by(full_name=full_name).first_or_404()
     books = Book.query.join(Book.authors).filter(Author.full_name == author_query.full_name).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
-    return render_template('author/author_books.html', books=books, author=author_query)
+    return render_template('author/author_books.html', books=books, author=author_query, form_login=form_login, form_register=form_register)
