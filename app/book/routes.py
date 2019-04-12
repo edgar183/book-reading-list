@@ -10,6 +10,7 @@ from app.models import *
 from app.book.forms import Add_Book, Add_book_to_readinglit
 from app.user.forms import LoginForm, RegisterForm
 from app.category.forms import Add_Category
+from app.publisher.forms import Add_Publisher
 
 books = Blueprint('books', __name__, url_prefix='/book')
 
@@ -21,6 +22,7 @@ def add_book():
     form_login=LoginForm()
     form_register=RegisterForm()
     form_cat = Add_Category()
+    form_publisher = Add_Publisher()
     author = form.author.data
     publisher = form.publisher.data
     category = form.category.data
@@ -31,7 +33,7 @@ def add_book():
         db.session.commit()
         flash('New Book has been added!', 'success')
         return redirect(url_for('main.index'))
-    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book', form_login=form_login, form_register=form_register, form_cat=form_cat)
+    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book', form_login=form_login, form_register=form_register, form_cat=form_cat, form_publisher=form_publisher)
     
 # individual book page
 # add book to reading list
