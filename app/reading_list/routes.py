@@ -38,8 +38,10 @@ def add_readinglist():
 @readinglists.route('/readinglist/<int:list_id>')
 @login_required
 def one_list(list_id):
+    form_login = LoginForm()
+    form_register = RegisterForm()
     reading_list = Lists.query.get_or_404(list_id)
-    return render_template('reading_list/reading_list.html', title=reading_list.ListName, reading_list=reading_list)
+    return render_template('reading_list/reading_list.html', title=reading_list.ListName, reading_list=reading_list, form_login=form_login, form_register=form_register)
     
 # edit reading list name
 @readinglists.route('/readinglist/<int:list_id>/edit', methods=['GET','POST'])

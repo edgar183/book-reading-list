@@ -16,8 +16,10 @@ authors = Blueprint('authors', __name__, url_prefix='/author')
 @authors.route('/authors')
 @login_required
 def all_author():
+    form_login = LoginForm()
+    form_register = RegisterForm()
     authors = Author.query.all()
-    return render_template('author/authors.html', authors=authors, title='Authors')
+    return render_template('author/authors.html', authors=authors, title='Authors', form_login=form_login, form_register=form_register)
 
 # add author to database   
 @authors.route('/authors/add', methods=['GET','POST'])

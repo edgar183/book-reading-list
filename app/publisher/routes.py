@@ -16,8 +16,10 @@ publishers = Blueprint('publishers', __name__, url_prefix='/publisher')
 @publishers.route('/publisher')
 @login_required
 def all_publishers():
+    form_login = LoginForm()
+    form_register = RegisterForm()
     publishers = Publisher.query.all()
-    return render_template('publisher/publishers.html', publishers=publishers, title='Publishers')
+    return render_template('publisher/publishers.html', publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
 
 #add publisher    
 @publishers.route('/publisher/add', methods=['GET','POST'])
