@@ -26,13 +26,15 @@ def all_author():
 @login_required
 def add_author():
     form = Add_Author()
+    form_login = LoginForm()
+    form_register = RegisterForm()
     if form.validate_on_submit():
         author = Author(full_name=form.full_name.data)
         db.session.add(author)
         db.session.commit()
         flash('New Author has been added!', 'success')
         return redirect(url_for('authors.all_author'))
-    return render_template('author/add_author.html', title='New Author', form=form, legend='Add Author')
+    return render_template('author/add_author.html', title='New Author', form=form, legend='Add Author', form_login=form_login, form_register=form_register)
     
 # edit author name
 @authors.route('/authors/<int:author_id>/edit', methods=['GET','POST'])
