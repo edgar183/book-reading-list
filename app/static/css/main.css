@@ -7,5 +7,26 @@
 }
 
 a {
-    cursor: pointer
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.portfolio-link {
+    color: #00887A;
+    text-decoration: none;
+}
+
+.portfolio-link:hover {
+    color: #03685D;
+    text-decoration: none;
+}
+
+.book-links {
+    color: #00887A;
+    text-decoration: none;
+}
+
+.book-links:hover {
+    color: #03685D;
+    text-decoration: none;
 }
