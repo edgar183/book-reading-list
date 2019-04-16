@@ -62,6 +62,7 @@ def edit_book(book_isbn):
     form_login = LoginForm()
     form_register = RegisterForm()
     form_cat = Add_Category()
+    form_publisher = Add_Publisher()
     if form.validate_on_submit():
         book.title = form.title.data
         book.year = form.year.data
@@ -85,7 +86,7 @@ def edit_book(book_isbn):
         for author in book.authors:
             book_author=author.full_name
         form.author.data = book_author
-    return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book', form_login=form_login, form_register=form_register, form_cat=form_cat)
+    return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book', form_login=form_login, form_register=form_register, form_cat=form_cat, form_publisher=form_publisher)
     
 # delete book from database
 @books.route('/book/<int:book_isbn>/delete', methods=['POST'])
