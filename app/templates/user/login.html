@@ -2,41 +2,41 @@
 <div class="container bg-light mt-3 mb-2 pb-2">
     <div class="form-handler">
         <form class="text-left border border-light p-5" method="POST" action="" novalidate>
-            {{ form.hidden_tag() }}
+            {{ form_login.hidden_tag() }}
             <div class="form-group">
                 <h2 class="mb-4 text-center">Login</h2>
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span> {{ form.username.label(class="form-control-label") }}
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span> {{ form_login.username.label(class="form-control-label") }}
                     <div class="input-group">
-                        {% if form.username.errors %} {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        {% if form_login.username.errors %} {{ form_login.username(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
+                            {% for error in form_login.username.errors %}
                             <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
                         </div>
                     </div>
-                    {% else %} {{ form.username(class="form-control mb-4") }} {% endif %}
+                    {% else %} {{ form_login.username(class="form-control mb-4") }} {% endif %}
                 </div>
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-lock"></i></span> {{ form.password.label(class="form-control-label") }}
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span> {{ form_login.password.label(class="form-control-label") }}
                     <div class="input-group">
-                        {% if form.password.errors %} {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        {% if form_login.password.errors %} {{ form_login.password(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
+                            {% for error in form_login.password.errors %}
                             <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
                         </div>
                     </div>
-                    {% else %} {{ form.password(class="form-control mb-4") }} {% endif %}
+                    {% else %} {{ form_login.password(class="form-control mb-4") }} {% endif %}
                 </div>
             </div>
             <div class="form-group">
-                {{ form.submit(class="btn btn-primary btn-block") }}
+                {{ form_login.submit(class="btn btn-primary btn-block") }}
             </div>
             <div class="clearfix">
-                {{ form.remember.label(class="form-check-label ") }} {{ form.remember(class="form-check-input float-left checkbox-inline ml-2") }}
+                {{ form_login.remember.label(class="form-check-label ") }} {{ form_login.remember(class="form-check-input float-left checkbox-inline ml-2") }}
             </div>
         </form>
         <p class="text-center text-muted small">Don't have an account? <a href="{{ url_for('users.register')  }}">Sign up here!</a></p>
