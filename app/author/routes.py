@@ -43,6 +43,8 @@ def add_author():
 def edit_author(author_id):
     author = Author.query.get_or_404(author_id)
     form = Add_Author()
+    form_login = LoginForm()
+    form_register = RegisterForm()
     if form.validate_on_submit():
         author.full_name = form.full_name.data
         db.session.commit()
@@ -50,7 +52,8 @@ def edit_author(author_id):
         return redirect(url_for('authors.all_author', author_id=author.AuthorId))
     elif request.method == 'GET': 
         form.full_name.data = author.full_name
-    return render_template('author/add_author.html', title='Edit Author ', form=form, legend='Edit Author')
+    authors = Author.query.all()
+    return render_template('author/authors.html', authors=authors, title='Authors', form=form, form_login=form_login, form_register=form_register)
     
 # delete author from database
 @authors.route('/authors/<int:author_id>/delete', methods=['GET','POST'])
