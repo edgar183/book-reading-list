@@ -1,16 +1,20 @@
 {% extends "base.html" %} {% block content %}
 <div class="container bg-light mt-3 mb-2 pb-2">
   <div class="form-group">
-    <a class="btn btn-success mt-2 float-right" href="{{ url_for('authors.add_author') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a class="btn btn-success mt-2 float-right" data-toggle="modal" data-target="#authorModal"><i class="fa fa-plus" aria-hidden="true"></i></a>
   </div>
   <div class="form-group pt-2">
     {% for author in authors %}
     <div class="pt-1">
-      <a class="btn btn-info btn-sm m-1" href="{{ url_for('authors.edit_author', author_id=author.AuthorId) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+      <a class="btn btn-info btn-sm m-1" data-toggle="modal" data-target="#editAuthorModal">author_id=author.AuthorId)><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       <a class="btn btn-danger btn-sm m-1" href="{{ url_for('authors.delete_author', author_id=author.AuthorId) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
       <a class="article-title font-weight-bold ml-3" href="{{ url_for('authors.author_books', full_name=author.full_name) }}">{{ author.full_name }}</a>
     </div>
     {% endfor %}
   </div>
 </div>
-{% endblock content %}
+{% endblock content %} 
+{% block modals %} 
+{% include "author/add_author.html" %} 
+{% include "author/edit_author.html" %}
+{% endblock %}
