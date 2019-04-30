@@ -1,5 +1,5 @@
 <!-- Category Add-->
-<div class="modal fade" id="catModal" tabindex="-1" role="dialog" aria-labelledby="catModalLabel" aria-hidden="true">
+<div class="modal-modal fade" id="catModal" tabindex="-1" role="dialog" aria-labelledby="catModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content bg-light">
             <div class="modal-header text-center">
@@ -105,46 +105,6 @@
                         </div>
                 </div>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Add Author -->
-<div class="modal fade" id="authorModal" tabindex="-1" role="dialog" aria-labelledby="authorModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content bg-light">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold" id="loginModalLabel">Add Author</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-handler">
-                    <form class="text-left border border-light p-5" method="POST" action="{{ url_for('authors.add_author') }}">
-                        {{ form.hidden_tag() }}
-                        <div class="form-group">
-                            <p class="item-intro text-muted text-center">First and last name of the author with space</p>
-                            <div class="form-group">
-                                <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form_author.full_name.label(class="form-control-label") }}
-                                <div class="input-group">
-                                    {% if form_author.full_name.errors %} {{ form_author.full_name(class="form-control form-control-lg is-invalid") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form_author.full_name.errors %}
-                                        <span class="text-danger">
-                        {{ error }}
-                        </span> {% endfor %}
-                                    </div>
-                                </div>
-                                {% else %} {{ form_author.full_name(class="form-control mb-4") }} {% endif %}
-                            </div>
-
-                            <div class="form-group">
-                                {{ form.submit(class="btn btn-info btn-block") }}
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
