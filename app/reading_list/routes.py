@@ -16,25 +16,26 @@ readinglists = Blueprint('readinglists', __name__, url_prefix='/reading_list')
 @readinglists.route('/readinglist', methods=['GET','POST'])
 @login_required
 def all_lists():
+    form_list = Add_Readinglist()
     form_login = LoginForm()
     form_register = RegisterForm()
     reading_list = Lists.query.filter_by(UserId=current_user.id).all()
-    return render_template('reading_list/reading_lists.html', title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register)
+    return render_template('reading_list/reading_lists.html', form_list=form_list, title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register)
     
-# add new readin list to database
+# add new reading list to database
 @readinglists.route('/readinglist/add', methods=['GET','POST'])
 @login_required
 def add_readinglist():
-    form = Add_Readinglist()
+    form_list = Add_Readinglist()
     form_login = LoginForm()
     form_register = RegisterForm()
-    if form.validate_on_submit():
-        readinglist = Lists(ListName=form.ListName.data, user=current_user )
+    if form_list.validate_on_submit():
+        readinglist = Lists(ListName=form_list.ListName.data, user=current_user )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
-        return redirect(url_for('readinglists.all_lists'))
-    return render_template('reading_list/add_readinglist.html', title='New Reading List', form=form, legend='Add New Reading List', form_login=form_login, form_register=form_register)   
+    reading_list = Lists.query.filter_by(UserId=current_user.id).all()
+    return render_template('reading_list/reading_lists.html', form_list=form_list, title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register)  
 
 # individual reading list with all books in the list
 @readinglists.route('/readinglist/<int:list_id>')
