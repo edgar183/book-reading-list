@@ -1,34 +1,36 @@
-{% extends "base.html" %} {% block content %}
-<div class="container bg-light mt-3 mb-2 pb-2">
-    <div class="form-handler">
-        <form class="text-left border border-light p-5" method="POST" action="" novalidate>
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                <h2 class="mb-4 text-center">{{ legend }}</h2>
-                <p class="item-intro text-muted text-center">Enter Reading List Name</p>
-                <div class="form-group">
-                     <span class="input-group-addon"><i class="fa fa-list" aria-hidden="true"></i></span>
-                    {{ form.ListName.label(class="form-control-label") }}
-                    <div class="input-group">
-                        {% if form.ListName.errors %} {{ form.ListName(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.ListName.errors %}
-                        <span class="text-danger">
+ <!-- Publisher Modal -->
+<div class="modal fade" id="readinListModal" tabindex="-1" role="dialog" aria-labelledby="publisherModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-light">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold" id="publisherModalLabel">Add New Reading List</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-handler">
+                    <form class="text-left border border-light p-1" method="POST" action="{{ url_for('readinglists.add_readinglist') }}">
+                       {{ form_list.hidden_tag() }}
+                        <div class="form-group">
+                            <span class="input-group-addon pb-2"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form_list.ListName.label(class="form-control-label") }}
+                            <div class="input-group">
+                                {% if form_list.ListName.errors %} {{ form_list.ListName(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                     {% for error in form_list.ListName.errors %}
+                                    <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
-                    </div>
-                    </div>
-                    {% else %} {{ form.ListName(class="form-control mb-4") }} {% endif %}
-                </div>
-
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-primary btn-block") }}
+                                </div>
+                            </div>
+                             {% else %} {{ form_list.ListName(class="form-control mb-4") }} {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_list.submit(class="btn btn-info btn-block") }}
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
-{% endblock content %}
-{% block footer %}
-{{ super() }}
-{% endblock %}
