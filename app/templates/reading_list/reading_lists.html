@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <div class="container bg-light mt-3 mb-2 pb-2">
   <div class="form-group">
-    <a class="btn btn-success mt-2 float-right" href="{{ url_for('readinglists.add_readinglist') }}"><i class="fa fa-plus" aria-hidden="true"></i>
+    <a class="btn btn-success mt-2 float-right" data-toggle="modal" data-target="#readinListModal"><i class="fa fa-plus" aria-hidden="true"></i>
 </a>
   </div>
   <div class="form-group">
@@ -14,5 +14,5 @@
     {% endfor %}
   </div>
 </div>
-
 {% endblock content %}
+{% block modals %} {% include "reading_list/add_readinglist.html" %} {% endblock %}
