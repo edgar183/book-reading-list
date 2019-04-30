@@ -16,24 +16,26 @@ publishers = Blueprint('publishers', __name__, url_prefix='/publisher')
 @publishers.route('/publisher')
 @login_required
 def all_publishers():
+    form_publisher = Add_Publisher()
     form_login = LoginForm()
     form_register = RegisterForm()
     publishers = Publisher.query.all()
-    return render_template('publisher/publishers.html', publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
+    return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
 
 #add publisher    
-@publishers.route('/publisher/add', methods=['GET','POST'])
+@publishers.route('/publishers', methods=['GET','POST'])
 @login_required
 def add_publisher():
-    form = Add_Publisher()
-    if form.validate_on_submit():
-        publisher = Publisher(Name=form.Name.data)
+    form_publisher = Add_Publisher()
+    form_login = LoginForm()
+    form_register = RegisterForm()
+    if form_publisher.validate_on_submit():
+        publisher = Publisher(Name=form_publisher.Name.data)
         db.session.add(publisher)
         db.session.commit()
         flash('New Publisher has been added!', 'success')
-        return redirect(url_for('publishers.all_publishers'))
-    return render_template('publisher/add_publisher.html', title='New Publisher', form=form, legend='Add Publisher Name')
-    
+    publishers = Publisher.query.all()
+    return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
 # edit publishers name
 @publishers.route('/publisher/<int:publisher_id>/edit', methods=['GET','POST'])
 @login_required
