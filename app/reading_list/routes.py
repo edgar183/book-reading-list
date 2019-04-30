@@ -26,13 +26,15 @@ def all_lists():
 @login_required
 def add_readinglist():
     form = Add_Readinglist()
+    form_login = LoginForm()
+    form_register = RegisterForm()
     if form.validate_on_submit():
         readinglist = Lists(ListName=form.ListName.data, user=current_user )
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
         return redirect(url_for('readinglists.all_lists'))
-    return render_template('reading_list/add_readinglist.html', title='New Reading List', form=form, legend='Add New Reading List')   
+    return render_template('reading_list/add_readinglist.html', title='New Reading List', form=form, legend='Add New Reading List', form_login=form_login, form_register=form_register)   
 
 # individual reading list with all books in the list
 @readinglists.route('/readinglist/<int:list_id>')
@@ -49,6 +51,8 @@ def one_list(list_id):
 def edit_list(list_id):
     reading_list = Lists.query.get_or_404(list_id)
     form = Add_Readinglist()
+    form_login = LoginForm()
+    form_register = RegisterForm()
     if form.validate_on_submit():
         reading_list.ListName = form.ListName.data
         db.session.commit()
@@ -56,7 +60,7 @@ def edit_list(list_id):
         return redirect(url_for('readinglists.all_lists', list_id=reading_list.id))
     elif request.method == 'GET': 
         form.ListName.data = reading_list.ListName
-    return render_template('reading_list/add_readinglist.html', title='Edit Reading Lits', form=form, legend='Edit List Name')
+    return render_template('reading_list/add_readinglist.html', title='Edit Reading Lits', form=form, legend='Edit List Name', form_login=form_login, form_register=form_register)
     
 # delete reading list from database
 @readinglists.route('/readinglist/<int:list_id>/delete', methods=['POST'])
