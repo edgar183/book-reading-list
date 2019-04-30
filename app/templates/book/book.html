@@ -8,13 +8,13 @@
       <div class="mt-2 ml-2">
         <form method="POST" action="" novalidate="novalidate">
           <div class="form-group">
-            {{ form.lists (class='btn btn-info dropdown-toggle') }}
+            {{ form.lists (class='btn btn-secondary dropdown-toggle') }}
           </div>
           <div class="form-group">
             <a class="badge badge-warning" href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
           </div>
           <div class="form-group">
-            {{ form.submit(class="btn btn-warning btn-block") }}
+            {{ form.submit(class="btn btn-info btn-block") }}
           </div>
         </form>
       </div>

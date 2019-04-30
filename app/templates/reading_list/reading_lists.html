@@ -9,7 +9,7 @@
     {% for my_list in reading_list %}
     <div class="pt-1">
       <a class="btn btn-info btn-sm m-1" href="{{ url_for('readinglists.edit_list', list_id=my_list.id) }}"><i class="fa fa-pencil-square-o " aria-hidden="true"></i></a>
-      <a class="article-title font-weight-bold ml-3" href="{{ url_for('readinglists.one_list', list_id=my_list.id) }}">{{ my_list.ListName }}</a>
+      <a class="article-title book-links font-weight-bold ml-3" href="{{ url_for('readinglists.one_list', list_id=my_list.id) }}">{{ my_list.ListName }}</a>
     </div>
     {% endfor %}
   </div>

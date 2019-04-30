@@ -8,7 +8,7 @@
     <div class="pt-1">
       <a class="btn btn-info btn-sm m-1" data-toggle="modal" data-target="#catEditModal_{{category.CategoryId}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       <a class="btn btn-danger btn-sm m-1" href="{{ url_for('categories.delete_category', category_id=category.CategoryId) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      <a class="article-title font-weight-bold ml-3" href="{{ url_for('categories.category_books', Name=category.Name) }}">{{ category.Name }}</a>
+      <a class="article-title book-links font-weight-bold ml-3" href="{{ url_for('categories.category_books', Name=category.Name) }}">{{ category.Name }}</a>
     </div>
     <!-- Edit Category Modal -->
     <div class="modal fade" id="catEditModal_{{category.CategoryId}}" tabindex="-1" role="dialog" aria-labelledby="edit-{{ category.Name }}-Label" aria-hidden="true">
