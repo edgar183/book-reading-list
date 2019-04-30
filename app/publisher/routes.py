@@ -36,12 +36,15 @@ def add_publisher():
         flash('New Publisher has been added!', 'success')
     publishers = Publisher.query.all()
     return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
+    
 # edit publishers name
 @publishers.route('/publisher/<int:publisher_id>/edit', methods=['GET','POST'])
 @login_required
 def edit_publisher(publisher_id):
     publisher = Publisher.query.get_or_404(publisher_id)
     form = Add_Publisher()
+    form_login = LoginForm()
+    form_register = RegisterForm()
     if form.validate_on_submit():
         publisher.Name = form.Name.data
         db.session.commit()
@@ -49,7 +52,8 @@ def edit_publisher(publisher_id):
         return redirect(url_for('publishers.all_publishers', publisher_id=publisher.PublisherId))
     elif request.method == 'GET': 
         form.Name.data = publisher.Name
-    return render_template('publisher/add_publisher.html', title='Edit Publisher ', form=form, legend='Edit Publisher Name')
+    publishers = Publisher.query.all()
+    return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
     
 # delete publishers from database
 @publishers.route('/publisher/<int:publisher_id>/delete',  methods=['GET','POST'])
