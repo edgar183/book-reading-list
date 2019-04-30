@@ -16,26 +16,26 @@ authors = Blueprint('authors', __name__, url_prefix='/author')
 @authors.route('/authors')
 @login_required
 def all_author():
-    form = Add_Author()
+    form_author = Add_Author()
     form_login = LoginForm()
     form_register = RegisterForm()
     authors = Author.query.all()
-    return render_template('author/authors.html', authors=authors, title='Authors', form=form, form_login=form_login, form_register=form_register)
+    return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
 
 # add author to database   
 @authors.route('/authors', methods=['GET','POST'])
 @login_required
 def add_author():
-    form = Add_Author()
+    form_author = Add_Author()
     form_login = LoginForm()
     form_register = RegisterForm()
-    if form.validate_on_submit():
-        author = Author(full_name=form.full_name.data)
+    if form_author.validate_on_submit():
+        author = Author(full_name=form_author.full_name.data)
         db.session.add(author)
         db.session.commit()
         flash('New Author has been added!', 'success')
     authors = Author.query.all()
-    return render_template('author/authors.html', authors=authors, title='Authors', form=form, form_login=form_login, form_register=form_register)
+    return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
     
 # edit author name
 @authors.route('/authors/<int:author_id>/edit', methods=['GET','POST'])

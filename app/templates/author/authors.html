@@ -22,25 +22,25 @@
           </div>
           <div class="modal-body">
             <form class="text-left border border-light p-1" method="POST" action="{{ url_for('authors.edit_author',author_id=author.AuthorId) }}">
-              {{ form.hidden_tag() }}
+              {{ form_author.hidden_tag() }}
               <div class="form-group">
-                <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form.full_name.label(class="form-control-label") }}
+                <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form_author.full_name.label(class="form-control-label") }}
                 <div class="input-group">
-                  {% if form.full_name.errors %} {{ form.full_name(class="form-control form-control-lg is-invalid") }}
+                  {% if form_author.full_name.errors %} {{ form_author.full_name(class="form-control form-control-lg is-invalid") }}
                   <div class="invalid-feedback">
-                    {% for error in form.full_name.errors %}
+                    {% for error in form_author.full_name.errors %}
                     <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
                   </div>
-                  {% else %} {{ form.full_name(class="form-control mb-1") }} {% endif %}
+                  {% else %} {{ form_author.full_name(class="form-control mb-1") }} {% endif %}
                 </div>
                 <div class="form-group">
                   <p class="item-intro text-muted">First and last name of the author with space</p>
                 </div>
               </div>
               <div class="form-group">
-                {{ form.submit(class="btn btn-info btn-block") }}
+                {{ form_author.submit(class="btn btn-info btn-block") }}
               </div>
             </form>
           </div>
