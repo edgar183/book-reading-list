@@ -42,16 +42,16 @@ def add_publisher():
 @login_required
 def edit_publisher(publisher_id):
     publisher = Publisher.query.get_or_404(publisher_id)
-    form = Add_Publisher()
+    form_publisher = Add_Publisher()
     form_login = LoginForm()
     form_register = RegisterForm()
-    if form.validate_on_submit():
-        publisher.Name = form.Name.data
+    if form_publisher.validate_on_submit():
+        publisher.Name = form_publisher.Name.data
         db.session.commit()
         flash('The publisher name has been updated!', 'success')
         return redirect(url_for('publishers.all_publishers', publisher_id=publisher.PublisherId))
     elif request.method == 'GET': 
-        form.Name.data = publisher.Name
+        form_publisher.Name.data = publisher.Name
     publishers = Publisher.query.all()
     return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
     
