@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from app import  db, bcrypt
-from app.models import User, Lists
+from app.models import User, Lists, Book
 from app.user.forms import RegisterForm, LoginForm, UpdateAccountForm
 
 users = Blueprint('users', __name__, url_prefix='/user')
@@ -20,7 +20,9 @@ def register():
         db.session.commit()
         flash("%s your account has been created!"%(form_register.name.data), 'success')
         return redirect(url_for('main.index'))
-    return render_template('user/register.html', title='New Account', form_register=form_register, legend='Register', form_login=form_login)  
+    page = request.args.get('page', 1, type=int)
+    books = Book.query.order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
+    return render_template('index.html', title='New Account', books=books, form_register=form_register, legend='Register', form_login=form_login)  
 
 # login to the system
 @users.route('/login', methods=['GET','POST'])
