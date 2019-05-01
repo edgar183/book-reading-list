@@ -12,6 +12,7 @@ from app.user.forms import LoginForm, RegisterForm
 from app.category.forms import Add_Category
 from app.publisher.forms import Add_Publisher
 from app.author.forms import Add_Author
+from app.reading_list.forms import Add_Readinglist
 
 books = Blueprint('books', __name__, url_prefix='/book')
 
@@ -41,6 +42,7 @@ def add_book():
 # add book to reading list
 @books.route('/book/<int:book_isbn>', methods=['GET','POST'])
 def book(book_isbn):
+    form_list = Add_Readinglist()
     form_login = LoginForm()
     form_register=RegisterForm()
     book = Book.query.get_or_404(book_isbn)
@@ -52,7 +54,7 @@ def book(book_isbn):
             db.session.commit()
             flash('New Book has been added to list!', 'success')
             return redirect(url_for('main.index'))
-        return render_template('book/book.html', title=book.title, book=book, form=form, form_login=form_login, form_register=form_register)
+        return render_template('book/book.html', title=book.title, book=book, form=form, form_list=form_list, form_login=form_login, form_register=form_register)
     return render_template('book/book.html', title=book.title, book=book, form_login=form_login, form_register=form_register)
     
 # edit book information
