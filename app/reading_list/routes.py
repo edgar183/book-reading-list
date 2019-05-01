@@ -64,7 +64,7 @@ def edit_list(list_id):
     return render_template('reading_list/reading_lists.html', form_list=form_list, title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register) 
     
 # delete reading list from database
-@readinglists.route('/readinglist/<int:list_id>/delete', methods=['POST'])
+@readinglists.route('/readinglist/<int:list_id>/delete', methods=['GET','POST'])
 @login_required
 def delete_list(list_id):
     reading_list = Lists.query.get_or_404(list_id)
@@ -81,7 +81,6 @@ def delete_book_in_list(list_id, book_id):
     book = Book.query.filter_by(isbn=book_id).first()
     print(book.title)
     reading_list.books_in_list.remove(book)
-    #myparent.children.remove(somechild)
     db.session.commit()
     flash('The book has been deleted!', 'success')
     return redirect(url_for('readinglists.one_list', list_id=list_id))
