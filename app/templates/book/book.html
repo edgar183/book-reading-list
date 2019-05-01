@@ -11,7 +11,7 @@
             {{ form.lists (class='btn btn-secondary dropdown-toggle') }}
           </div>
           <div class="form-group">
-            <a class="badge badge-warning" href="{{ url_for('readinglists.add_readinglist') }}">Add New List</a>
+            <a class="badge badge-warning" data-toggle="modal" data-target="#readinListModal">Add New List</a>
           </div>
           <div class="form-group">
             {{ form.submit(class="btn btn-info btn-block") }}
@@ -60,3 +60,4 @@
   </div>
 </div>
 {% endblock content %}
+{% block modals %} {% include "reading_list/add_readinglist.html" %} {% endblock %}
