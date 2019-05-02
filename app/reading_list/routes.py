@@ -34,6 +34,8 @@ def add_readinglist():
         db.session.add(readinglist)
         db.session.commit()
         flash('New reading list has been added!', 'success')
+    else:
+            flash('Error: %s alredy have this list created.'%(current_user.name), 'danger ')
     reading_list = Lists.query.filter_by(UserId=current_user.id).all()
     return render_template('reading_list/reading_lists.html', form_list=form_list, title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register)  
 
@@ -60,6 +62,8 @@ def edit_list(list_id):
         flash('The list name has been updated!', 'success')
     elif request.method == 'GET': 
         form_list.ListName.data = reading_list.ListName
+    else:
+            flash('Error: %s alredy have this list created.'%(current_user.name), 'danger ')
     reading_list = Lists.query.filter_by(UserId=current_user.id).all()
     return render_template('reading_list/reading_lists.html', form_list=form_list, title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register) 
     

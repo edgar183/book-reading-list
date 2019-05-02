@@ -34,6 +34,8 @@ def add_publisher():
         db.session.add(publisher)
         db.session.commit()
         flash('New Publisher has been added!', 'success')
+    else:
+            flash('Error: The publisher alredy exists!', 'danger ')
     publishers = Publisher.query.all()
     return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
     
@@ -52,6 +54,8 @@ def edit_publisher(publisher_id):
         return redirect(url_for('publishers.all_publishers', publisher_id=publisher.PublisherId))
     elif request.method == 'GET': 
         form_publisher.Name.data = publisher.Name
+    else:
+            flash('Error: The publisher alredy exists!', 'danger ')
     publishers = Publisher.query.all()
     return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
     

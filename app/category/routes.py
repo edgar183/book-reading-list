@@ -34,6 +34,8 @@ def add_category():
         db.session.add(category)
         db.session.commit()
         flash('New Category has been added!', 'success')
+    else:
+            flash('Error: The category alredy exists!', 'danger ')
     categories = Category.query.all()
     return render_template('category/categories.html', categories=categories, title='Categories', form_cat=form_cat, form_login=form_login, form_register=form_register)
 
@@ -51,6 +53,8 @@ def edit_category(category_id):
         flash('The category name has been updated!', 'success')
     elif request.method == 'GET': 
         form_cat.Name.data = category.Name
+    else:
+            flash('Error: The category alredy exists!', 'danger ')
     categories = Category.query.all()
     return render_template('category/categories.html', categories=categories, title='Categories', form_cat=form_cat, form_login=form_login, form_register=form_register)
 # delete category from database
