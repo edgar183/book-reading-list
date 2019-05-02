@@ -34,6 +34,8 @@ def add_author():
         db.session.add(author)
         db.session.commit()
         flash('New Author has been added!', 'success')
+    else:
+            flash('Error: The author with this name alredy exists!', 'danger ')
     authors = Author.query.all()
     return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
     
@@ -52,6 +54,8 @@ def edit_author(author_id):
         return redirect(url_for('authors.all_author', author_id=author.AuthorId))
     elif request.method == 'GET': 
         form_author.full_name.data = author.full_name
+    else:
+            flash('Error: The author with this name alredy exists!', 'danger ')
     authors = Author.query.all()
     return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
     
