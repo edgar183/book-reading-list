@@ -35,7 +35,7 @@ def add_author():
         db.session.commit()
         flash('New Author has been added!', 'success')
     else:
-            flash('Error: The author with this name alredy exists!', 'danger ')
+        flash('Error: The author with this name alredy exists!', 'danger ')
     authors = Author.query.all()
     return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
     
