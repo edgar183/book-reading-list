@@ -55,7 +55,7 @@ def book(book_isbn):
             flash('New Book has been added to list!', 'success')
             return redirect(url_for('main.index'))
         return render_template('book/book.html', title=book.title, book=book, form=form, form_list=form_list, form_login=form_login, form_register=form_register)
-    return render_template('book/book.html', title=book.title, book=book, form_login=form_login, form_register=form_register)
+    return render_template('book/book.html', form_list=form_list, title=book.title, book=book, form_login=form_login, form_register=form_register)
     
 # edit book information
 @books.route('/book/<int:book_isbn>/edit', methods=['GET','POST'])
