@@ -15,7 +15,9 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/agency.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css"> {% if title %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css"> 
+    <link rel="fav icon" href="{{ url_for('static', filename='img/book-icon.ico') }}" >
+    {% if title %}
     <title>{{ title }}</title>
     {% else %}
     <title>Book Rading List</title>
