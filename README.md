@@ -1,4 +1,4 @@
-# Book Reading Lists
+# Book Reading Lists (development)
 The project is aimed for users that like to read books and make reading lists of books that they wish to read or have read or any other custom reading list.  
 The website is build using Flask backend frameworks and Bootstrap front end with a relational database for storing the data and python for processing data.
 [Hosted on Heroku](https://book-reading-lists.herokuapp.com/index)
