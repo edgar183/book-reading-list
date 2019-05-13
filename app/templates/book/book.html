@@ -60,4 +60,7 @@
   </div>
 </div>
 {% endblock content %}
-{% block modals %} {% include "reading_list/add_readinglist.html" %} {% endblock %}
+{% block modals %} 
+{% include "reading_list/add_readinglist.html" %}
+{% include "_modals_user.html" %} 
+{% endblock %}
