@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-handler">
-                    <form class="text-left border border-light p-1" method="POST" action="{{ url_for('categories.add_category') }}">
+                    <form id="add-cat-form" class="text-left border border-light p-1" method="POST" action="{{ url_for('categories.add_category') }}">
                         {{ form_cat.hidden_tag() }}
                         <div class="form-group">
                             <span class="input-group-addon pb-2"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form_cat.Name.label(class="form-control-label") }}
@@ -22,11 +22,12 @@
                         {{ error }}
                         </span> {% endfor %}
                                 </div>
+
+                                {% else %} {{ form_cat.Name(class="form-control mb-4") }} {% endif %}
                             </div>
-                            {% else %} {{ form_cat.Name(class="form-control mb-4") }} {% endif %}
                         </div>
                         <div class="form-group">
-                            {{ form_cat.submit(class="btn btn-info btn-block") }}
+                            {{ form_cat.submit(class="btn btn-info btn-block addCatButton") }}
                         </div>
                     </form>
                 </div>

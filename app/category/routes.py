@@ -3,11 +3,14 @@
     By adding, editing, deleting and displaying 
     list of all publishers from database.
 """
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
 from flask_login import login_required
 from app import  db
 from app.models import Category, Book
 from app.category.forms import Add_Category
+from app.book.forms import Add_Book
+from app.publisher.forms import Add_Publisher
+from app.author.forms import Add_Author
 from app.user.forms import LoginForm, RegisterForm
 
 categories = Blueprint('categories', __name__, url_prefix='/category')
@@ -23,22 +26,24 @@ def all_categories():
     return render_template('category/categories.html', categories=categories, title='Categories', form_cat=form_cat, form_login=form_login, form_register=form_register)
 
 # add category     
-@categories.route('/categories', methods=['GET','POST'])
+@categories.route('/categories', methods=['POST'])
 @login_required
 def add_category():
+    form_login=LoginForm()
+    form_register=RegisterForm() 
     form_cat = Add_Category()
-    form_login = LoginForm()
-    form_register = RegisterForm()
     if form_cat.validate_on_submit():
         category = Category(Name=form_cat.Name.data)
         db.session.add(category)
         db.session.commit()
         flash('New Category has been added!', 'success')
+        return jsonify(status='ok')
     else:
-            flash('Error: The category alredy exists!', 'danger ')
+        flash('Error: The category alredy exists!', 'danger ')
+        #return jsonify({'result':'error', 'category': form_cat.Name.data, 'error': form_cat.Name.errors })
     categories = Category.query.all()
     return render_template('category/categories.html', categories=categories, title='Categories', form_cat=form_cat, form_login=form_login, form_register=form_register)
-
+    
 # edit category name
 @categories.route('/categories/<int:category_id>/edit', methods=['GET','POST'])
 @login_required

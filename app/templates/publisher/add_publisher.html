@@ -22,8 +22,8 @@
                         {{ error }}
                         </span> {% endfor %}
                                 </div>
+                                {% else %} {{ form_publisher.Name(class="form-control mb-4") }} {% endif %}
                             </div>
-                            {% else %} {{ form_publisher.Name(class="form-control mb-4") }} {% endif %}
                         </div>
                         <div class="form-group">
                             {{ form_publisher.submit(class="btn btn-info btn-block") }}
