@@ -17,8 +17,8 @@
                         {{ error }}
                         </span> {% endfor %}
                         </div>
+                        {% else %} {{ form.title(class="form-control mb-4") }} {% endif %}
                     </div>
-                    {% else %} {{ form.title(class="form-control mb-4") }} {% endif %}
                 </div>
                 <!-- Year Published -->
                 <div class="form-group">
@@ -32,8 +32,8 @@
                         {{ error }}
                         </span> {% endfor %}
                         </div>
+                        {% else %} {{ form.year(class="form-control mb-4") }} {% endif %}
                     </div>
-                    {% else %} {{ form.year(class="form-control mb-4") }} {% endif %}
                 </div>
                 <!-- Book cover URL -->
                 <div class="form-group">
@@ -46,8 +46,8 @@
                         {{ error }}
                         </span> {% endfor %}
                         </div>
+                        {% else %} {{ form.book_cover(class="form-control mb-4") }} {% endif %}
                     </div>
-                    {% else %} {{ form.book_cover(class="form-control mb-4") }} {% endif %}
                 </div>
                 <!-- Book description -->
                 <div class="form-group">
@@ -60,8 +60,8 @@
                         {{ error }}
                         </span> {% endfor %}
                         </div>
+                        {% else %} {{ form.description(class="form-control mb-4") }} {% endif %}
                     </div>
-                    {% else %} {{ form.description(class="form-control mb-4") }} {% endif %}
                 </div>
                 <!-- Categories -->
                 <div class="form-group">
@@ -95,10 +95,9 @@
         </form>
     </div>
 </div>
-{% endblock %}
-
+{% endblock %} 
 {% block modals %} 
-{% include "category/add_category.html" %}
-{% include "publisher/add_publisher.html" %} 
+{% include "category/add_category.html" %} 
+{% include "publisher/add_publisher.html" %}
 {% include "author/add_author.html" %} 
 {% endblock %}
