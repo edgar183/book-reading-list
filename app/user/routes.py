@@ -20,9 +20,9 @@ def register():
         db.session.commit()
         flash("%s your account has been created!"%(form_register.name.data), 'success')
         return redirect(url_for('main.index'))
-    page = request.args.get('page', 1, type=int)
-    books = Book.query.order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
-    return render_template('index.html', books=books, form_register=form_register, form_login=form_login)  
+    else:
+        flash('Unsuccessful registraition. Please check information entered is corect.', 'danger')
+    return render_template('user/register.html', form_register=form_register, form_login=form_login)  
 
 # login to the system
 @users.route('/login', methods=['GET','POST'])
