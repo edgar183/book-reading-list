@@ -44,9 +44,9 @@ class Book(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.CategoryId'), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('author.AuthorId'), nullable=False)
     
-    author = db.relationship('Author', backref=db.backref('books', lazy='dynamic'))
-    category = db.relationship('Category', backref=db.backref('books',cascade='delete', lazy='dynamic'))
-    publisher = db.relationship('Publisher', backref=db.backref('books', lazy='dynamic'))
+    author = db.relationship('Author', backref=db.backref('books', cascade='delete', lazy='dynamic'))
+    category = db.relationship('Category', backref=db.backref('books', cascade='delete', lazy='dynamic'))
+    publisher = db.relationship('Publisher', backref=db.backref('books', cascade='delete', lazy='dynamic'))
 
 # User Class/Model
 class User(db.Model, UserMixin):
