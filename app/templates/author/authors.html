@@ -7,7 +7,7 @@
     {% for author in authors %}
     <div class="pt-1">
       <a class="btn btn-info btn-sm m-1" data-toggle="modal" data-target="#edit-{{author.AuthorId}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-      <a class="btn btn-danger btn-sm m-1" href="{{ url_for('authors.delete_author', author_id=author.AuthorId) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      <a class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#delete-{{author.AuthorId}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
       <a class="article-title book-links font-weight-bold ml-3" href="{{ url_for('authors.author_books', full_name=author.full_name) }}">{{ author.full_name }}</a>
     </div>
     <!-- Edit Author Modal -->
@@ -48,6 +48,35 @@
       </div>
     </div>
     <!--End of Edit Author Modal-->
+    <!-- Delete Author Modal -->
+    <div class="modal fade" id="delete-{{author.AuthorId}}" tabindex="-1" role="dialog" aria-labelledby="delete-{{ author.full_name }}-Label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-light">
+          <div class="modal-header text-center">
+            <h5 class="modal-title label label-default" id="Delete-{{ author.full_name }}-Label">Delete Author?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+          </div>
+          <div class="modal-body">
+            <h6 class="modal-title w-100 font-weight-bold">These books will be deleted as well from database.</h6>
+            <ul class="list-inline">
+            {% for book in author.books %}
+            <hr>
+            <li>{{ book.title }}</li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form  method="POST" action="{{ url_for('authors.delete_author', author_id=author.AuthorId) }}">
+              <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Modal -->
     {% endfor %}
   </div>
 </div>
