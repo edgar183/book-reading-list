@@ -45,7 +45,7 @@ class Book(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('author.AuthorId'), nullable=False)
     
     author = db.relationship('Author', backref=db.backref('books', lazy='dynamic'))
-    category = db.relationship('Category', backref=db.backref('books', lazy='dynamic'))
+    category = db.relationship('Category', backref=db.backref('books',cascade='delete', lazy='dynamic'))
     publisher = db.relationship('Publisher', backref=db.backref('books', lazy='dynamic'))
 
 # User Class/Model
@@ -62,5 +62,3 @@ class Lists(db.Model):
     ListName = db.Column(db.String(255), nullable=False , unique=True)
     UserId = db.Column(db.Integer, db.ForeignKey('user.id'))
     books_in_list = db.relationship('Book', secondary=book_reading, backref=db.backref('books', lazy='dynamic'))
-    
-    
