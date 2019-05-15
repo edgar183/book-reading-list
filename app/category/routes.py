@@ -37,7 +37,7 @@ def add_category():
         db.session.add(category)
         db.session.commit()
         flash('New Category has been added!', 'success')
-        return jsonify(status='ok')
+        #return jsonify(status='ok')
     else:
         flash('Error: The category alredy exists!', 'danger ')
         #return jsonify({'result':'error', 'category': form_cat.Name.data, 'error': form_cat.Name.errors })
