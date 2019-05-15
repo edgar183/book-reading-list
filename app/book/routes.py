@@ -30,9 +30,8 @@ def add_book():
     publisher = form.publisher.data
     category = form.category.data
     if form.validate_on_submit():
-        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=publisher.PublisherId, category_id=category.CategoryId)
+        book = Book(title=form.title.data, year=form.year.data, book_cover=form.book_cover.data, description=form.description.data, publisher_id=publisher.PublisherId, category_id=category.CategoryId, author_id=author.AuthorId)
         db.session.add(book)
-        author.writer.append(book)
         db.session.commit()
         flash('New Book has been added!', 'success')
         return redirect(url_for('main.index'))
@@ -77,7 +76,8 @@ def edit_book(book_isbn):
         book.publisher_id = publisher.PublisherId
         category = form.category.data
         book.category_id = category.CategoryId
-        book.authors = form.author.data
+        author = form.author.data
+        book.author_id = author.AuthorId
         db.session.commit()
         flash('The book detailes has been edited!', 'success')
         return redirect(url_for('books.book', book_isbn=book.isbn))
@@ -88,9 +88,7 @@ def edit_book(book_isbn):
         form.description.data = book.description
         form.publisher.data = book.publisher
         form.category.data = book.category
-        for author in book.authors:
-            book_author=author.full_name
-        form.author.data = book_author
+        form.author.data = book.author
     return render_template('book/add_book.html', title='Edit Book', form=form, legend='Edit Book', form_login=form_login, form_register=form_register, form_cat=form_cat, form_publisher=form_publisher, form_author=form_author)
     
 # delete book from database
