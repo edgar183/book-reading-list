@@ -1,10 +1,8 @@
-{% extends "base.html" %} 
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container mt-3 mb-2 pt-5 pb-2 bg-light">
   <div class="row">
     <div class="col-lg-4 mx-auto">
-      <img class="img-fluid d-block mx-auto" src="{{ book.book_cover }}" alt="Book Cover">
-       {% if current_user.is_authenticated %}
+      <img class="img-fluid d-block mx-auto" src="{{ book.book_cover }}" alt="Book Cover"> {% if current_user.is_authenticated %}
       <div class="mt-2 ml-2">
         <form method="POST" action="" novalidate="novalidate">
           <div class="form-group">
@@ -18,24 +16,22 @@
           </div>
         </form>
       </div>
-       {% endif %}
+      {% endif %}
     </div>
     <div class="col-lg-8 ">
       <h2 class="text-uppercase">{{ book.title }}</h2>
-      <hr> {% for author_list in book.authors %}
-      <p class="list-inline mb-0">By author : <a class="mr-2 book-links" href="{{ url_for('authors.author_books', full_name=author_list.full_name) }}">{{ author_list.full_name }}</a> </p>
-      {% endfor %}
+      <hr>
+      <p class="list-inline mb-0">By author : <a class="mr-2 book-links" href="{{ url_for('authors.author_books', full_name=book.author.full_name) }}">{{ book.author.full_name }}</a> </p>
       <p class="list-inline mb-0">Publisher : <a class="mr-2 book-links" href="{{ url_for('publishers.publisher_books', Name=book.publisher.Name) }}">{{ book.publisher.Name }}</a></p>
       <p class="list-inline mb-0">Category : <a class="mr-2 book-links" href="{{ url_for('categories.category_books', Name=book.category.Name) }}">{{ book.category.Name }}</a>
       </p>
       <p class="list-inline ">Publication date : {{ book.year }}
       </p>
       <p class="list-inline">{{ book.description }}</p>
-       {% if current_user.is_authenticated %}
+      {% if current_user.is_authenticated %}
       <div class="float-right">
         <a class="btn btn-info btn-sm m-1" href="{{ url_for('books.edit_book', book_isbn=book.isbn) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash" aria-hidden="true"></i></button>
-        {% endif %}
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash" aria-hidden="true"></i></button> {% endif %}
       </div>
     </div>
   </div>
@@ -59,8 +55,4 @@
     </div>
   </div>
 </div>
-{% endblock content %}
-{% block modals %} 
-{% include "reading_list/_add_readinglist.html" %}
-{% include "_modals_user.html" %} 
-{% endblock %}
+{% endblock content %} {% block modals %} {% include "reading_list/_add_readinglist.html" %} {% include "_modals_user.html" %} {% endblock %}
