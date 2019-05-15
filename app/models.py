@@ -13,11 +13,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # many-to-many relationships 
-author_book = db.Table('author_book', 
-            db.Column('AuthorId', db.Integer, db.ForeignKey('author.AuthorId')),
-            db.Column('isbn', db.Integer, db.ForeignKey('book.isbn'))
-)
-
 book_reading = db.Table('book_reading',
             db.Column('isbn', db.Integer, db.ForeignKey('book.isbn')),
             db.Column('id', db.Integer, db.ForeignKey('lists.id'))
@@ -47,8 +42,9 @@ class Book(db.Model):
     description = db.Column(db.Text, nullable=False)
     publisher_id= db.Column(db.Integer, db.ForeignKey('publisher.PublisherId'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.CategoryId'), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('author.AuthorId'), nullable=False)
     
-    authors = db.relationship('Author', secondary=author_book, backref=db.backref('writer', lazy='dynamic'))
+    author = db.relationship('Author', backref=db.backref('books', lazy='dynamic'))
     category = db.relationship('Category', backref=db.backref('books', lazy='dynamic'))
     publisher = db.relationship('Publisher', backref=db.backref('books', lazy='dynamic'))
 
