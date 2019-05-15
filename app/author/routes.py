@@ -76,5 +76,5 @@ def author_books(full_name):
     form_register = RegisterForm()
     page = request.args.get('page', 1, type=int)
     author_query = Author.query.filter_by(full_name=full_name).first_or_404()
-    books = Book.query.join(Book.authors).filter(Author.full_name == author_query.full_name).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
+    books = Book.query.join(Book.author).filter(Author.full_name == author_query.full_name).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
     return render_template('author/author_books.html', books=books, author=author_query, form_login=form_login, form_register=form_register)
