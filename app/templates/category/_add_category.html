@@ -8,11 +8,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">
-                {{ message }}
-            </div>
-            {% endfor %} {% endif %} {% endwith %}
             <div class="modal-body">
                 <div class="form-handler">
                     <form id="add-cat-form" class="text-left border border-light p-1" method="POST" action="{{ url_for('categories.add_category') }}">
