@@ -8,6 +8,9 @@ from flask_login import login_required
 from app import  db
 from app.models import Author, Book
 from app.author.forms import Add_Author
+from app.book.forms import Add_Book
+from app.category.forms import Add_Category
+from app.publisher.forms import Add_Publisher
 from app.user.forms import LoginForm, RegisterForm
 
 authors = Blueprint('authors', __name__, url_prefix='/author')
@@ -23,12 +26,15 @@ def all_author():
     return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
 
 # add author to database   
-@authors.route('/authors', methods=['GET','POST'])
+@authors.route('/book/add', methods=['GET','POST'])
 @login_required
 def add_author():
+    form = Add_Book()
+    form_login=LoginForm()
+    form_register=RegisterForm()
+    form_cat = Add_Category()
+    form_publisher = Add_Publisher()
     form_author = Add_Author()
-    form_login = LoginForm()
-    form_register = RegisterForm()
     if form_author.validate_on_submit():
         author = Author(full_name=form_author.full_name.data)
         db.session.add(author)
@@ -36,8 +42,7 @@ def add_author():
         flash('New Author has been added!', 'success')
     else:
         flash('Error: The author with this name alredy exists!', 'danger ')
-    authors = Author.query.all()
-    return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
+    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book', form_login=form_login, form_register=form_register, form_cat=form_cat, form_publisher=form_publisher, form_author=form_author)
     
 # edit author name
 @authors.route('/authors/<int:author_id>/edit', methods=['GET','POST'])
