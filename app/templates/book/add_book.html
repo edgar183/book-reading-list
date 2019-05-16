@@ -65,32 +65,32 @@
                 </div>
                 <!-- Categories -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-archive " aria-hidden="true"></i></span> {{ form.category.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-archive " aria-hidden="true"></i></span> {{ form.category.label(class="form-control-label font-weight-bold ") }}
                     <div class="input-group">
-                        {{ form.category (class="browser-default custom-select mb-4") }}
+                        {{ form.category (class="browser-default custom-select mb-2") }}
                         <span class="input-group"><a type="button" class="badge badge-warning" data-toggle="modal" data-target="#catModal">New Category</a></span>
                     </div>
                 </div>
                 <!-- Publishers -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form.publisher.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form.publisher.label(class="form-control-label font-weight-bold mt-2") }}
                     <div class="input-group">
-                        {{ form.publisher (class="browser-default custom-select mb-4")}}
+                        {{ form.publisher (class="browser-default custom-select mb-2")}}
                         <span class="input-group "><a type="button" class="badge badge-warning" data-toggle="modal" data-target="#publisherModal">New Publisher</a> </span>
                     </div>
                 </div>
                 <!-- Authors -->
                 <div class="form-group">
-                    <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form.author.label(class="form-control-label font-weight-bold") }}
+                    <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form.author.label(class="form-control-label font-weight-bold mt-2") }}
                     <div class="input-group">
-                        {{ form.author (class="browser-default custom-select mb-4")}}
+                        {{ form.author (class="browser-default custom-select mb-2")}}
                         <span class="input-group"><a type="button" class="badge badge-warning" data-toggle="modal" data-target="#authorModal">New Author</a></span>
                     </div>
 
                 </div>
             </div>
             <div class="form-group">
-                {{ form.submit(class="btn btn-info btn-block") }}
+                {{ form.submit(class="btn btn-info btn-block mt-4") }}
             </div>
         </form>
     </div>
