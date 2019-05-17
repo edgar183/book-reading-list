@@ -1,3 +1,9 @@
+"""
+    Routes to handel user object in database
+    By adding, editing, deleting and displaying 
+    list of all reading lists from database.
+"""
+
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from app import  db, bcrypt
