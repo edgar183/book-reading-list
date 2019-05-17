@@ -65,3 +65,13 @@ def account():
         form.name.data = current_user.name
         form.username.data = current_user.username
     return render_template('user/account.html', title='Account', form=form, form_login=form_login, form_register=form_register )
+
+# delete current user account
+@users.route('/account/<int:current_user>/delete', methods=['GET','POST'])
+@login_required
+def delete_user(current_user):
+    user = User.query.get_or_404(current_user)
+    db.session.delete(user)
+    db.session.commit()
+    flash('The user has been deleted!', 'success')
+    return redirect(url_for('main.index'))
