@@ -54,7 +54,8 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255),nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    reading_list = db.relationship('Lists', backref='user', lazy='dynamic')
+    
+    reading_list = db.relationship('Lists', backref='user',cascade='delete', lazy='dynamic')
 
 #Rading List Class/Model
 class Lists(db.Model):
