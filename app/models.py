@@ -60,6 +60,6 @@ class User(db.Model, UserMixin):
 #Rading List Class/Model
 class Lists(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    ListName = db.Column(db.String(255), nullable=False , unique=True)
+    ListName = db.Column(db.String(255), nullable=False)
     UserId = db.Column(db.Integer, db.ForeignKey('user.id'))
     books_in_list = db.relationship('Book', secondary=book_reading, backref=db.backref('books', lazy='dynamic'))
