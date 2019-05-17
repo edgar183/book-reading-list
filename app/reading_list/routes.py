@@ -63,7 +63,7 @@ def edit_list(list_id):
     elif request.method == 'GET': 
         form_list.ListName.data = reading_list.ListName
     else:
-            flash('Error: %s alredy have this list created.'%(current_user.name), 'danger ')
+            flash('Error: User or other user alredy have this list created.','danger ')
     reading_list = Lists.query.filter_by(UserId=current_user.id).all()
     return render_template('reading_list/reading_lists.html', form_list=form_list, title=current_user.name, reading_list=reading_list, form_login=form_login, form_register=form_register) 
     
