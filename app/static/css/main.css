@@ -30,3 +30,7 @@ a {
     color: #03685D;
     text-decoration: none;
 }
+
+ul.list-inline>hr:not(:first-child) {
+    margin: 0.25rem 0;
+}
