@@ -34,3 +34,10 @@ a {
 ul.list-inline>hr:not(:first-child) {
     margin: 0.25rem 0;
 }
+
+/* Image in delete modal for book cover*/
+
+.delete-modal-book-cover-image {
+    height: 42px;
+    width: 42px;
+}

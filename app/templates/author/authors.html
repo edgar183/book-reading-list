@@ -60,7 +60,7 @@
             <ul class="list-inline">
             {% for book in author.books %}
             <hr>
-            <li>{{ book.title }}</li>
+            <li><img class="delete-modal-book-cover-image" src="{{ book.book_cover }}" alt="book cover image"> - {{ book.title }}</li>
             {% endfor %}
             </ul>
           </div>
