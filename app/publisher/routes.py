@@ -26,7 +26,7 @@ def all_publishers():
     return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
 
 #add publisher    
-@publishers.route('/publishers', methods=['GET','POST'])
+@publishers.route('/publishers/add', methods=['GET','POST'])
 @login_required
 def add_publisher():
     form = Add_Book()
