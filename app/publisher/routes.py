@@ -32,7 +32,6 @@ def add_publisher():
     form_publisher = Add_Publisher()
     if request.method == 'POST':
         publisherName = request.form['publisherName']
-        print(publisherName)
         publisher = Publisher(publisherName=publisherName)
         db.session.add(publisher)
         db.session.commit()

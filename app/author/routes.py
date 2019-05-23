@@ -33,7 +33,6 @@ def add_author():
     if request.method == 'POST':
         authorName = request.form['authorName'] 
         author = Author(full_name=authorName)
-        print(authorName)
         db.session.add(author)
         db.session.commit()
         flash('New Author has been added!', 'success')
