@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="text-left border border-light p-1" method="POST" action="{{ url_for('authors.add_author') }}">
+                <form id="add-author-form" class="text-left border border-light p-1" method="POST" action="{{ url_for('authors.add_author') }}">
                     {{ form_author.hidden_tag() }}
                     <div class="form-group">
                         <span class="input-group-addon pb-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form_author.full_name.label(class="form-control-label") }}
