@@ -49,6 +49,7 @@ Register users can add/edit/delete: books, authors, publishers, category, readin
  	- The books can be sorted by author, category or publisher. Each of these components mentioned is a link in the book view, by clicking it will bring it to a new page that will show all books from the selected author, category, publisher. 
 ### Features Left to Implement
 - Share the reading lists with other website users or in social networks (Facebook, Twitter, etc.)
+- Add to Reading lists button in all book view, the user doesn't need to open a single book in order to add it to the reading list.
 - Display all reading lists from currently logged in user under My Reading List dropdown menu (dynamic dropdown list menu).
 ## Technologies Used
 - **HTML**, **CSS**
