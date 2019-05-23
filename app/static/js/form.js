@@ -9,13 +9,11 @@ $(document).ready(function() {
         var catName = $('#Name').val();
         var data = {
             catName: catName
-        }
+        };
         $.post("/category/categories/add", data).done(function(response) {
-            // do stuff with response
             $('#option-div-1').html(response);
             $('#catModal').modal('hide');
-        })
-        // add additional functionality here
+        });
 
     });
     $('#add-publisher-form').submit(function(e) {
@@ -24,13 +22,11 @@ $(document).ready(function() {
         var publisherName = $('#publisherName').val();
         var data = {
             publisherName: publisherName
-        }
+        };
         $.post("/publisher/publishers/add", data).done(function(response) {
-            // do stuff with response
             $('#option-div-2').html(response);
             $('#publisherModal').modal('hide');
-        })
-        // add additional functionality here
+        });
     });
 
     $('#add-author-form').submit(function(e) {
@@ -39,12 +35,10 @@ $(document).ready(function() {
         var authorName = $('#full_name').val();
         var data = {
             authorName: authorName
-        }
+        };
         $.post("/author/authors/add", data).done(function(response) {
-            // do stuff with response
             $('#option-div-3').html(response);
             $('#authorModal').modal('hide');
-        })
-        // add additional functionality here
+        });
     });
 });
