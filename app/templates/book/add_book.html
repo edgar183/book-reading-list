@@ -75,7 +75,7 @@
                 <!-- Publishers -->
                 <div class="form-group">
                     <span class="input-group-addon"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form.publisher.label(class="form-control-label font-weight-bold mt-2") }}
-                    <div class="input-group option-div-2">
+                    <div class="input-group" id="option-div-2">
                         {{ form.publisher (class="browser-default custom-select mb-2")}}
                         <span class="input-group "><a type="button" class="badge badge-warning" data-toggle="modal" data-target="#publisherModal">New Publisher</a> </span>
                     </div>
@@ -83,7 +83,7 @@
                 <!-- Authors -->
                 <div class="form-group">
                     <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ form.author.label(class="form-control-label font-weight-bold mt-2") }}
-                    <div class="input-group option-div-3">
+                    <div class="input-group" id="option-div-3">
                         {{ form.author (class="browser-default custom-select mb-2")}}
                         <span class="input-group"><a type="button" class="badge badge-warning" data-toggle="modal" data-target="#authorModal">New Author</a></span>
                     </div>
