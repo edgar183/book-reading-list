@@ -26,7 +26,7 @@ class Author(db.Model):
 # Publisger Class/Model
 class Publisher(db.Model):
     PublisherId = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(255), nullable=False, unique=True)
+    publisherName = db.Column(db.String(255), nullable=False, unique=True)
 
 # Category Class/Model
 class Category(db.Model):

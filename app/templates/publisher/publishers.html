@@ -5,14 +5,14 @@
     <div class="pt-1">
       <a class="btn btn-info btn-sm m-1 " data-toggle="modal" data-target="#edit-{{ publisher.PublisherId }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       <a class="btn btn-danger btn-sm m-1 " data-toggle="modal" data-target="#delete-{{ publisher.PublisherId }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      <a class="article-title book-links font-weight-bold ml-3" href="{{ url_for('publishers.publisher_books', Name=publisher.Name) }}">{{ publisher.Name }}</a>
+      <a class="article-title book-links font-weight-bold ml-3" href="{{ url_for('publishers.publisher_books', publisherName=publisher.publisherName) }}">{{ publisher.publisherName }}</a>
     </div>
     <!-- Edit Publisher Modal -->
-    <div class="modal fade" id="edit-{{publisher.PublisherId}}" tabindex="-1" role="dialog" aria-labelledby="edit-{{ publisher.Name }}-Label" aria-hidden="true">
+    <div class="modal fade" id="edit-{{publisher.PublisherId}}" tabindex="-1" role="dialog" aria-labelledby="edit-{{ publisher.publisherName }}-Label" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-light">
           <div class="modal-header text-center">
-            <h4 class="modal-title w-100 font-weight-bold" id="edit-{{ publisher.Name }}-Label">Edit Publisher</h4>
+            <h4 class="modal-title w-100 font-weight-bold" id="edit-{{ publisher.publisherName }}-Label">Edit Publisher</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -21,19 +21,19 @@
             <form class="text-left border border-light p-1" method="POST" action="{{ url_for('publishers.edit_publisher', publisher_id=publisher.PublisherId) }}">
               {{ form_publisher.hidden_tag() }}
               <div class="form-group">
-                <span class="input-group-addon"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form_publisher.Name.label(class="form-control-label") }}
+                <span class="input-group-addon"><i class="fa fa-print" aria-hidden="true"></i></span> {{ form_publisher.publisherName.label(class="form-control-label") }}
                 <div class="input-group">
-                  {% if form_publisher.Name.errors %} {{ form_publisher.Name(class="form-control form-control-lg is-invalid") }}
+                  {% if form_publisher.publisherName.errors %} {{ form_publisher.publisherName(class="form-control form-control-lg is-invalid") }}
                   <div class="invalid-feedback">
-                    {% for error in form_publisher.Name.errors %}
+                    {% for error in form_publisher.publisherName.errors %}
                     <span class="text-danger">
                         {{ error }}
                         </span> {% endfor %}
                   </div>
-                  {% else %} {{ form_publisher.Name(class="form-control mb-1") }} {% endif %}
+                  {% else %} {{ form_publisher.publisherName(class="form-control mb-1") }} {% endif %}
                 </div>
                 <div class="form-group">
-                  <p class="item-intro text-muted">Edit the <strong>{{ publisher.Name }}</strong> name</p>
+                  <p class="item-intro text-muted">Edit the <strong>{{ publisher.publisherName }}</strong> name</p>
                 </div>
               </div>
               <div class="form-group">
@@ -46,11 +46,11 @@
     </div>
     <!-- End of Modal -->
     <!-- Delete Publisher Modal -->
-    <div class="modal fade" id="delete-{{publisher.PublisherId}}" tabindex="-1" role="dialog" aria-labelledby="delete-{{ publisher.Name }}-Label" aria-hidden="true">
+    <div class="modal fade" id="delete-{{publisher.PublisherId}}" tabindex="-1" role="dialog" aria-labelledby="delete-{{ publisher.publisherName }}-Label" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-light">
           <div class="modal-header text-center">
-            <h5 class="modal-title label label-default" id="Delete-{{ publisher.Name }}-Label">Delete Publisher?</h5>
+            <h5 class="modal-title label label-default" id="Delete-{{ publisher.publisherName }}-Label">Delete Publisher?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

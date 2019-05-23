@@ -26,23 +26,21 @@ def all_publishers():
     return render_template('publisher/publishers.html', form_publisher=form_publisher, publishers=publishers, title='Publishers', form_login=form_login, form_register=form_register)
 
 #add publisher    
-@publishers.route('/publishers/add', methods=['GET','POST'])
+@publishers.route('/publishers/add', methods=['POST'])
 @login_required
 def add_publisher():
-    form = Add_Book()
-    form_login=LoginForm()
-    form_register=RegisterForm()
-    form_cat = Add_Category()
     form_publisher = Add_Publisher()
-    form_author = Add_Author()
-    if form_publisher.validate_on_submit():
-        publisher = Publisher(Name=form_publisher.Name.data)
+    if request.method == 'POST':
+        publisherName = request.form['publisherName']
+        print(publisherName)
+        publisher = Publisher(publisherName=publisherName)
         db.session.add(publisher)
         db.session.commit()
-        flash('New Publisher has been added!', 'success')
-    else:
-            flash('Error: The publisher alredy exists!', 'danger ')
-    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book', form_login=form_login, form_register=form_register, form_cat=form_cat, form_publisher=form_publisher, form_author=form_author)
+        flash('New publisher name has been added!', 'success')
+    elif form_publisher.validate_on_submit():
+        flash('Error: The publisher alredy exists!', 'danger ')
+    form = Add_Book()
+    return render_template('publisher/publisher_options.html', form=form )
     
 # edit publishers name
 @publishers.route('/publisher/<int:publisher_id>/edit', methods=['GET','POST'])
@@ -53,12 +51,12 @@ def edit_publisher(publisher_id):
     form_login = LoginForm()
     form_register = RegisterForm()
     if form_publisher.validate_on_submit():
-        publisher.Name = form_publisher.Name.data
+        publisher.publisherName = form_publisher.publisherName.data
         db.session.commit()
-        flash('The publisher name has been updated!', 'success')
+        flash('The publisher publisherName has been updated!', 'success')
         return redirect(url_for('publishers.all_publishers', publisher_id=publisher.PublisherId))
     elif request.method == 'GET': 
-        form_publisher.Name.data = publisher.Name
+        form_publisher.publisherName.data = publisher.publisherName
     else:
             flash('Error: The publisher alredy exists!', 'danger ')
     publishers = Publisher.query.all()
@@ -75,11 +73,11 @@ def delete_publisher(publisher_id):
     return redirect(url_for('publishers.all_publishers'))
     
 # display all books from the publisher    
-@publishers.route('/publisher/<string:Name>')
-def publisher_books(Name):
+@publishers.route('/publisher/<string:publisherName>')
+def publisher_books(publisherName):
     form_login = LoginForm()
     form_register = RegisterForm()
     page = request.args.get('page', 1, type=int)
-    publisher_query = Publisher.query.filter_by(Name=Name).first_or_404()
+    publisher_query = Publisher.query.filter_by(publisherName=publisherName).first_or_404()
     books = Book.query.filter_by(publisher=publisher_query).order_by(Book.isbn.desc()).paginate(page=page, per_page=6)
     return render_template('publisher/publisher_books.html',books=books, publisher=publisher_query, form_login=form_login, form_register=form_register)

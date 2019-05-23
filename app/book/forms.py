@@ -19,7 +19,7 @@ class Add_Book(FlaskForm):
     year = StringField('Year Published', validators=[DataRequired()])
     book_cover = StringField('URL link for book cover picture', validators=[DataRequired()])
     description = TextAreaField('Book description ', validators=[DataRequired()])
-    publisher = QuerySelectField(query_factory=choice_publisher, allow_blank=True,get_label='Name')
+    publisher = QuerySelectField(query_factory=choice_publisher, allow_blank=True,get_label='publisherName')
     category = QuerySelectField(query_factory=choice_category, allow_blank=True,get_label='Name')
     author = QuerySelectField(query_factory=choice_author, allow_blank=True,get_label='full_name')
     submit = SubmitField('Add')
