@@ -3,7 +3,7 @@
     By adding, editing, deleting and displaying 
     list of all publishers from database.
 """
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
 from flask_login import login_required
 from app import  db
 from app.models import Category, Book
@@ -26,24 +26,21 @@ def all_categories():
     return render_template('category/categories.html', categories=categories, title='Categories', form_cat=form_cat, form_login=form_login, form_register=form_register)
 
 # add category     
-@categories.route('/book/add', methods=['POST'])
+@categories.route('/categories/add', methods=['POST'])
 @login_required
 def add_category():
-    form = Add_Book()
-    form_login=LoginForm()
-    form_register=RegisterForm()
     form_cat = Add_Category()
-    form_publisher = Add_Publisher()
-    form_author = Add_Author()
-    if form_cat.validate_on_submit():
-        category = Category(Name=form_cat.Name.data)
+    if request.method == 'POST':
+        catName = request.form['catName'] 
+        category = Category(Name=catName)
         db.session.add(category)
         db.session.commit()
-        flash('New Category has been added!', 'success')
-    else:
+        flash('New category name has been added!', 'success')
+    elif form_cat.validate_on_submit():
         flash('Error: The category alredy exists!', 'danger ')
-    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book', form_login=form_login, form_register=form_register, form_cat=form_cat, form_publisher=form_publisher, form_author=form_author)    
-
+    form = Add_Book()
+    return render_template('category/cat_options.html', form=form )
+ 
 # edit category name
 @categories.route('/categories/<int:category_id>/edit', methods=['GET','POST'])
 @login_required
