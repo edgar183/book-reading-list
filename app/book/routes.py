@@ -21,8 +21,8 @@ books = Blueprint('books', __name__, url_prefix='/book')
 @login_required
 def add_book():
     form = Add_Book()
-    form_login=LoginForm()
-    form_register=RegisterForm()
+    form_login = LoginForm()
+    form_register = RegisterForm()
     form_cat = Add_Category()
     form_publisher = Add_Publisher()
     form_author = Add_Author()
