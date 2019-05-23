@@ -1,0 +1,7 @@
+{{ form.category (class="browser-default custom-select mb-2") }}
+<span class="input-group"><a type="button" class="badge badge-warning" data-toggle="modal" data-target="#catModal">New Category</a></span>
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
