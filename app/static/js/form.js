@@ -18,8 +18,6 @@ $(document).ready(function() {
         // add additional functionality here
 
     });
-});
-$(document).ready(function() {
     $('#add-publisher-form').submit(function(e) {
         e.preventDefault();
         console.log("Publisher form submitted!");
@@ -34,8 +32,7 @@ $(document).ready(function() {
         })
         // add additional functionality here
     });
-});
-$(document).ready(function() {
+
     $('#add-author-form').submit(function(e) {
         e.preventDefault();
         console.log("Author form submitted!");
@@ -49,7 +46,5 @@ $(document).ready(function() {
             $('#authorModal').modal('hide');
         })
         // add additional functionality here
-
     });
-
 });
