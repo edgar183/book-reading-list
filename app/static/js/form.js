@@ -1,3 +1,7 @@
+/*
+    javaScript code to interfere HTML form submission for a category, author and publisher and refresh only specific div in new book form.
+    This action preserves data entered in form from being deleted.
+*/
 $(document).ready(function() {
     $('#add-cat-form').submit(function(e) {
         e.preventDefault();
