@@ -26,24 +26,22 @@ def all_author():
     return render_template('author/authors.html', authors=authors, title='Authors', form_author=form_author, form_login=form_login, form_register=form_register)
 
 # add author to database   
-@authors.route('/book/add', methods=['GET','POST'])
+@authors.route('/authors/add', methods=['POST'])
 @login_required
 def add_author():
-    form = Add_Book()
-    form_login=LoginForm()
-    form_register=RegisterForm()
-    form_cat = Add_Category()
-    form_publisher = Add_Publisher()
     form_author = Add_Author()
-    if form_author.validate_on_submit():
-        author = Author(full_name=form_author.full_name.data)
+    if request.method == 'POST':
+        authorName = request.form['authorName'] 
+        author = Author(full_name=authorName)
+        print(authorName)
         db.session.add(author)
         db.session.commit()
         flash('New Author has been added!', 'success')
-    else:
-        flash('Error: The author with this name alredy exists!', 'danger ')
-    return render_template('book/add_book.html', title='New Book', form=form, legend='Add Book', form_login=form_login, form_register=form_register, form_cat=form_cat, form_publisher=form_publisher, form_author=form_author)
-    
+    elif form_author.validate_on_submit():
+        flash('Error: The publisher alredy exists!', 'danger ')
+    form = Add_Book()
+    return render_template('publisher/publisher_options.html', form=form )
+
 # edit author name
 @authors.route('/authors/<int:author_id>/edit', methods=['GET','POST'])
 @login_required
