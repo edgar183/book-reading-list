@@ -37,9 +37,9 @@ def add_author():
         db.session.commit()
         flash('New Author has been added!', 'success')
     elif form_author.validate_on_submit():
-        flash('Error: The publisher alredy exists!', 'danger ')
+        flash('Error: The author alredy exists!', 'danger ')
     form = Add_Book()
-    return render_template('publisher/publisher_options.html', form=form )
+    return render_template('author/author_options.html', form=form )
 
 # edit author name
 @authors.route('/authors/<int:author_id>/edit', methods=['GET','POST'])
