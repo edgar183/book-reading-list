@@ -141,7 +141,7 @@ When editing the book, if any of dropdown lists are left empty the form will not
 
 **Differenc** between development and production versions are:
 - ```debug=True``` in run.py file,  development version
-- ```debug=False``` in run.py file,  produvtions version
+- ```debug=False``` in run.py file,  productions version
 
 ## Credits
 - [Blog from](https://blog.miguelgrinberg.com/index) Miguel to help with some parts of flask application. 
