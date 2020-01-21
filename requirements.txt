@@ -26,6 +26,6 @@ pycparser==2.19
 python-dateutil==2.8.0
 python-editor==1.0.4
 python-editor==1.0.4
-validators==0.12.4
+validators==0.12.6
 virtualenv==16.4.3
 visitor==0.1.3
